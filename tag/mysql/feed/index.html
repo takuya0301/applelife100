@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>林檎生活100 &#187; MySQL</title>
+	<atom:link href="http://www.applelife100.com/tag/mysql/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.applelife100.com</link>
+	<description>Make the World a Better Place</description>
+	<lastBuildDate>Thu, 16 May 2013 14:15:10 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.5.1</generator>
+		<item>
+		<title>WordPress をデバッグ #2 NetBeans と Xdebug</title>
+		<link>http://www.applelife100.com/2012/07/17/debugging-wordpress-2/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=debugging-wordpress-2</link>
+		<comments>http://www.applelife100.com/2012/07/17/debugging-wordpress-2/#comments</comments>
+		<pubDate>Tue, 17 Jul 2012 14:24:02 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[WordPress]]></category>
+		<category><![CDATA[Apache]]></category>
+		<category><![CDATA[Mac OS X]]></category>
+		<category><![CDATA[MAMP]]></category>
+		<category><![CDATA[MySQL]]></category>
+		<category><![CDATA[NetBeans]]></category>
+		<category><![CDATA[PHP]]></category>
+		<category><![CDATA[phpMyAdmin]]></category>
+		<category><![CDATA[Xdebug]]></category>
+
+		<guid isPermaLink="false">http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=237</guid>
+		<description><![CDATA[WordPress でプラグイン開発をするときにデバッグする方法についてです。 第2回目は、PHP での Web アプリケーション開発でよく利用される Xdebug というデバッガーでデバッグする方法です。 Xdebug でデバッグする場合は、Xdebug に対応した統合開発環境を利用するのが一般的です。この記事では、統合開発環境として NetBeans を利用することにします。また、実行環境も統合開発環境が動作しているコンピューター上である方が設定が簡単なので、実行環境もコンピューター上にインストールします。また、実行環境のインストールを簡単にするため、実行環境として MAMP を使用します。 目次 MAMP インストール WordPress インストール NetBeans インストール Xdebug 設定 例：Hello Dolly プラグインのデバッグ 1. MAMP インストール MAMP の Web サイトにアクセスし、MAMP をダウンロードしてください。ダウンロードが完了したら、ディスクイメージをマウントし、パッケージファイルを実行してください。あとは、インストールウィザードに従うだけで、インストールが完了します。 追記（2012年9月18日）： この記事で使用している MAMP は、バージョン2.0.5です。同じバージョンを使用する場合は、下記の URL からダウンロードしてください。 http://www.mamp.info/downloads/releases/MAMP_MAMP_PRO_2.0.5.zip 同時にインストールされる MAMP PRO は使用しないので、アンインストールしてもかまいません。 &#8230; <a href="http://www.applelife100.com/2012/07/17/debugging-wordpress-2/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p><a title="WordPress › Blog Tool, Publishing Platform, and CMS" href="http://wordpress.org" target="_blank">WordPress</a> でプラグイン開発をするときにデバッグする方法についてです。</p>
+<p>第2回目は、<a title="PHP: Hypertext Preprocessor" href="http://php.net" target="_blank">PHP</a> での Web アプリケーション開発でよく利用される <a title="Xdebug - Debugger and Profiler Tool for PHP" href="http://xdebug.org" target="_blank">Xdebug</a> というデバッガーでデバッグする方法です。</p>
+<p><span id="more-237"></span>Xdebug でデバッグする場合は、Xdebug に対応した統合開発環境を利用するのが一般的です。この記事では、統合開発環境として <a title="Welcome to NetBeans" href="http://netbeans.org" target="_blank">NetBeans</a> を利用することにします。また、実行環境も統合開発環境が動作しているコンピューター上である方が設定が簡単なので、実行環境もコンピューター上にインストールします。また、実行環境のインストールを簡単にするため、実行環境として <a title="MAMP: Mac, Apache, MySQL, PHP" href="http://mamp.info" target="_blank">MAMP</a> を使用します。</p>
+<p><strong>目次</strong></p>
+<ol>
+<li>MAMP インストール</li>
+<li>WordPress インストール</li>
+<li>NetBeans インストール</li>
+<li>Xdebug 設定</li>
+<li>例：Hello Dolly プラグインのデバッグ</li>
+</ol>
+<p><strong>1. MAMP インストール</strong></p>
+<p><a title="MAMP: Mac, Apache, MySQL, PHP" href="http://mamp.info" target="_blank">MAMP</a> の Web サイトにアクセスし、MAMP をダウンロードしてください。ダウンロードが完了したら、ディスクイメージをマウントし、パッケージファイルを実行してください。あとは、インストールウィザードに従うだけで、インストールが完了します。</p>
+<p><strong>追記（2012年9月18日）：</strong><br />
+この記事で使用している MAMP は、バージョン2.0.5です。同じバージョンを使用する場合は、下記の URL からダウンロードしてください。<br />
+<a title="MAMP_MAMP_PRO_2.0.5.zip" href="http://www.mamp.info/downloads/releases/MAMP_MAMP_PRO_2.0.5.zip">http://www.mamp.info/downloads/releases/MAMP_MAMP_PRO_2.0.5.zip</a></p>
+<p>同時にインストールされる MAMP PRO は使用しないので、アンインストールしてもかまいません。</p>
+<p>インストール完了後、MAMP を起動すると、下記のようなウィンドウが表示されます。このウィンドウから、サーバーの起動や停止、環境設定を行うことができます。</p>
+<div id="attachment_241" class="wp-caption alignnone" style="width: 547px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-window.png"><img class="size-full wp-image-241" title="mamp-window" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-window.png" alt="MAMP ウィンドウ" width="537" height="458" /></a><p class="wp-caption-text">MAMP ウィンドウ</p></div>
+<p>起動後少し時間をおいて、下記のような MAMP のスタートページがデフォルト Web ブラウザで開かれます。このスタートページから各種管理ツールにアクセスできます。今回は、phpinfo と <a title="phpMyAdmin" href="http://phpmyadmin.net" target="_blank">phpMyAdmin</a> を使用します。</p>
+<div id="attachment_242" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-start.png"><img class="size-full wp-image-242" title="mamp-start" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-start.png" alt="MAMP スタートページ" width="1138" height="888" /></a><p class="wp-caption-text">MAMP スタートページ</p></div>
+<p>また、MAMP には PHP 5.2 系と PHP 5.3 系の両方が含まれています。MAMP 環境設定から選択することができます。この記事では、PHP 5.3 系を利用します。</p>
+<div id="attachment_243" class="wp-caption alignnone" style="width: 547px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-preferences.png"><img class="size-full wp-image-243" title="mamp-preferences" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-preferences.png" alt="MAMP 環境設定" width="537" height="458" /></a><p class="wp-caption-text">MAMP 環境設定</p></div>
+<p><strong>2. WordPress インストール</strong></p>
+<p><strong></strong><a title="WordPress › Blog Tool, Publishing Platform, and CMS" href="http://wordpress.org" target="_blank">WordPress</a> の Web サイトにアクセスし、WordPress をダウンロードしてください。WordPress のダウンロードが完了したら、MAMP ディレクトリの htdocs に下記のように展開してください。</p>
+<div id="attachment_244" class="wp-caption alignnone" style="width: 894px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-directory-htdocs.png"><img class="size-full wp-image-244" title="mamp-directory-htdocs" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-directory-htdocs.png" alt="MAMP htdocs ディレクトリ" width="884" height="552" /></a><p class="wp-caption-text">MAMP htdocs ディレクトリ</p></div>
+<p>次に、WordPress 用のデータベースを作成します。MAMP のスタートページから phpMyAdmin にアクセスしてください。phpMyAdmin のトップページで、wordpress という名前のデータベースを作成します。</p>
+<div id="attachment_245" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-1.png"><img class="size-full wp-image-245" title="mamp-phpmyadmin-create-database-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-1.png" alt="phpMyAdmin: WordPress 用データベースの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用データベースの作成</p></div>
+<div id="attachment_246" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-2.png"><img class="size-full wp-image-246" title="mamp-phpmyadmin-create-database-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-2.png" alt="phpMyAdmin: WordPress 用データベースの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用データベースの作成</p></div>
+<p>そして、wordpress データベースを操作する wordpress という名前のユーザーを作成します。</p>
+<div id="attachment_247" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-1.png"><img class="size-full wp-image-247" title="mamp-phpmyadmin-create-user-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-1.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<div id="attachment_248" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-2.png"><img class="size-full wp-image-248" title="mamp-phpmyadmin-create-user-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-2.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<div id="attachment_249" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-3.png"><img class="size-full wp-image-249" title="mamp-phpmyadmin-create-user-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-3.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<div id="attachment_250" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-4.png"><img class="size-full wp-image-250" title="mamp-phpmyadmin-create-user-4" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-4.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<p>データベースの作成完了後、Web ブラウザで WordPress にアクセスします。手順通りに実行していれば、下記のアドレスでアクセスできるはずです。</p>
+<p><a title="WordPress" href="http://localhost:8888/wordpress/" target="_blank">http://localhost:8888/wordpress/</a></p>
+<p>アクセスすると、wp-config.php がないため、下記のようなエラーページが表示されます。</p>
+<div id="attachment_253" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-error-wp-config-is-missing.png"><img class="size-full wp-image-253" title="wordpress-error-wp-config-is-missing" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-error-wp-config-is-missing.png" alt="WordPress › Error" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Error</p></div>
+<p>Create a Configuration File ボタンをクリックし、ウィザードに従って wp-config.php を作成します。</p>
+<div id="attachment_255" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-1.png"><img class="size-full wp-image-255" title="wordpress-create-configuration-file-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-1.png" alt="WordPress › Setup Configuration File" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Setup Configuration File</p></div>
+<p>下記の画面では、phpMyAdmin で作成したデータベースへの接続情報を入力してください。</p>
+<div id="attachment_256" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-3.png"><img class="size-full wp-image-256" title="wordpress-create-configuration-file-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-3.png" alt="WordPress › Setup Configuration File" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Setup Configuration File</p></div>
+<p>wp-config.php ファイルができれば、あとは通常のインストール作業と変わりません。</p>
+<p>コンピューター上の開発環境ということもあって、簡単にインストールできる方法でやっています。運用のためにインストールする場合は、<a title="Amazon EC2 に WordPress をインストール | 林檎生活100" href="http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/">Amazon EC2 に WordPress をインストール</a>を参考にしてみてください。</p>
+<div id="attachment_258" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-3.png"><img class="size-full wp-image-258" title="wordpress-installation-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-3.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<div id="attachment_259" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-4.png"><img class="size-full wp-image-259" title="wordpress-installation-4" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-4.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<div id="attachment_260" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-5.png"><img class="size-full wp-image-260" title="wordpress-installation-5" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-5.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<p>これで、WordPress のインストールは完了です。通常の WordPress と同様に操作できます。URL が <a title="WordPress" href="http://localhost:8888/wordpress/" target="_blank">http://localhost:8888/wordpress/</a> になることに注意してください。</p>
+<p><strong>3. NetBeans インストール</strong></p>
+<p><a title="Welcome to NetBeans" href="http://netbeans.org/" target="_blank">NetBeans</a> の Web サイトにアクセスし、PHP をサポートする NetBeans をダウンロードしてください。ダウンロードが完了したら、ディスクイメージをマウントし、パッケージファイルを実行してください。あとは、インストールウィザードに従うだけで、インストールが完了します。</p>
+<p>WordPress のソースを編集できるようにプロジェクトを作成します。</p>
+<p>まず、NetBeans のメニューバーで、ファイル &gt; 新規プロジェクトをクリックします。新規プロジェクトのウィザードが表示されるので、プロジェクトで「既存のソースを使用する PHP アプリケーション」を選択し、「次へ」をクリックしてください。</p>
+<div id="attachment_272" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-1.png"><img class="size-full wp-image-272" title="netbeans-create-project-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-1.png" alt="NetBeans: 新規プロジェクトウィザード" width="1180" height="726" /></a><p class="wp-caption-text">NetBeans: 新規プロジェクトウィザード</p></div>
+<p>ソースフォルダは、 /Applications/MAMP/htdocs/wordpress を参照します。PHP のバージョンは、PHP 5.3 を選択し、「次へ」をクリックしてください。</p>
+<div id="attachment_274" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-2.png"><img class="size-full wp-image-274" title="netbeans-create-project-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-2.png" alt="NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード" width="1180" height="726" /></a><p class="wp-caption-text">NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード</p></div>
+<p>プロジェクト URL を MAMP に合わせて http://localhost:8888/wordpress/ に変更し、「完了」をクリックしてください。</p>
+<div id="attachment_275" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-3.png"><img class="size-full wp-image-275" title="netbeans-create-project-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-3.png" alt="NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード" width="1180" height="726" /></a><p class="wp-caption-text">NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード</p></div>
+<p>今回は WordPress のプロジェクトを MAMP の htdocs ディレクトリで管理していますが、ホームディレクトリの NetBeansProjects ディレクトリで管理することも可能です。WordPress を NetBeansProjects ディレクトリに展開し、新規プロジェクトのウィザードで同様にプロジェクトを作成してください。ウィザードの最後で、「ファイルをソースフォルダから別の場所にコピー」を有効にし、 /Applications/MAMP/htdocs/wordpress にコピーするように設定してください。これによって、NetBeans から実行する場合は、WordPress のソースファイルがコピーされてから実行されることになります。</p>
+<p>この記事で WordPress のプロジェクトを MAMP の htdocs ディレクトリで管理しているのは、ファイルを保存するだけですぐにブラウザで確認できるようにするためです。NetBeansProjects ディレクトリで管理していると、NetBeans で実行して htdocs ディレクトリにファイルをコピーする必要があり、すぐにブラウザで確認できないからです。</p>
+<p>どちらも一長一短なところがあるので、プロジェクト管理の好みに合わせて好きな方を選んでください。</p>
+<p><strong>4. Xdebug 設定</strong></p>
+<p>Xdebug の設定を行います。MAMP には、Xdebug 拡張モジュールが含まれているので、下記のパスにある php.ini ファイルを編集することで有効にできます。（下記のパスは、MAMP のバージョンによって変わるため、環境によって変更が必要になる可能性があります。）</p>
+<p>/Applications/MAMP/bin/php/php5.3.6/conf/php.ini</p>
+<p>NetBeans で、ファイル &gt; ファイルを開くをクリックし、ダイアログから php.ini ファイルを開き、下記のように設定ファイル末尾を変更してください。もちろん、ほかのテキストエディタで編集しても問題ありません。（zend_extension パラメータのパスは、MAMP のバージョンによって変わるため、環境によって変更が必要になる可能性があります。xdebug.so ファイルが存在していることを必ず確認してください。）</p>
+<pre class="brush: plain; first-line: 1166; title: ; notranslate">
+[xdebug]
+zend_extension=&quot;/Applications/MAMP/bin/php/php5.3.6/lib/php/extensions/no-debug-non-zts-20090626/xdebug.so&quot;
+xdebug.remote_enable = On
+
+</pre>
+<p>これで設定完了です。設定を反映させるために、MAMP ウィンドウで「サーバを停止」をクリックし、サーバー停止後に「サーバを起動」をクリックし、サーバーを再起動させてください。</p>
+<p>サーバーが起動したら、MAMP ウィンドウで「スタートページを開く」をクリックし、MAMP のスタートページで phpinfo をクリックし、Xdebug が有効になっていることを確認してください。</p>
+<div id="attachment_280" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-1.png"><img class="size-full wp-image-280" title="xdebug-phpinfo-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-1.png" alt="" width="1138" height="888" /></a><p class="wp-caption-text">phpinfo: xdebug</p></div>
+<p>また、xdebug.remote_enable が On になっていることも確認してください。</p>
+<div id="attachment_281" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-2.png"><img class="size-full wp-image-281" title="xdebug-phpinfo-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-2.png" alt="phpinfo: xdebug" width="1138" height="888" /></a><p class="wp-caption-text">phpinfo: xdebug</p></div>
+<p>これで、Xdebug の設定が完了しました。</p>
+<p><strong>5. 例：Hello Dolly プラグインのデバッグ</strong></p>
+<p>WordPress に付属している Hello Dolly プラグインを Xdebug でデバッグしてみましょう。</p>
+<p>まず、WordPress の管理画面で Hello Dolly プラグインを有効にします。</p>
+<div id="attachment_291" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-plugin-hello-dolly.png"><img class="size-full wp-image-291" title="wordpress-plugin-hello-dolly" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-plugin-hello-dolly.png" alt="Plugins ‹ Plugin Development Environment — WordPress" width="1138" height="888" /></a><p class="wp-caption-text">Plugins ‹ Plugin Development Environment — WordPress</p></div>
+<p>次に、plugins ディレクトリの hello.php を開き、hello_dolly 関数の1行目にブレークポイントを行の左側（赤枠）をクリックして設定します。そして、「プロジェクトをデバッグ」ボタン（青枠）をクリックしてデバッグを開始します。</p>
+<div id="attachment_292" class="wp-caption alignnone" style="width: 1276px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-1.png"><img class="size-full wp-image-292" title="netbeans-debug-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-1.png" alt="NetBeans: デバッグ" width="1266" height="810" /></a><p class="wp-caption-text">NetBeans: デバッグ</p></div>
+<p>何も表示されていないブラウザウィンドウが立ち上がると思います。これは、デバッガが PHP の実行を最初の行で停止するためです。「続行」ボタン（赤枠）をクリックすることで、画面が表示されます。（複数回クリックが必要です。）また、「デバッガセッションを終了」ボタン（青枠）をクリックすることでデバッグを終了できます。</p>
+<div id="attachment_294" class="wp-caption alignnone" style="width: 1276px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-2.png"><img class="size-full wp-image-294" title="netbeans-debug-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-2.png" alt="NetBeans: デバッグ" width="1266" height="810" /></a><p class="wp-caption-text">NetBeans: デバッグ</p></div>
+<p>最初の行で停止する機能が不要な場合は、環境設定から PHP の「デバッガ」タブを選択し、「最初の行で停止」のチェックを外してください。</p>
+<div id="attachment_293" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-option-debug.png"><img class="size-full wp-image-293" title="netbeans-option-debug" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-option-debug.png" alt="NetBeans: デバッグ設定" width="1180" height="758" /></a><p class="wp-caption-text">NetBeans: デバッグ設定</p></div>
+<p>Hello Dolly プラグインを有効にした状態で、管理画面にログインすると、下記のような状態で停止するかと思います。（「最初の行で停止」のチェックを入れたままの場合は、何度か続行をクリックするとこの状態になります。）</p>
+<div id="attachment_295" class="wp-caption alignnone" style="width: 1276px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-3.png"><img class="size-full wp-image-295" title="netbeans-debug-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-3.png" alt="NetBeans: デバッグ" width="1266" height="810" /></a><p class="wp-caption-text">NetBeans: デバッグ</p></div>
+<p>行左側の緑色矢印（赤枠）は、現在実行が停止している行を示します。ブレークポイントを設定したため、ブレークポイントの行で実行が止まっていることがわかると思います。</p>
+<p>下部のウィンドウグループには、タブ（青枠）が追加されます。「変数」タブでは、現在停止している行で参照できる変数の値を見ることができます。「呼び出しスタック」タブでは、現在の関数がどの関数から呼び出されているかをたどることができます。「ブレークポイント」タブでは、設定しているブレークポイントを編集することができます。</p>
+<p>ツールバーには、ステップ実行ボタン（緑枠）が追加されます。「ステップオーバー」ボタンは、現在の行を実行し、次の行で停止します。「ステップイン」ボタンは、現在の行を実行し、その行に関数が含まれている場合、その関数内の1行目で停止します。「ステップアウト」ボタンは、現在の関数を抜けるまで実行し、その関数を呼び出している行の次の行で停止します。</p>
+<p>あとは実際に、ステップ実行したり、変数の内容を見たり、ブレークポイントを追加したりすることで、Xdebug の便利さが体感できると思うので、いろいろと試してみて理解してもらえればいいかなと思います。</p>
+<p>さて、今回は Xdebug を使用した WordPress のデバッグについて記事を書きました。プラグイン開発やテーマ開発で導入するととても便利だと思うので、ぜひ使ってみてください。</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/07/17/debugging-wordpress-2/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Amazon EC2 に WordPress をインストール</title>
+		<link>http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=amazon-ec2-wordpress-install</link>
+		<comments>http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/#comments</comments>
+		<pubDate>Mon, 18 Jun 2012 12:38:01 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[WordPress]]></category>
+		<category><![CDATA[Apache]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[EC2]]></category>
+		<category><![CDATA[Linux]]></category>
+		<category><![CDATA[MySQL]]></category>
+		<category><![CDATA[PHP]]></category>
+
+		<guid isPermaLink="false">http://ec2-54-248-20-246.ap-northeast-1.compute.amazonaws.com/?p=29</guid>
+		<description><![CDATA[WordPress にデフォルトで含まれているテーマ Twenty Ten がかっこいいなと思ったので、「林檎生活100」をそのテーマで運用するために Amazon EC2 にインストールしてみました。 その手順は下記のとおりです。 Amazon EC2 インスタンス起動 MySQL インストール Apache インストール PHP インストール WordPress インストール 1. Amazon EC2 インスタンス起動 Amazon EC2 のインスタンスを下記のパラメーターで起動します。EC2 のパラメーターは、各自の環境で柔軟に決めてください。 AMI: Amazon Linux AMI 2012.03 (64bit) Instance Type: t1.micro Security Group: TCP 22 (SSH) &#8230; <a href="http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p><a title="WordPress › Blog Tool, Publishing Platform, and CMS" href="http://wordpress.org" target="_blank">WordPress</a> にデフォルトで含まれているテーマ <a title="WordPress › Search for Twenty Ten « Free WordPress Themes" href="http://wordpress.org/extend/themes/twentyten" target="_blank">Twenty Ten</a> がかっこいいなと思ったので、「林檎生活100」をそのテーマで運用するために <a title="Amazon Elastic Compute Cloud (Amazon EC2)" href="http://aws.amazon.com/ec2/" target="_blank">Amazon EC2</a> にインストールしてみました。</p>
+<p><span id="more-29"></span></p>
+<p>その手順は下記のとおりです。</p>
+<ol>
+<li>Amazon EC2 インスタンス起動</li>
+<li><a title="MySQL :: The world's most popular open source database" href="http://www.mysql.com" target="_blank">MySQL</a> インストール</li>
+<li><a title="Welcome! - The Apache HTTP Server Project" href="http://httpd.apache.org" target="_blank">Apache</a> インストール</li>
+<li><a title="PHP: Hypertext Preprocessor" href="http://php.net" target="_blank">PHP</a> インストール</li>
+<li>WordPress インストール</li>
+</ol>
+<p><strong>1. Amazon EC2 インスタンス起動</strong></p>
+<p>Amazon EC2 のインスタンスを下記のパラメーターで起動します。EC2 のパラメーターは、各自の環境で柔軟に決めてください。</p>
+<ul>
+<li>AMI: Amazon Linux AMI 2012.03 (64bit)</li>
+<li>Instance Type: t1.micro</li>
+<li>Security Group:
+<ul>
+<li>TCP 22 (SSH) 0.0.0.0/0</li>
+<li>TCP 80 (HTTP) 0.0.0.0/0</li>
+<li>TCP 443 (HTTPS) 0.0.0.0/0</li>
+</ul>
+</li>
+</ul>
+<p>なお、WordPress は、同一サイト内でも絶対アドレスが基本となり、記事内の画像ファイルへのリンクなどは絶対アドレスのままデータベースに格納されます。そのため、ドメインが変わってしまうと画像ファイルが表示されないというようなことが起きるので、EC2 インスタンスに Elastic IP アドレスを付与し、運用時に使用するドメインでアクセスすることをおすすめします。</p>
+<p>ちなみに、「林檎生活100」では、Elastic IP アドレスを付与しないで運用しています。その詳細は、今後の記事で説明する予定です。</p>
+<p>次に、起動した EC2 インスタンスに ec2-user でログインし、下記のコマンドでアップデートを実施します。</p>
+<pre>$ sudo yum update</pre>
+<p>これで、インスタンスの初期設定まで完了です。</p>
+<p><strong>2. MySQL インストール</strong></p>
+<p>EC2 インスタンスにログインした状態で、下記のコマンドを入力し、MySQL をインストールします。さらに、自動起動の設定をしたあと起動し、初期設定を実施します。</p>
+<pre>$ sudo yum install mysql-server
+$ sudo chkconfig mysqld on
+$ sudo service mysqld start
+$ sudo /usr/bin/mysql_secure_installation</pre>
+<p>初期設定では、推奨される選択肢を Enter を押すことで選択していけばいいと思います。MySQL のルートパスワードは必ず設定しましょう。</p>
+<p>そのあと、mysql コマンドで MySQL にログインし、WordPress 用のデータベースを次のコマンドで作成します。</p>
+<pre>$ mysql -uroot -p
+&gt; create database wordpress character set utf8;
+&gt; grant all on wordpress.* to wordpress@localhost identified by '********';
+&gt; exit</pre>
+<p>アスタリスクで記述した wordpress ユーザーのパスワードは、各環境で自由に設定してください。</p>
+<p><strong>3. Apache インストール</strong></p>
+<p>次に、Apache をインストールします。WordPress の管理画面には SSL でアクセスしたいので、mod_ssl も合わせてインストールします。Apache の SSL 設定は、インストール時に生成される証明書で自動的に設定されます。管理画面のための SSL ということで、その設定をそのまま利用します。</p>
+<pre>$ sudo yum install httpd
+$ sudo yum install mod_ssl</pre>
+<p>さらに、.htaccess で URL Rewriting の設定ができるように、httpd.conf の339行目の AllowOverride を None から All に変更します。これは、WordPress でパーマリンクの設定をデフォルトから変更する場合に必要になります。</p>
+<pre>$ sudo cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.20120615
+$ sudo vim /etc/httpd/conf/httpd.conf
+$ diff -u /etc/httpd/conf/httpd.conf.20120615 /etc/httpd/conf/httpd.conf
+--- /etc/httpd/conf/httpd.conf.20120615 2012-06-14 20:41:27.604761766 +0000
++++ /etc/httpd/conf/httpd.conf 2012-06-14 20:42:20.042761638 +0000
+@@ -336,7 +336,7 @@
+ # It can be "All", "None", or any combination of the keywords:
+ # Options FileInfo AuthConfig Limit
+ #
+- AllowOverride None
++ AllowOverride All
+
+ #
+ # Controls who can get stuff from this server.</pre>
+<p>設定変更は、設定ファイルのコピーを取得したあと、設定ファイルを編集し、変更した部分を diff で比較するという方法で行っています。</p>
+<p>設定が完了したら、Apache を下記のコマンドで自動起動の設定をしたあと、起動します。</p>
+<pre>$ sudo chkconfig httpd on
+$ sudo service httpd start</pre>
+<p>EC2 インスタンスの Public DNS に、HTTP と HTTPS でアクセスし、Apache の Welcome ページが表示されることを確認してください。</p>
+<div id="attachment_60" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/apache-welcome.png"><img class="size-full wp-image-60" title="Test Page for the Apache HTTP Server on Amazon Linux AMI" src="http://www.applelife100.com/wp-content/uploads/2012/06/apache-welcome.png" alt="Test Page for the Apache HTTP Server on Amazon Linux AMI" width="1138" height="888" /></a><p class="wp-caption-text">Test Page for the Apache HTTP Server on Amazon Linux AMI</p></div>
+<p><strong>4. PHP インストール</strong></p>
+<p>次に、PHP をインストールします。PHP スクリプトから MySQL へ接続するためのエクステンションも同時にインストールします。今回は、<a title="MySQL :: MySQL native driver for PHP - mysqlnd" href="http://dev.mysql.com/downloads/connector/php-mysqlnd/" target="_blank">MySQL Native Driver</a> を使用しています。</p>
+<pre>$ sudo yum install php
+$ sudo yum install php-mysqlnd</pre>
+<p>PHP を有効にするために、Apache を再起動します。</p>
+<pre>$ sudo service httpd restart</pre>
+<p><strong>5. WordPress インストール</strong></p>
+<p>最後に、WordPress をインストールします。まず、最新版の WordPress をホームディレクトリにダウンロードし、展開します。インストール時は、WordPress 3.4 が最新版でした。</p>
+<pre>$ wget http://wordpress.org/latest.zip
+$ unzip latest.zip</pre>
+<p>展開したディレクトリ内にある設定ファイルのサンプルをリネームし、設定ファイルを編集します。</p>
+<pre>$ mv wordpress/wp-config-sample.php wordpress/wp-config.php
+$ vim wordpress/wp-config.php</pre>
+<p>少し長いですが、下記に設定ファイルを掲載します。</p>
+<pre class="brush: php; title: ; notranslate">
+&lt;?php
+/**
+ * The base configurations of the WordPress.
+ *
+ * This file has the following configurations: MySQL settings, Table Prefix,
+ * Secret Keys, WordPress Language, and ABSPATH. You can find more information
+ * by visiting {@link http://codex.wordpress.org/Editing_wp-config.php Editing
+ * wp-config.php} Codex page. You can get the MySQL settings from your web host.
+ *
+ * This file is used by the wp-config.php creation script during the
+ * installation. You don't have to use the web site, you can just copy this file
+ * to &quot;wp-config.php&quot; and fill in the values.
+ *
+ * @package WordPress
+ */
+
+// ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define('DB_NAME', 'wordpress');
+
+/** MySQL database username */
+define('DB_USER', 'wordpress');
+
+/** MySQL database password */
+define('DB_PASSWORD', 'wordpress');
+
+/** MySQL hostname */
+define('DB_HOST', 'localhost');
+
+/** Database Charset to use in creating database tables. */
+define('DB_CHARSET', 'utf8');
+
+/** The Database Collate type. Don't change this if in doubt. */
+define('DB_COLLATE', '');
+
+/**#@+
+ * Authentication Unique Keys and Salts.
+ *
+ * Change these to different unique phrases!
+ * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
+ * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
+ *
+ * @since 2.6.0
+ */
+define('AUTH_KEY',         'T%w[2Va]!)%QuUUYPq!nAEyR5+ra.%+j/[7+j==X &gt;.G]ys-|3~.wEz{E-+^Fv M');
+define('SECURE_AUTH_KEY',  '.JF0qIcvjR?8fy95dhaqLRfW$ULe7uS;{L +!-o+~53|0wfq%L+1iYZU:=@|mh4X');
+define('LOGGED_IN_KEY',    '#Xb[t x~-g=N-4LlFwxf:ey+}*.}sji,Bx-n0&amp;?b8+[k9 ;{kWl b)&lt;a2i`9g&amp;Wt');
+define('NONCE_KEY',        'sJ8i0TAv:Y5|[-ZhU3dLo_+PzR+St@tkv+Ubt5)5Ph0VuM~#%!EgMJ|AxPEwGE`O');
+define('AUTH_SALT',        '6W}][eC?e2CgG3`5d7uUz.fd@0zlBq Sp.zY&amp;/#mS79q&gt;1X(BitxsdI([k#Qwg2K');
+define('SECURE_AUTH_SALT', 'J=hUk4B/H@Nh3t_$^Alf0 )xT&amp;Bj9=]X`&lt;&amp;%j`5bU++(b|%-&gt;zE=/sqt;.G-K $n');
+define('LOGGED_IN_SALT',   'uaW@X!Sd2PNZ8=~J~}aRa4u]+oT8@J`d|Up$+%-sv)LKr;?lSmw+v= 5,uuNX&amp;tO');
+define('NONCE_SALT',       ':*A?M()e1qTt*.qGgH@0QxCBWwfL*qygG7;)4^&amp;d/[:_9!oij8lFnfw9xIubOJH@');
+ 
+/**#@-*/
+
+/**
+ * WordPress Database Table prefix.
+ *
+ * You can have multiple installations in one database if you give each a unique
+ * prefix. Only numbers, letters, and underscores please!
+ */
+$table_prefix  = 'wp_';
+
+/**
+ * WordPress address (URL)
+ */
+define('WP_SITEURL', 'http://' . $_SERVER['SERVER_NAME']);
+
+/**
+ * Blog address (URL)
+ */
+define('WP_HOME', 'http://' . $_SERVER['SERVER_NAME']);
+
+/**
+ * WordPress Localized Language, defaults to English.
+ *
+ * Change this to localize WordPress. A corresponding MO file for the chosen
+ * language must be installed to wp-content/languages. For example, install
+ * de_DE.mo to wp-content/languages and set WPLANG to 'de_DE' to enable German
+ * language support.
+ */
+define('WPLANG', '');
+
+/**
+ * For developers: WordPress debugging mode.
+ *
+ * Change this to true to enable the display of notices during development.
+ * It is strongly recommended that plugin and theme developers use WP_DEBUG
+ * in their development environments.
+ */
+define('WP_DEBUG', false);
+
+/**
+ * To Force SSL Logins and SSL Admin Access
+ */
+define('FORCE_SSL_ADMIN', true);
+
+/* That's all, stop editing! Happy blogging. */
+
+/** Absolute path to the WordPress directory. */
+if ( !defined('ABSPATH') )
+	define('ABSPATH', dirname(__FILE__) . '/');
+
+/** Sets up WordPress vars and included files. */
+require_once(ABSPATH . 'wp-settings.php');
+</pre>
+<p>変更点は、下記のとおりです。</p>
+<p>・MySQL settings</p>
+<p>MySQL のインストールで作成した wordpress データベース名と wordpress ユーザー名とそのパスワードを設定してください。</p>
+<p>・Authentication Unique Keys and Salts.</p>
+<p>下記の URL で生成される認証ユニークキーとソルトをコピーアンドペーストしてください。</p>
+<p><a title="https://api.wordpress.org/secret-key/1.1/salt/" href="https://api.wordpress.org/secret-key/1.1/salt/" target="_blank">https://api.wordpress.org/secret-key/1.1/salt/</a></p>
+<p>・WordPress address (URL)</p>
+<p>この設定は通常不要です。「林檎生活100」では、EC2 インスタンスにインストールした WordPress に Elastic IP アドレスを付与していないため、インスタンスを停止させたあとに、起動することで Public DNS が変化してしまいます。それによって WordPress アドレスに差異が生じて閲覧できなくなってしまうため、このような設定をしています。</p>
+<p>・Blog address (URL)</p>
+<p>この設定は通常不要です。WordPress アドレスの理由と同様です。</p>
+<p>・To Force SSL Logins and SSL Admin Access</p>
+<p>ログインと管理画面での作業を SSL で暗号化することを強制する設定です。</p>
+<p>ここまで設定したら、wordpress ディレクトリの内容を /var/www/html にコピーします。また、/var/www/html とその中のディレクトリやファイルの所有者を apache ユーザーに設定します。</p>
+<pre>sudo cp -a wordpress/* /var/www/html
+sudo chown -R apache:apache /var/www/html</pre>
+<p>すべてのターミナルでの作業が完了したら、Web ブラウザで EC2 インスタンスの Public DNS にアクセスし、WordPress の初期設定を行います。</p>
+<div id="attachment_80" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-installation-1.png"><img class="size-full wp-image-80" title="WordPress › Installation" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-installation-1.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<p>この画面では、下記の項目をフォームに入力し、Install WordPress をクリックします。</p>
+<ul>
+<li>Web サイトタイトル</li>
+<li>ユーザー名</li>
+<li>パスワード</li>
+<li>メールアドレス</li>
+</ul>
+<div id="attachment_81" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-installation-2.png"><img class="size-full wp-image-81" title="WordPress › Installation" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-installation-2.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<p>Log In をクリックします。</p>
+<div id="attachment_82" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-login.png"><img class="size-full wp-image-82" title="林檎生活100 › Log In" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-login.png" alt="林檎生活100 › Log In" width="1138" height="888" /></a><p class="wp-caption-text">林檎生活100 › Log In</p></div>
+<p>初期設定で入力したユーザー名とパスワードでログインします。</p>
+<p>そうすると、下記のような管理画面のダッシュボードにアクセスできます。記事の投稿などはこの管理画面から実施します。</p>
+<div id="attachment_86" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-dashboard.png"><img class="size-full wp-image-86" title="Dashboard ‹ 林檎生活100 — WordPress" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-dashboard.png" alt="Dashboard ‹ 林檎生活100 — WordPress" width="1138" height="888" /></a><p class="wp-caption-text">Dashboard ‹ 林檎生活100 — WordPress</p></div>
+<p>ここで改めて、Web ブラウザで EC2 インスタンスの Public DNS にアクセスすると、下記のような Web サイトが表示されるはずです。</p>
+<div id="attachment_84" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-twentyeleven.png"><img class="size-full wp-image-84" title="林檎生活100 | Just another WordPress site" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-twentyeleven.png" alt="林檎生活100 | Just another WordPress site" width="1138" height="888" /></a><p class="wp-caption-text">林檎生活100 | Just another WordPress site</p></div>
+<p>これで、WordPress のインストールは完了です。基本的に、管理画面からの操作だけで、記事の投稿やページの編集のみならず、WordPress のアップデートやプラグインのインストール、テーマの編集、PHP や CSS、JavaScript ファイルの編集までできてしまいます。</p>
+<p>管理画面からの操作は直感的なので、いろいろ試しながら Web サイトを構築してもらえたらなと思います。</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

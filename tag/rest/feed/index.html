@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>林檎生活100 &#187; REST</title>
+	<atom:link href="http://www.applelife100.com/tag/rest/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.applelife100.com</link>
+	<description>Make the World a Better Place</description>
+	<lastBuildDate>Thu, 16 May 2013 14:15:10 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.5.1</generator>
+		<item>
+		<title>PHP で Amazon S3 の REST API を使用 #1</title>
+		<link>http://www.applelife100.com/2012/06/23/using-rest-api-of-amazon-s3-in-php-1/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=using-rest-api-of-amazon-s3-in-php-1</link>
+		<comments>http://www.applelife100.com/2012/06/23/using-rest-api-of-amazon-s3-in-php-1/#comments</comments>
+		<pubDate>Fri, 22 Jun 2012 19:33:22 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Amazon S3]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[PHP]]></category>
+		<category><![CDATA[REST]]></category>
+		<category><![CDATA[S3]]></category>
+		<category><![CDATA[WordPress]]></category>
+
+		<guid isPermaLink="false">http://ec2-176-34-2-250.ap-northeast-1.compute.amazonaws.com/?p=132</guid>
+		<description><![CDATA[Amazon S3 を PHP から操作する場合、AWS SDK for PHP を使用するのが簡単かつ確実です。 しかし、WordPress のプラグインなどを作成する場合には、WordPress のライセンスである GNU General Public License version 2.0 と AWS SDK for PHP のライセンスである Apache License 2.0 との間で矛盾が生じてしまいます。（矛盾する理由の詳細は、記事末尾の参考文献を参照してください。） そこで、今回は Amazon S3 の REST API を PHP で Client URL Library を使用して呼び出すことで、Amazon S3 を操作してみます。 それでは、第1回目は &#8230; <a href="http://www.applelife100.com/2012/06/23/using-rest-api-of-amazon-s3-in-php-1/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p><a title="Amazon Simple Storage Service (Amazon S3)" href="http://aws.amazon.com/s3/" target="_blank">Amazon S3</a> を <a title="PHP: Hypertext Preprocessor" href="http://php.net" target="_blank">PHP</a> から操作する場合、<a title="AWS SDK for PHP - A PHP Library for Amazon S3, Amazon EC2, and more." href="http://aws.amazon.com/sdkforphp/" target="_blank">AWS SDK for PHP</a> を使用するのが簡単かつ確実です。</p>
+<p>しかし、<a title="WordPress › Blog Tool, Publishing Platform, and CMS" href="http://wordpress.org" target="_blank">WordPress</a> のプラグインなどを作成する場合には、WordPress のライセンスである <a title="GNU General Public License, version 2 (GPL-2.0) | Open Source Initiative" href="http://www.opensource.org/licenses/GPL-2.0" target="_blank">GNU General Public License version 2.0</a> と AWS SDK for PHP のライセンスである <a title="Open Source Initiative OSI - Apache License, Version 2.0:Licensing | Open Source Initiative" href="http://www.opensource.org/licenses/Apache-2.0" target="_blank">Apache License 2.0</a> との間で矛盾が生じてしまいます。（矛盾する理由の詳細は、記事末尾の参考文献を参照してください。）</p>
+<p>そこで、今回は Amazon S3 の REST API を PHP で <a title="PHP: cURL - Manual" href="http://www.php.net/manual/ja/book.curl.php" target="_blank">Client URL Library</a> を使用して呼び出すことで、Amazon S3 を操作してみます。</p>
+<p><span id="more-132"></span>それでは、第1回目は Amazon S3 の REST API で使用されている認証を実装してみようと思います。なお、この記事に記載しているコードは、パブリックドメインということにしておきますので、使用される方の責任でご自由にお使いください。</p>
+<p><strong>概要</strong></p>
+<p>Amazon S3 の REST API での認証の概要は下記の2枚の図のようになります。これらの図は、<a title="Welcome to Amazon S3 - Amazon Simple Storage Service" href="http://docs.amazonwebservices.com/AmazonS3/latest/dev/" target="_blank">Amazon S3 Developer Guide</a> から引用してきたものです。</p>
+<div id="attachment_153" class="wp-caption alignnone" style="width: 606px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/hmac-auth-process-you.gif"><img class="size-full wp-image-153" title="hmac-auth-process-you" src="http://www.applelife100.com/wp-content/uploads/2012/06/hmac-auth-process-you.gif" alt="HMAC Authentication Process (You)" width="596" height="527" /></a><p class="wp-caption-text">HMAC Authentication Process (You)</p></div>
+<ol>
+<li>AWS へのリクエストを作成します。</li>
+<li>シークレットアクセスキーを使用して署名を計算します。</li>
+<li>Amazon S3 に、アクセスキー ID と署名を含めたリクエストを送信します。</li>
+</ol>
+<div id="attachment_152" class="wp-caption alignnone" style="width: 731px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/hmac-auth-process-aws.gif"><img class="size-full wp-image-152" title="hmac-auth-process-aws" src="http://www.applelife100.com/wp-content/uploads/2012/06/hmac-auth-process-aws.gif" alt="HMAC Authentication Process (AWS)" width="721" height="519" /></a><p class="wp-caption-text">HMAC Authentication Process (AWS)</p></div>
+<ol start="4">
+<li>Amazon S3 は、アクセスキー ID をもとにシークレットアクセスキーを検索します。</li>
+<li>リクエストデータとシークレットアクセスキーを用い、クライアント側と同様のアルゴリズムで署名を計算します。</li>
+<li>Amazon S3 側で計算した署名と、リクエストデータとして送られてきた署名を比較し、一致すれば信頼できるリクエストとして受理しますが、不一致であれば棄却します。</li>
+</ol>
+<p>このような処理をリクエストごとに実施することになるわけです。</p>
+<p><strong>アクセスキー ID とシークレットアクセスキー</strong></p>
+<p>アクセスキー ID とシークレットアクセスキーは、 AWS サイトのグローバルメニュー「アカウント／コンソール」のセキュリティ証明書をクリックしてログインしたページから取得できます。</p>
+<div id="attachment_156" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/amazon-web-services-security-credentials-1.png"><img class="size-full wp-image-156" title="amazon-web-services-security-credentials-1" src="http://www.applelife100.com/wp-content/uploads/2012/06/amazon-web-services-security-credentials-1.png" alt="AWS Management Console | アマゾン ウェブ サービス（AWS 日本語）" width="1138" height="888" /></a><p class="wp-caption-text">AWS Management Console | アマゾン ウェブ サービス（AWS 日本語）</p></div>
+<p>ログイン後、セキュリティ証明書のページで、アクセスキータブ内のアクセスキー ID とシークレットアクセスキーをコピーしておいてください。</p>
+<div id="attachment_158" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/amazon-web-services-security-credentials-2.png"><img class="size-full wp-image-158" title="amazon-web-services-security-credentials-2" src="http://www.applelife100.com/wp-content/uploads/2012/06/amazon-web-services-security-credentials-2.png" alt="Amazon Web サービス" width="1138" height="888" /></a><p class="wp-caption-text">Amazon Web サービス</p></div>
+<p>これで、認証に必要なアクセスキー ID とシークレットアクセスキーを取得することができました。</p>
+<p><strong>署名</strong></p>
+<p>署名は、あるアクセスキー ID を含む HTTP リクエストの内容が、そのアクセスキー ID の所有者から送信されたものであることを証明する文字列です。アクセスキー ID の所有者というのは、シークレットアクセスキーを所有している者ということになります。</p>
+<p>重要なことは、シークレットアクセスキーを直接送らないことです。暗号化された HTTPS 通信だけではなく、平文の HTTP 通信でも REST API を実行できるのには、この署名を使用しているからです。</p>
+<p>署名のポイントは2つです。</p>
+<ul>
+<li>「HTTP リクエストの内容」を「シークレットアクセスキー」で変換した文字列であること</li>
+<li>署名から「シークレットアクセスキー 」を取得できないこと</li>
+</ul>
+<p>これで、リクエストの内容を証明することができるわけです。概要で説明した図をもう一度見てみるとわかりやすいと思います。</p>
+<p><strong>署名生成</strong></p>
+<p>それでは、実際に署名を PHP で生成してみます。</p>
+<p>概要で示した図のとおり、クライアント側から送信されてきた署名をサーバー側（AWS 側）でも同じように生成して一致を判定します。そのため、クライアント側とサーバー側で同じルールを使用しなければなりません。そのルールは下記の通りです。これは Amazon S3 Developer Guide から引用しています。</p>
+<blockquote>
+<pre>Signature = Base64( HMAC-SHA1( YourSecretAccessKeyID, UTF-8-Encoding-Of( StringToSign ) ) );
+
+StringToSign = HTTP-Verb + "\n" +
+	Content-MD5 + "\n" +
+	Content-Type + "\n" +
+	Date + "\n" +
+	CanonicalizedAmzHeaders +
+	CanonicalizedResource;
+
+CanonicalizedResource = [ "/" + Bucket ] +
+	&lt;HTTP-Request-URI, from the protocol name up to the query string&gt; +
+	[ sub-resource, if present. For example "?acl", "?location", "?logging", or "?torrent"];
+
+CanonicalizedAmzHeaders = &lt;described below&gt;</pre>
+</blockquote>
+<p>このように見ると複雑ですが、今回はアクセスキー所有者のバケット一覧を取得する <a title="GET Service - Amazon Simple Storage Service" href="http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTServiceGET.html" target="_blank">GET Service</a> をリクエストするため、ほとんどの項目は改行のみの文字列や空文字列になります。</p>
+<ul>
+<li>HTTP-Verb: &#8220;GET\n&#8221;</li>
+<li>Content-MD5: &#8220;\n&#8221;<br />
+※ PUT のときに必要です。</li>
+<li>Content-Type: &#8220;\n&#8221;<br />
+※ PUT のときに必要です。</li>
+<li>Date: <a title="Requirements for Internet Hosts -- Application and Support" href="http://www.ietf.org/rfc/rfc1123.txt" target="_blank">RFC 1123</a> 形式の現在協定世界時 + &#8220;\n&#8221;</li>
+<li>CanonicalizedAmzHeaders: &#8220;&#8221;<br />
+※ AWS 用の特別な HTTP ヘッダーを使用するときに必要です。</li>
+<li>CanonicalizedResource: &#8220;/&#8221;</li>
+</ul>
+<p>これで各項目が決定できたので、実際のスクリプトにしてみます。スクリプトにすれば一目瞭然かと思います。</p>
+<pre class="brush: php; title: ; notranslate">
+// ----- Signature -----
+// HTTP-Verb
+$httpVerb = 'GET' . &quot;\n&quot;;
+
+// Content-MD5
+$contentMd5 = &quot;\n&quot;;
+
+// Content-Type
+$contentType = &quot;\n&quot;;
+
+// Date
+$datetime = new DateTime('now', new DateTimeZone('UTC'));
+$date = $datetime-&gt;format(DateTime::RFC1123) . &quot;\n&quot;;
+
+// CanonicalizedAmzHeaders
+$canonicalizedAmzHeaders = '';
+
+// CanonicalizedResource
+$canonicalizedResource = '/';
+
+// StringToSign
+$stringToSign = $httpVerb . $contentMd5 . $contentType . $date
+              . $canonicalizedAmzHeaders . $canonicalizedResource;
+
+// Signature
+$hash = hash_hmac('sha1', $stringToSign, $secretAccessKey, true);
+$signature = base64_encode($hash);
+</pre>
+<p>ここで注意してもらいたいことがふたつあります。</p>
+<p>ひとつは、ファイルのエンコーディングを UTF-8 にすることです。引用した署名生成のルールに UTF-8-Encoding-Of 関数が記載されているとおり、 SHA-1 でハッシングする前の文字列のエンコーディングは、UTF-8 でなければなりません。なので、ファイルのエンコーディングを UTF-8 にするのが無難かと思います。</p>
+<p>もうひとつは、hash_hmac 関数の第4引数を true にすることです。第4引数はデフォルト false で、false の場合は小文字の16 進数文字列で結果を返し、true の場合は生のバイナリデータで結果を返します。</p>
+<p>蛇足ですが、Mac OS X の NetBeans で作業する場合は、\ と ¥ の違いに注意してください。詳細は、<a title="NetBeans でバックスラッシュを入力 | 林檎生活100" href="http://www.applelife100.com/2012/06/21/input-backslash-in-netbeans/" rel="bookmark" target="_blank">NetBeans でバックスラッシュを入力</a>を参照してください。</p>
+<p>これで、$signature 変数には、GET Service をリクエストするための署名が入りました。</p>
+<p><strong>Authorization ヘッダー</strong></p>
+<p>次に、HTTP リクエストに署名をつける必要があります。そのために、Authorization ヘッダーを使用します。</p>
+<p>アクセスキー ID (AWSAccessKeyId) と前段で生成した署名 (Signature) を下記のような形式で HTTP ヘッダーに追加します。</p>
+<blockquote>
+<pre>Authorization: AWS <code>AWSAccessKeyId</code>:<code>Signature</code></pre>
+</blockquote>
+<p>これをスクリプトにすると下記のようになります。</p>
+<pre class="brush: php; title: ; notranslate">
+// ----- Authorization Header -----
+// Authorization
+$authorization = 'AWS' . ' ' . $accessKeyId . ':' . $signature;
+</pre>
+<p>これで、Authorization ヘッダー用文字列が完成します。</p>
+<p><strong>HTTP リクエスト生成</strong></p>
+<p>それでは、Amazon S3 に GET Service をリクエストしてみます。HTTP リクエストの生成には、PHP の Client URL Library を使用します。スクリプトにすると下記のようになります。今回は、ホストとして s3.amazonaws.com を指定しています。ホストは、バケットに関わってくるので、バケットの作成や削除のときに説明します。また、HTTP を使用していますが、HTTPS も使用できます。</p>
+<pre class="brush: php; title: ; notranslate">
+// ----- HTTP Request -----
+// Gets list of buckets.
+$ch = curl_init('http://s3.amazonaws.com');
+$headers = array(
+    'Authorization: ' . $authorization,
+    'Date: ' . $date,
+);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$body = curl_exec($ch);
+curl_close($ch);
+</pre>
+<p>注意することとしては、Date ヘッダーも必要になることです。Date ヘッダーの内容は、署名を計算したときに使用したものをそのまま使用してください。</p>
+<p>なお、各関数については、参考文献に記載したマニュアルを参照いただければと思います。</p>
+<p>これで、$body 変数に、アクセスキー所有者のバケット一覧の XML が格納されます。エラーの場合は、エラー情報が含まれた XML が格納されます。エラーの場合は、その XML の内容をもとに、スクリプトを確認してみてください。</p>
+<p>今回は、認証の実装が目的なので、XML の内容の詳細は割愛させていただきます。次回は、バケットの作成や削除を REST API で実装してみようと思います。</p>
+<p><strong>参考文献</strong></p>
+<ul>
+<li><a title="Various Licenses and Comments about Them - GNU Project - Free Software Foundation (FSF)" href="http://www.gnu.org/licenses/license-list.html" target="_blank">Free Software Foundation (FSF): GNU Project: Various Licenses and Comments about Them</a></li>
+<li><a title="Welcome to Amazon S3 - Amazon Simple Storage Service" href="http://docs.amazonwebservices.com/AmazonS3/latest/dev/" target="_blank">Amazon S3 Developer Guide</a></li>
+<li><a title="Welcome to Amazon S3 - Amazon Simple Storage Service" href="http://docs.amazonwebservices.com/AmazonS3/latest/API/" target="_blank">Amazon S3 API Reference</a></li>
+<li><a title="PHP: cURL - Manual" href="http://www.php.net/manual/ja/book.curl.php" target="_blank">PHP Manual: Client URL Library</a></li>
+</ul>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/06/23/using-rest-api-of-amazon-s3-in-php-1/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

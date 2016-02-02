@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>林檎生活100 &#187; Objective-C</title>
+	<atom:link href="http://www.applelife100.com/tag/objective-c/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.applelife100.com</link>
+	<description>Make the World a Better Place</description>
+	<lastBuildDate>Thu, 16 May 2013 14:15:10 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.5.1</generator>
+		<item>
+		<title>NSLog を Release ビルドで無効化</title>
+		<link>http://www.applelife100.com/2012/09/15/disable-nslog-on-release-build/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=disable-nslog-on-release-build</link>
+		<comments>http://www.applelife100.com/2012/09/15/disable-nslog-on-release-build/#comments</comments>
+		<pubDate>Fri, 14 Sep 2012 18:19:08 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Xcode]]></category>
+		<category><![CDATA[Mac OS X]]></category>
+		<category><![CDATA[Objective-C]]></category>
+
+		<guid isPermaLink="false">http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=341</guid>
+		<description><![CDATA[Xcode 4 のプロジェクトで、NSLog 関数を Release ビルドで無効化するには、ProjectName-Prefix.pch に次の3行を追記します。 Release ビルドでは、DEBUG が定義されないので、定義されていないことを判定します。判定が真であれば、NSLog を何もしない可変引数のマクロとして定義することで、NSLog 関数を無効化します。]]></description>
+				<content:encoded><![CDATA[<p>Xcode 4 のプロジェクトで、NSLog 関数を Release ビルドで無効化するには、<em>ProjectName</em>-Prefix.pch に次の3行を追記します。</p>
+<pre class="brush: objc; title: ; notranslate">
+#ifndef DEBUG
+#define NSLog(...)
+#endif
+</pre>
+<p><span id="more-341"></span>Release ビルドでは、DEBUG が定義されないので、定義されていないことを判定します。判定が真であれば、NSLog を何もしない可変引数のマクロとして定義することで、NSLog 関数を無効化します。</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/09/15/disable-nslog-on-release-build/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

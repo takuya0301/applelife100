@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>林檎生活100 &#187; C</title>
+	<atom:link href="http://www.applelife100.com/tag/c/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.applelife100.com</link>
+	<description>Make the World a Better Place</description>
+	<lastBuildDate>Thu, 16 May 2013 14:15:10 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.5.1</generator>
+		<item>
+		<title>解法：ハノイの塔 [C]</title>
+		<link>http://www.applelife100.com/2013/05/16/solution-tower-of-hanoi-c/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=solution-tower-of-hanoi-c</link>
+		<comments>http://www.applelife100.com/2013/05/16/solution-tower-of-hanoi-c/#comments</comments>
+		<pubDate>Thu, 16 May 2013 13:14:06 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Solution]]></category>
+		<category><![CDATA[C]]></category>
+		<category><![CDATA[Tower of Hanoi]]></category>
+
+		<guid isPermaLink="false">http://ec2-54-248-18-153.ap-northeast-1.compute.amazonaws.com/?p=574</guid>
+		<description><![CDATA[「ハノイの塔」の解法です。 n枚のハノイの塔の解法は再帰的に定義できます。 解法 n = 1 の場合 移動元 (Source) の1枚を移動先 (Destination) に移動 1 &#60; n の場合 (n &#8211; 1)枚を移動元 (Source) から空き場所 (Temporary) に移動 移動元 (Source) の1枚を移動先 (Destination) に移動 (n &#8211; 1)枚を空き場所 (Temporary) から移動先 (Destination) に移動 n枚のハノイの塔の移動手順を表示する関数 n枚のハノイの塔の移動手順を表示する関数（シンプル版） サンプルコード 塔の名前を A・B・C &#8230; <a href="http://www.applelife100.com/2013/05/16/solution-tower-of-hanoi-c/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>「ハノイの塔」の解法です。</p>
+<p>n枚のハノイの塔の解法は再帰的に定義できます。</p>
+<p><strong>解法</strong></p>
+<ol>
+<li>n = 1 の場合
+<ol>
+<li>移動元 (Source) の1枚を移動先 (Destination) に移動</li>
+</ol>
+</li>
+<li>1 &lt; n の場合
+<ol>
+<li>(n &#8211; 1)枚を移動元 (Source) から空き場所 (Temporary) に移動</li>
+<li>移動元 (Source) の1枚を移動先 (Destination) に移動</li>
+<li>(n &#8211; 1)枚を空き場所 (Temporary) から移動先 (Destination) に移動</li>
+</ol>
+</li>
+</ol>
+<p><span id="more-574"></span></p>
+<p><strong>n枚のハノイの塔の移動手順を表示する関数</strong></p>
+<pre class="brush: cpp; title: ; notranslate">
+void hanoi(int n, char *src, char *tmp, char *dst)
+{
+    /* n = 1 の場合 */
+    if (n == 1) {
+        /* 移動元 (Source) の1枚を移動先 (Destination) に移動 */
+        printf(&quot;%s -&gt; %s\n&quot;, src, dst);
+    }
+    /* 1 &lt; n の場合 */
+    else {
+        /* (n - 1)枚を移動元 (Source) から空き場所 (Temporary) に移動 */
+        hanoi(n - 1, src, dst, tmp);
+
+        /* 移動元 (Source) の1枚を移動先 (Destination) に移動 */
+        printf(&quot;%s -&gt; %s\n&quot;, src, dst);
+
+        /* (n - 1)枚を空き場所 (Temporary) から移動先 (Destination) に移動 */
+        hanoi(n - 1, tmp, src, dst);
+    }
+}
+</pre>
+<p><strong>n枚のハノイの塔の移動手順を表示する関数（シンプル版）</strong></p>
+<pre class="brush: cpp; title: ; notranslate">
+void hanoi(int n, char *src, char *tmp, char *dst)
+{
+    /* 0 &lt; n の場合 */
+    if (0 &lt; n) {
+        /* (n - 1)枚を移動元 (Source) から空き場所 (Temporary) に移動 */
+        hanoi(n - 1, src, dst, tmp);
+
+        /* 移動元 (Source) の1枚を移動先 (Destination) に移動 */
+        printf(&quot;%s -&gt; %s\n&quot;, src, dst);
+
+        /* (n - 1)枚を空き場所 (Temporary) から移動先 (Destination) に移動 */
+        hanoi(n - 1, tmp, src, dst);
+    }
+}
+</pre>
+<p><strong>サンプルコード</strong></p>
+<p>塔の名前を A・B・C とし、1〜3枚のハノイの塔の移動手順を順番に表示します。</p>
+<p><a href="http://www.applelife100.com/wp-content/uploads/2013/05/hanoi.c">hanoi.c</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2013/05/16/solution-tower-of-hanoi-c/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>データ構造：リスト：単方向連結リスト #1 [C]</title>
+		<link>http://www.applelife100.com/2013/04/17/data-structure-list-singly-linked-list-1-c/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=data-structure-list-singly-linked-list-1-c</link>
+		<comments>http://www.applelife100.com/2013/04/17/data-structure-list-singly-linked-list-1-c/#comments</comments>
+		<pubDate>Tue, 16 Apr 2013 16:41:57 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Data Structure]]></category>
+		<category><![CDATA[C]]></category>
+		<category><![CDATA[List]]></category>
+		<category><![CDATA[Singly Linked List]]></category>
+
+		<guid isPermaLink="false">http://ec2-176-34-7-38.ap-northeast-1.compute.amazonaws.com/?p=524</guid>
+		<description><![CDATA[データ構造「リスト」の中で、もっともシンプルな「単方向連結リスト」です。 リストを型定義し、リストを操作する基本的な手続きを記述します。 リスト構造体とリスト型定義を宣言 適宜、リストの要素のデータ型を変更してください。 リストを作成 リストの先頭に要素を追加 適宜、メモリの動的割り当てに失敗したときのエラー処理をしてください。また、データ型にあわせたデータを格納してください。 リストの末尾に要素を追加 適宜、メモリの動的割り当てに失敗したときのエラー処理をしてください。また、データ型にあわせたデータを格納してください。 リストの先頭の要素を削除 リストの末尾の要素を削除 リストの要素を反復 適宜、要素の処理を変更してください。 サンプルコード list1-1.c]]></description>
+				<content:encoded><![CDATA[<p>データ構造「リスト」の中で、もっともシンプルな「単方向連結リスト」です。</p>
+<p>リストを型定義し、リストを操作する基本的な手続きを記述します。</p>
+<p><span id="more-524"></span><strong>リスト構造体とリスト型定義を宣言</strong></p>
+<p>適宜、リストの要素のデータ型を変更してください。</p>
+<pre class="brush: cpp; title: ; notranslate">
+typedef struct LIST {
+    /* データ型 */
+    int data;
+    struct LIST *next;
+} LIST;
+</pre>
+<p><strong>リストを作成</strong></p>
+<pre class="brush: cpp; title: ; notranslate">
+    LIST *list = NULL;
+</pre>
+<p><strong>リストの先頭に要素を追加</strong></p>
+<p>適宜、メモリの動的割り当てに失敗したときのエラー処理をしてください。また、データ型にあわせたデータを格納してください。</p>
+<pre class="brush: cpp; title: ; notranslate">
+    LIST *e = (LIST *)malloc(sizeof(LIST));
+    if (!e) {
+        /* エラー処理 */
+        fprintf(stderr, &quot;%s:%d: cannot allocate memory&quot;, __FILE__, __LINE__);
+        exit(EXIT_FAILURE);
+    }
+    /* データ */
+    e-&gt;data = 0;
+    e-&gt;next = NULL;
+
+    if (list)
+        e-&gt;next = list;
+    list = e;
+</pre>
+<p><strong>リストの末尾に要素を追加</strong></p>
+<p>適宜、メモリの動的割り当てに失敗したときのエラー処理をしてください。また、データ型にあわせたデータを格納してください。</p>
+<pre class="brush: cpp; title: ; notranslate">
+    LIST *e = (LIST *)malloc(sizeof(LIST));
+    if (!e) {
+        /* エラー処理 */
+        fprintf(stderr, &quot;%s:%d: cannot allocate memory&quot;, __FILE__, __LINE__);
+        exit(EXIT_FAILURE);
+    }
+    /* データ */
+    e-&gt;data = 0;
+    e-&gt;next = NULL;
+
+    if (list) {
+        LIST *p;
+        for (p = list; p-&gt;next; p = p-&gt;next)
+            ;
+        p-&gt;next = e;
+    }
+    else {
+        list = e;
+    }
+</pre>
+<p><strong>リストの先頭の要素を削除</strong></p>
+<pre class="brush: cpp; title: ; notranslate">
+    if (list) {
+        LIST *p = list;
+        list = list-&gt;next;
+        free(p);
+    }
+</pre>
+<p><strong>リストの末尾の要素を削除</strong></p>
+<pre class="brush: cpp; title: ; notranslate">
+    if (list) {
+        LIST *p;
+        if (list-&gt;next) {
+            LIST *q;
+            for (q = list; q-&gt;next-&gt;next; q = q-&gt;next)
+                ;
+            p = q-&gt;next;
+            q-&gt;next = NULL;
+        }
+        else {
+            p = list;
+            list = p-&gt;next;
+        }
+        free(p);
+    }
+</pre>
+<p><strong>リストの要素を反復</strong></p>
+<p>適宜、要素の処理を変更してください。</p>
+<pre class="brush: cpp; title: ; notranslate">
+    LIST *p;
+    for (p = list; p; p = p-&gt;next)
+        /* 要素の処理 */
+        printf(&quot;%d &quot;, p-&gt;data);
+</pre>
+<p><strong>サンプルコード</strong></p>
+<p><a href="http://www.applelife100.com/wp-content/uploads/2013/05/list1-1.c">list1-1.c</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2013/04/17/data-structure-list-singly-linked-list-1-c/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

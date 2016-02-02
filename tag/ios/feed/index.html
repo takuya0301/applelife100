@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>林檎生活100 &#187; iOS</title>
+	<atom:link href="http://www.applelife100.com/tag/ios/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.applelife100.com</link>
+	<description>Make the World a Better Place</description>
+	<lastBuildDate>Thu, 16 May 2013 14:15:10 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.5.1</generator>
+		<item>
+		<title>Xcode 4.4.1 で Interface Builder を使用した iPhone 5 対応のデザイン #1 Autosizing 編</title>
+		<link>http://www.applelife100.com/2012/11/30/design-for-iphone-5-with-interface-builder-in-xcode-4-4-1-1-autosizing/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=design-for-iphone-5-with-interface-builder-in-xcode-4-4-1-1-autosizing</link>
+		<comments>http://www.applelife100.com/2012/11/30/design-for-iphone-5-with-interface-builder-in-xcode-4-4-1-1-autosizing/#comments</comments>
+		<pubDate>Thu, 29 Nov 2012 17:50:16 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Xcode]]></category>
+		<category><![CDATA[Interface Builder]]></category>
+		<category><![CDATA[iOS]]></category>
+		<category><![CDATA[Mac OS X]]></category>
+
+		<guid isPermaLink="false">http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=415</guid>
+		<description><![CDATA[Xcode 4.4.1 の Interface Builder は、iPhone 5 の画面に対応したサイズになっていません。しかし、Autosizing を活用することで、ソースコードで場合分けすることなく、iPhone 5 にも対応したデザインをある程度作成できます。 今回は、ボタンを5つ並べた次のようなデザインで、Autosizing の動作を検証してみます。 これまでの画面では、Autosizing を変更しても、配置や大きさに変化はありませんでした。しかし、iPhone 5 の液晶サイズに拡大されたときは、Autosizing の設定によって、下記のように配置や大きさに違いが生じます。 Autosizing については、Interface Builder User Guide（現在は公開されていないようです。）に記載があります。 The springs and struts in the autosizing control define the selected view’s relationship to its parent frame. &#8230; <a href="http://www.applelife100.com/2012/11/30/design-for-iphone-5-with-interface-builder-in-xcode-4-4-1-1-autosizing/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>Xcode 4.4.1 の Interface Builder は、iPhone 5 の画面に対応したサイズになっていません。しかし、Autosizing を活用することで、ソースコードで場合分けすることなく、iPhone 5 にも対応したデザインをある程度作成できます。</p>
+<p><span id="more-415"></span>今回は、ボタンを5つ並べた次のようなデザインで、Autosizing の動作を検証してみます。</p>
+<div id="attachment_421" class="wp-caption alignnone" style="width: 650px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/interface-builder-autosizing-iphone-4.png"><img class="size-full wp-image-421" title="interface-builder-autosizing-iphone-4" src="http://www.applelife100.com/wp-content/uploads/2012/11/interface-builder-autosizing-iphone-4.png" alt="検証用デザイン" width="640" height="960" /></a><p class="wp-caption-text">検証用デザイン</p></div>
+<p>これまでの画面では、Autosizing を変更しても、配置や大きさに変化はありませんでした。しかし、iPhone 5 の液晶サイズに拡大されたときは、Autosizing の設定によって、下記のように配置や大きさに違いが生じます。</p>
+<div id="attachment_420" class="wp-caption alignnone" style="width: 2570px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/interface-builder-autosizing-iphone-5.png"><img class="size-full wp-image-420" title="interface-builder-autosizing-iphone-5" src="http://www.applelife100.com/wp-content/uploads/2012/11/interface-builder-autosizing-iphone-5.png" alt="検証結果" width="2560" height="2272" /></a><p class="wp-caption-text">検証結果</p></div>
+<p>Autosizing については、Interface Builder User Guide（現在は公開されていないようです。）に記載があります。</p>
+<blockquote><p>The springs and struts in the autosizing control define the selected view’s relationship to its parent frame. A <strong>spring</strong> causes the view to resize itself proportionally based on the width or height of its superview. A <strong>strut</strong> causes the view to maintain a fixed distance between itself and its superview along the given edge.</p></blockquote>
+<p>Spring が中央の上下左右の矢印で、Strut が周囲の上下左右のエの字を示しています。Spring は、オブジェクトが拡大可能か拡大不可能かの制約になります。Strut は、設定された側の画面端からの距離が固定される制約になります。</p>
+<p>Autosizing を活用して、iPhone 3G から iPhone 5 まで対応したアプリを開発しましょう。</p>
+<p><strong>参考文献</strong></p>
+<p><a title="iPhone 3G と iPhone 5 の両方で動作するアプリを開発 | 林檎生活100" href="http://www.applelife100.com/2012/11/08/iphone-3g-and-iphone-5-compatible-application-development/">iPhone 3G と iPhone 5 の両方で動作するアプリを開発</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/11/30/design-for-iphone-5-with-interface-builder-in-xcode-4-4-1-1-autosizing/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>iPhone 3G と iPhone 5 の両方で動作するアプリを開発</title>
+		<link>http://www.applelife100.com/2012/11/08/iphone-3g-and-iphone-5-compatible-application-development/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=iphone-3g-and-iphone-5-compatible-application-development</link>
+		<comments>http://www.applelife100.com/2012/11/08/iphone-3g-and-iphone-5-compatible-application-development/#comments</comments>
+		<pubDate>Wed, 07 Nov 2012 15:34:49 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Xcode]]></category>
+		<category><![CDATA[iOS]]></category>
+		<category><![CDATA[Mac OS X]]></category>
+
+		<guid isPermaLink="false">http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=370</guid>
+		<description><![CDATA[iPhone 3G と iPhone 5 の両方で動作するアプリを開発する方法を記事にまとめました。 開発環境としては、下記を想定しています。 Mac OS X Lion Xcode 4.4.1 また、各 iPhone の iOS バージョンは、下記を想定しています。 iPhone 3G: iOS 4.2.1 iPhone 5: iOS 6.0.1 iPhone 3G と iPhone 5 の両方で動作するアプリを開発するにあたり、まず始めに3つの重要な要素について考える必要があります。 アーキテクチャ iOS バージョン 画面アスペクト比 1つ目のアーキテクチャについては、iPhone 3G が ARMv6 &#8230; <a href="http://www.applelife100.com/2012/11/08/iphone-3g-and-iphone-5-compatible-application-development/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>iPhone 3G と iPhone 5 の両方で動作するアプリを開発する方法を記事にまとめました。</p>
+<p>開発環境としては、下記を想定しています。</p>
+<ul>
+<li>Mac OS X Lion</li>
+<li>Xcode 4.4.1</li>
+</ul>
+<p><span style="font-size: medium;"><span style="line-height: 24px;">また、各 iPhone の iOS バージョンは、下記を想定しています。</span></span></p>
+<ul>
+<li>iPhone 3G: iOS 4.2.1</li>
+<li>iPhone 5: iOS 6.0.1</li>
+</ul>
+<p><span id="more-370"></span>iPhone 3G と iPhone 5 の両方で動作するアプリを開発するにあたり、まず始めに3つの重要な要素について考える必要があります。</p>
+<ol>
+<li>アーキテクチャ</li>
+<li>iOS バージョン</li>
+<li>画面アスペクト比</li>
+</ol>
+<p>1つ目のアーキテクチャについては、iPhone 3G が ARMv6 アーキテクチャで、iPhone 5 が ARMv7 互換の ARMv7s アーキテクチャです。そのため、ARMv6 アーキテクチャのサポートが外れた Xcode 4.5 以降では開発することが出来ません。Xcode 4.4.1 では、ARMv6 アーキテクチャをサポートしています。逆に、ARMv7s アーキテクチャのサポートがなくても、ARMv7 アーキテクチャのサポートがあれば、iPhone 5 で動作するアプリを開発できます。</p>
+<p>2つ目の iOS バージョンについては、iPhone 3G の最新バージョンが iOS 4.2.1 で、iPhone 5 の初期バージョンが iOS 6 です。そのため、Storyboard は iOS 4 でサポートされないため使用できません。また、ARC は iOS 4 で使用することが出来ますが、弱い参照 (Weak Reference) を示す __weak 修飾子は使用できないため、代わりに __unsafe_unretained 修飾子を使用する必要があります。（__weak と __unsafe_unretained の違いは、記事末尾の参考文献を参照してください。）</p>
+<p>3つ目の画面アスペクト比については、iPhone 3G が 3:2 (480&#215;320) で、iPhone 5 が 16:9 (1136&#215;640) です。iPhone 3G から iPhone 4S までの画面アスペクト比である 3:2 に合わせてアプリを作成した場合、iPhone 5 の自動レターボックス処理によって、アプリの上下に黒帯が追加された状態で動作します。iPhone 5 の画面アスペクト比対応については、検証中のためこの記事では扱いません。</p>
+<p>ここまでの3つの重要な要素を踏まえた上で、Xcode 4.4.1 で iPhone 3G と iPhone 5 の両方で動作するアプリの新規プロジェクトを作成します。そのときは、次の5つのことに気をつけてください。</p>
+<ol>
+<li>iOS 4 でサポートされているアプリのテンプレートを選択すること</li>
+<li>Storyboard を使用しないこと</li>
+<li>Deployment Target を 4.2 にすること</li>
+<li>Required device capabilities の要素を armv6 にすること</li>
+<li>Architectures を armv6 と armv7 にすること</li>
+</ol>
+<div id="attachment_375" class="wp-caption alignnone" style="width: 1404px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-1.png"><img class="size-full wp-image-375" title="iphone-3g-and-iphone-5-compatible-application-development-1" src="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-1.png" alt="Xcode: Choose a template for your new project" width="1394" height="888" /></a><p class="wp-caption-text">Xcode: Choose a template for your new project</p></div>
+<p>1つ目は、新規プロジェクトを作成するウィザードのアプリのテンプレートを選択する画面で、iOS 4 で動作するテンプレートを選択するということです。例えば、Page-Based Application は、iOS 5 以降でないと動作しません。</p>
+<div id="attachment_376" class="wp-caption alignnone" style="width: 1404px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-2.png"><img class="size-full wp-image-376" title="iphone-3g-and-iphone-5-compatible-application-development-2" src="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-2.png" alt="Xcode: Choose options for your new project" width="1394" height="888" /></a><p class="wp-caption-text">Xcode: Choose options for your new project</p></div>
+<p>2つ目は、新規プロジェクトを作成するウィザードのプロジェクトのオプションを設定する画面で、Use Storyboards のチェックを外し、Storyboard を使用しないということです。Storyboard は、iOS 5 以降でないと使用できません。</p>
+<div id="attachment_377" class="wp-caption alignnone" style="width: 1404px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-3.png"><img class="size-full wp-image-377" title="iphone-3g-and-iphone-5-compatible-application-development-3" src="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-3.png" alt="Xcode: Target &gt; Summary" width="1394" height="888" /></a><p class="wp-caption-text">Xcode: Target &gt; Summary</p></div>
+<p>3つ目は、 Target の Summary で Deployment Target を4.2にするということです。動作対象とする iPhone 3G の iOS バージョン以下のバージョンを設定する必要があります。</p>
+<div id="attachment_378" class="wp-caption alignnone" style="width: 1404px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-4.png"><img class="size-full wp-image-378" title="iphone-3g-and-iphone-5-compatible-application-development-4" src="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-4.png" alt="Xcode: Target &gt; Info" width="1394" height="888" /></a><p class="wp-caption-text">Xcode: Target &gt; Info</p></div>
+<p>4つ目は、 Target の Info で Required device capabilities の要素を armv6 にするということです。ARMv6 デバイスである iPhone 3G を動作対象とするためです。armv6 のみを設定すれば、ARMv7 デバイスも動作対象になります。</p>
+<div id="attachment_379" class="wp-caption alignnone" style="width: 1404px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-5.png"><img class="size-full wp-image-379" title="iphone-3g-and-iphone-5-compatible-application-development-5" src="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-5.png" alt="Xcode: Target &gt; Build Settings" width="1394" height="888" /></a><p class="wp-caption-text">Xcode: Target &gt; Build Settings</p></div>
+<p>5つ目は、 Target の Build Settings で Architectures を armv6 と armv7 にするということです。ビルド時に ARMv6 バイナリと ARMv7 バイナリを生成させるためです。</p>
+<p>これで、iPhone 3G と iPhone 5 の両方で動作するアプリをビルドできる開発環境ができました。あとは、使用するフレームワークやライブラリのメソッドを注意深く使用し、適宜 iPhone 3G と iPhone 5 の両方でテストしながら開発してください。</p>
+<p><strong>補足1</strong></p>
+<p>Xcode 4.4.1 の Organizer では iPhone 5 を開発用として使用するように設定できません。そのため、Xcode 4.5 の Organizer で iPhone 5 を開発用として使用するように設定したあと、Xcode 4.4.1 で iPhone 5 を開発用として使用するようにしてください。</p>
+<p><strong>補足2</strong></p>
+<p>Mac OS X Mountain Lion では、iOS 4.3 Simulator を使用できません。そのため、Mac OS X Lion での開発を推奨します。</p>
+<p><strong>参考文献</strong></p>
+<ul>
+<li><a title="Transitioning to ARC Release Notes" href="https://developer.apple.com/library/ios/releasenotes/ObjectiveC/RN-TransitioningToARC/RN-TransitioningToARC.pdf" target="_blank">Transitioning to ARC Release Notes</a></li>
+</ul>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/11/08/iphone-3g-and-iphone-5-compatible-application-development/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>林檎生活100 &#187; TSUCHIDA Takuya</title>
+	<atom:link href="http://www.applelife100.com/author/takuya0301/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.applelife100.com</link>
+	<description>Make the World a Better Place</description>
+	<lastBuildDate>Thu, 16 May 2013 14:15:10 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.5.1</generator>
+		<item>
+		<title>解法：ハノイの塔 [C]</title>
+		<link>http://www.applelife100.com/2013/05/16/solution-tower-of-hanoi-c/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=solution-tower-of-hanoi-c</link>
+		<comments>http://www.applelife100.com/2013/05/16/solution-tower-of-hanoi-c/#comments</comments>
+		<pubDate>Thu, 16 May 2013 13:14:06 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Solution]]></category>
+		<category><![CDATA[C]]></category>
+		<category><![CDATA[Tower of Hanoi]]></category>
+
+		<guid isPermaLink="false">http://ec2-54-248-18-153.ap-northeast-1.compute.amazonaws.com/?p=574</guid>
+		<description><![CDATA[「ハノイの塔」の解法です。 n枚のハノイの塔の解法は再帰的に定義できます。 解法 n = 1 の場合 移動元 (Source) の1枚を移動先 (Destination) に移動 1 &#60; n の場合 (n &#8211; 1)枚を移動元 (Source) から空き場所 (Temporary) に移動 移動元 (Source) の1枚を移動先 (Destination) に移動 (n &#8211; 1)枚を空き場所 (Temporary) から移動先 (Destination) に移動 n枚のハノイの塔の移動手順を表示する関数 n枚のハノイの塔の移動手順を表示する関数（シンプル版） サンプルコード 塔の名前を A・B・C &#8230; <a href="http://www.applelife100.com/2013/05/16/solution-tower-of-hanoi-c/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>「ハノイの塔」の解法です。</p>
+<p>n枚のハノイの塔の解法は再帰的に定義できます。</p>
+<p><strong>解法</strong></p>
+<ol>
+<li>n = 1 の場合
+<ol>
+<li>移動元 (Source) の1枚を移動先 (Destination) に移動</li>
+</ol>
+</li>
+<li>1 &lt; n の場合
+<ol>
+<li>(n &#8211; 1)枚を移動元 (Source) から空き場所 (Temporary) に移動</li>
+<li>移動元 (Source) の1枚を移動先 (Destination) に移動</li>
+<li>(n &#8211; 1)枚を空き場所 (Temporary) から移動先 (Destination) に移動</li>
+</ol>
+</li>
+</ol>
+<p><span id="more-574"></span></p>
+<p><strong>n枚のハノイの塔の移動手順を表示する関数</strong></p>
+<pre class="brush: cpp; title: ; notranslate">
+void hanoi(int n, char *src, char *tmp, char *dst)
+{
+    /* n = 1 の場合 */
+    if (n == 1) {
+        /* 移動元 (Source) の1枚を移動先 (Destination) に移動 */
+        printf(&quot;%s -&gt; %s\n&quot;, src, dst);
+    }
+    /* 1 &lt; n の場合 */
+    else {
+        /* (n - 1)枚を移動元 (Source) から空き場所 (Temporary) に移動 */
+        hanoi(n - 1, src, dst, tmp);
+
+        /* 移動元 (Source) の1枚を移動先 (Destination) に移動 */
+        printf(&quot;%s -&gt; %s\n&quot;, src, dst);
+
+        /* (n - 1)枚を空き場所 (Temporary) から移動先 (Destination) に移動 */
+        hanoi(n - 1, tmp, src, dst);
+    }
+}
+</pre>
+<p><strong>n枚のハノイの塔の移動手順を表示する関数（シンプル版）</strong></p>
+<pre class="brush: cpp; title: ; notranslate">
+void hanoi(int n, char *src, char *tmp, char *dst)
+{
+    /* 0 &lt; n の場合 */
+    if (0 &lt; n) {
+        /* (n - 1)枚を移動元 (Source) から空き場所 (Temporary) に移動 */
+        hanoi(n - 1, src, dst, tmp);
+
+        /* 移動元 (Source) の1枚を移動先 (Destination) に移動 */
+        printf(&quot;%s -&gt; %s\n&quot;, src, dst);
+
+        /* (n - 1)枚を空き場所 (Temporary) から移動先 (Destination) に移動 */
+        hanoi(n - 1, tmp, src, dst);
+    }
+}
+</pre>
+<p><strong>サンプルコード</strong></p>
+<p>塔の名前を A・B・C とし、1〜3枚のハノイの塔の移動手順を順番に表示します。</p>
+<p><a href="http://www.applelife100.com/wp-content/uploads/2013/05/hanoi.c">hanoi.c</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2013/05/16/solution-tower-of-hanoi-c/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>データ構造：リスト：単方向連結リスト #1 [C]</title>
+		<link>http://www.applelife100.com/2013/04/17/data-structure-list-singly-linked-list-1-c/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=data-structure-list-singly-linked-list-1-c</link>
+		<comments>http://www.applelife100.com/2013/04/17/data-structure-list-singly-linked-list-1-c/#comments</comments>
+		<pubDate>Tue, 16 Apr 2013 16:41:57 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Data Structure]]></category>
+		<category><![CDATA[C]]></category>
+		<category><![CDATA[List]]></category>
+		<category><![CDATA[Singly Linked List]]></category>
+
+		<guid isPermaLink="false">http://ec2-176-34-7-38.ap-northeast-1.compute.amazonaws.com/?p=524</guid>
+		<description><![CDATA[データ構造「リスト」の中で、もっともシンプルな「単方向連結リスト」です。 リストを型定義し、リストを操作する基本的な手続きを記述します。 リスト構造体とリスト型定義を宣言 適宜、リストの要素のデータ型を変更してください。 リストを作成 リストの先頭に要素を追加 適宜、メモリの動的割り当てに失敗したときのエラー処理をしてください。また、データ型にあわせたデータを格納してください。 リストの末尾に要素を追加 適宜、メモリの動的割り当てに失敗したときのエラー処理をしてください。また、データ型にあわせたデータを格納してください。 リストの先頭の要素を削除 リストの末尾の要素を削除 リストの要素を反復 適宜、要素の処理を変更してください。 サンプルコード list1-1.c]]></description>
+				<content:encoded><![CDATA[<p>データ構造「リスト」の中で、もっともシンプルな「単方向連結リスト」です。</p>
+<p>リストを型定義し、リストを操作する基本的な手続きを記述します。</p>
+<p><span id="more-524"></span><strong>リスト構造体とリスト型定義を宣言</strong></p>
+<p>適宜、リストの要素のデータ型を変更してください。</p>
+<pre class="brush: cpp; title: ; notranslate">
+typedef struct LIST {
+    /* データ型 */
+    int data;
+    struct LIST *next;
+} LIST;
+</pre>
+<p><strong>リストを作成</strong></p>
+<pre class="brush: cpp; title: ; notranslate">
+    LIST *list = NULL;
+</pre>
+<p><strong>リストの先頭に要素を追加</strong></p>
+<p>適宜、メモリの動的割り当てに失敗したときのエラー処理をしてください。また、データ型にあわせたデータを格納してください。</p>
+<pre class="brush: cpp; title: ; notranslate">
+    LIST *e = (LIST *)malloc(sizeof(LIST));
+    if (!e) {
+        /* エラー処理 */
+        fprintf(stderr, &quot;%s:%d: cannot allocate memory&quot;, __FILE__, __LINE__);
+        exit(EXIT_FAILURE);
+    }
+    /* データ */
+    e-&gt;data = 0;
+    e-&gt;next = NULL;
+
+    if (list)
+        e-&gt;next = list;
+    list = e;
+</pre>
+<p><strong>リストの末尾に要素を追加</strong></p>
+<p>適宜、メモリの動的割り当てに失敗したときのエラー処理をしてください。また、データ型にあわせたデータを格納してください。</p>
+<pre class="brush: cpp; title: ; notranslate">
+    LIST *e = (LIST *)malloc(sizeof(LIST));
+    if (!e) {
+        /* エラー処理 */
+        fprintf(stderr, &quot;%s:%d: cannot allocate memory&quot;, __FILE__, __LINE__);
+        exit(EXIT_FAILURE);
+    }
+    /* データ */
+    e-&gt;data = 0;
+    e-&gt;next = NULL;
+
+    if (list) {
+        LIST *p;
+        for (p = list; p-&gt;next; p = p-&gt;next)
+            ;
+        p-&gt;next = e;
+    }
+    else {
+        list = e;
+    }
+</pre>
+<p><strong>リストの先頭の要素を削除</strong></p>
+<pre class="brush: cpp; title: ; notranslate">
+    if (list) {
+        LIST *p = list;
+        list = list-&gt;next;
+        free(p);
+    }
+</pre>
+<p><strong>リストの末尾の要素を削除</strong></p>
+<pre class="brush: cpp; title: ; notranslate">
+    if (list) {
+        LIST *p;
+        if (list-&gt;next) {
+            LIST *q;
+            for (q = list; q-&gt;next-&gt;next; q = q-&gt;next)
+                ;
+            p = q-&gt;next;
+            q-&gt;next = NULL;
+        }
+        else {
+            p = list;
+            list = p-&gt;next;
+        }
+        free(p);
+    }
+</pre>
+<p><strong>リストの要素を反復</strong></p>
+<p>適宜、要素の処理を変更してください。</p>
+<pre class="brush: cpp; title: ; notranslate">
+    LIST *p;
+    for (p = list; p; p = p-&gt;next)
+        /* 要素の処理 */
+        printf(&quot;%d &quot;, p-&gt;data);
+</pre>
+<p><strong>サンプルコード</strong></p>
+<p><a href="http://www.applelife100.com/wp-content/uploads/2013/05/list1-1.c">list1-1.c</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2013/04/17/data-structure-list-singly-linked-list-1-c/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>「計算機プログラムの構造と解釈」のためのプログラミング環境</title>
+		<link>http://www.applelife100.com/2013/04/02/programmin-environment-for-sicp/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=programmin-environment-for-sicp</link>
+		<comments>http://www.applelife100.com/2013/04/02/programmin-environment-for-sicp/#comments</comments>
+		<pubDate>Tue, 02 Apr 2013 13:38:23 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Scheme]]></category>
+		<category><![CDATA[Racket]]></category>
+
+		<guid isPermaLink="false">http://ec2-54-248-31-72.ap-northeast-1.compute.amazonaws.com/?p=454</guid>
+		<description><![CDATA[Scheme を深く理解するために、「計算機プログラムの構造と解釈」を購入しました。「SICP」という略称や「魔術師本」という俗称でも知られているこの本は、かつて MIT のコンピューター科学科におけるプログラミングの入門講義で教科書として使用されていました。読み進めるにあたり、問題に解答するためにプログラミング環境が必要になったので、その環境を Mac OS X 上で構築する方法を記事にまとめました。 目次 Racket のインストール SICP Support for DrRacket のインストール SICP Support for DrRacket の使用方法 例：写真の描画 1. Racket のインストール Racket の Web サイトにアクセスし、下記のスクリーンショットの手順で、Racket をダウンロードします。なお、この記事では Racket 5.3.3 を使用します。 ダウンロードしたら、ディスクイメージをマウントし、Racket v5.3.3 フォルダをアプリケーションフォルダにコピーして、インストール完了です。 Racket v5.3.3 フォルダにある DrRacket を起動すると、下記のようなウィンドウが表示されます。 2. SICP &#8230; <a href="http://www.applelife100.com/2013/04/02/programmin-environment-for-sicp/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>Scheme を深く理解するために、「<a href="http://www.amazon.co.jp/gp/product/489471163X/ref=as_li_ss_tl?ie=UTF8&amp;camp=247&amp;creative=7399&amp;creativeASIN=489471163X&amp;linkCode=as2&amp;tag=takuya0301-22">計算機プログラムの構造と解釈</a><img style="border: none !important; margin: 0px !important;" alt="" src="http://www.assoc-amazon.jp/e/ir?t=takuya0301-22&amp;l=as2&amp;o=9&amp;a=489471163X" width="1" height="1" border="0" />」を購入しました。「SICP」という略称や「魔術師本」という俗称でも知られているこの本は、かつて <a title="MIT - Massachusetts Institute of Technology" href="http://www.mit.edu" target="_blank">MIT</a> のコンピューター科学科におけるプログラミングの入門講義で教科書として使用されていました。読み進めるにあたり、問題に解答するためにプログラミング環境が必要になったので、その環境を Mac OS X 上で構築する方法を記事にまとめました。</p>
+<p><span id="more-454"></span><strong>目次</strong></p>
+<ol>
+<li>Racket のインストール</li>
+<li>SICP Support for DrRacket のインストール</li>
+<li>SICP Support for DrRacket の使用方法</li>
+<li>例：写真の描画</li>
+</ol>
+<p><strong>1. Racket のインストール</strong></p>
+<p><a title="The Racket Language" href="http://racket-lang.org" target="_blank">Racket</a> の Web サイトにアクセスし、下記のスクリーンショットの手順で、Racket をダウンロードします。なお、この記事では Racket 5.3.3 を使用します。</p>
+<div id="attachment_459" class="wp-caption alignnone" style="width: 924px"><a href="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-web-1.png"><img class="size-full wp-image-459" alt="The Racket Language" src="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-web-1.png" width="914" height="714" /></a><p class="wp-caption-text">The Racket Language</p></div>
+<div id="attachment_460" class="wp-caption alignnone" style="width: 924px"><a href="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-web-2.png"><img class="size-full wp-image-460" alt="Download Racket" src="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-web-2.png" width="914" height="714" /></a><p class="wp-caption-text">Download Racket</p></div>
+<div id="attachment_461" class="wp-caption alignnone" style="width: 924px"><a href="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-web-3.png"><img class="size-full wp-image-461" alt="Racket: Download Racket v5.3.3 for Mac OS X (Intel 64-bit)" src="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-web-3.png" width="914" height="714" /></a><p class="wp-caption-text">Racket: Download Racket v5.3.3 for Mac OS X (Intel 64-bit)</p></div>
+<p>ダウンロードしたら、ディスクイメージをマウントし、Racket v5.3.3 フォルダをアプリケーションフォルダにコピーして、インストール完了です。</p>
+<p>Racket v5.3.3 フォルダにある DrRacket を起動すると、下記のようなウィンドウが表示されます。</p>
+<div id="attachment_462" class="wp-caption alignnone" style="width: 724px"><a href="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-1.png"><img class="size-full wp-image-462" alt="DrRacket" src="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-1.png" width="714" height="764" /></a><p class="wp-caption-text">DrRacket</p></div>
+<p><strong>2. SICP Support for DrRacket のインストール</strong></p>
+<p>SICP の問題を実行するために、<a title="SICP Support for DrRacket" href="http://www.neilvandyke.org/racket-sicp/" target="_blank">SICP Support for DrRacket</a> をインストールします。なお、この記事では SICP Support for DrRacket 1.17 を使用しています。</p>
+<p>まず、メニューバーの言語 &gt; 言語の選択…をクリックします。</p>
+<div id="attachment_468" class="wp-caption alignnone" style="width: 724px"><a href="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-2.png"><img class="size-full wp-image-468" alt="言語の選択" src="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-2.png" width="714" height="764" /></a><p class="wp-caption-text">言語の選択</p></div>
+<p>次に、The Racket Language を選択し、OK をクリックします。</p>
+<div id="attachment_470" class="wp-caption alignnone" style="width: 724px"><a href="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-3.png"><img class="size-full wp-image-470" alt="Determine language from source" src="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-3.png" width="714" height="764" /></a><p class="wp-caption-text">Determine language from source</p></div>
+<p>起動時と同じウィンドウの上側、定義エリアに入力されている内容を下記のように変更し、実行をクリックします。</p>
+<pre class="brush: clojure; title: ; notranslate">
+#lang planet neil/sicp
+</pre>
+<div id="attachment_471" class="wp-caption alignnone" style="width: 724px"><a href="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-4.png"><img class="size-full wp-image-471" alt="実行" src="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-4.png" width="714" height="764" /></a><p class="wp-caption-text">実行</p></div>
+<p>PLaneT: 完了 neil/sicp. とウィンドウの下側に出力されたら、DrRacket を終了します。</p>
+<div id="attachment_472" class="wp-caption alignnone" style="width: 724px"><a href="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-5.png"><img class="size-full wp-image-472" alt="完了" src="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-5.png" width="714" height="764" /></a><p class="wp-caption-text">完了</p></div>
+<p><strong>3. SICP Support for DrRacket の使用方法</strong></p>
+<p>終了させた DrRacket を起動し、メニューバーの言語 &gt; 言語の選択…をクリックします。</p>
+<div id="attachment_473" class="wp-caption alignnone" style="width: 724px"><a href="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-6.png"><img class="size-full wp-image-473" alt="学習用の言語" src="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-6.png" width="714" height="764" /></a><p class="wp-caption-text">学習用の言語 &gt; SICP (PLaneT 1.17)</p></div>
+<p>次に、学習用の言語を選択し、その中の SICP (PLaneT 1.17) をクリックしたのち、OK をクリックします。</p>
+<div id="attachment_474" class="wp-caption alignnone" style="width: 724px"><a href="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-7.png"><img class="size-full wp-image-474" alt="SICP (PLaneT 1.17)" src="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-7.png" width="714" height="764" /></a><p class="wp-caption-text">SICP (PLaneT 1.17)</p></div>
+<p>ウィンドウ左下に SICP (PLaneT 1.17) と表示されます。黄色の状態ではまだ使用できないので、実行をクリックします。</p>
+<div id="attachment_475" class="wp-caption alignnone" style="width: 724px"><a href="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-8.png"><img class="size-full wp-image-475" alt="SICP (PLaneT 1.17)" src="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-8.png" width="714" height="764" /></a><p class="wp-caption-text">SICP (PLaneT 1.17)</p></div>
+<p>これで SICP Support for DrRacket が使用できます。</p>
+<p><strong>4. 例：写真の描画</strong></p>
+<p>下記のコマンドで、アインシュタインの画像が表示されれば、問題なく使用できます。</p>
+<pre class="brush: clojure; title: ; notranslate">
+(paint einstein)
+</pre>
+<div id="attachment_479" class="wp-caption alignnone" style="width: 724px"><a href="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-9.png"><img class="size-full wp-image-479" alt="(paint einstein)" src="http://www.applelife100.com/wp-content/uploads/2013/04/drracket-9.png" width="714" height="764" /></a><p class="wp-caption-text">(paint einstein)</p></div>
+<p>これで SICP を読み進める準備ができました。定義は上側の定義エリアに入力し、インタプリタとの対話は下側のインタラクションエリアに入力し、SICP の例題を実行しつつ、問題に解答してください。</p>
+<p><iframe style="width: 120px; height: 240px;" src="http://rcm-jp.amazon.co.jp/e/cm?lt1=_blank&amp;bc1=FFFFFF&amp;IS2=1&amp;nou=1&amp;bg1=FFFFFF&amp;fc1=000000&amp;lc1=0066CC&amp;t=takuya0301-22&amp;o=9&amp;p=8&amp;l=as4&amp;m=amazon&amp;f=ifr&amp;ref=ss_til&amp;asins=489471163X" height="240" width="320" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2013/04/02/programmin-environment-for-sicp/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Xcode 4.4.1 で Interface Builder を使用した iPhone 5 対応のデザイン #1 Autosizing 編</title>
+		<link>http://www.applelife100.com/2012/11/30/design-for-iphone-5-with-interface-builder-in-xcode-4-4-1-1-autosizing/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=design-for-iphone-5-with-interface-builder-in-xcode-4-4-1-1-autosizing</link>
+		<comments>http://www.applelife100.com/2012/11/30/design-for-iphone-5-with-interface-builder-in-xcode-4-4-1-1-autosizing/#comments</comments>
+		<pubDate>Thu, 29 Nov 2012 17:50:16 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Xcode]]></category>
+		<category><![CDATA[Interface Builder]]></category>
+		<category><![CDATA[iOS]]></category>
+		<category><![CDATA[Mac OS X]]></category>
+
+		<guid isPermaLink="false">http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=415</guid>
+		<description><![CDATA[Xcode 4.4.1 の Interface Builder は、iPhone 5 の画面に対応したサイズになっていません。しかし、Autosizing を活用することで、ソースコードで場合分けすることなく、iPhone 5 にも対応したデザインをある程度作成できます。 今回は、ボタンを5つ並べた次のようなデザインで、Autosizing の動作を検証してみます。 これまでの画面では、Autosizing を変更しても、配置や大きさに変化はありませんでした。しかし、iPhone 5 の液晶サイズに拡大されたときは、Autosizing の設定によって、下記のように配置や大きさに違いが生じます。 Autosizing については、Interface Builder User Guide（現在は公開されていないようです。）に記載があります。 The springs and struts in the autosizing control define the selected view’s relationship to its parent frame. &#8230; <a href="http://www.applelife100.com/2012/11/30/design-for-iphone-5-with-interface-builder-in-xcode-4-4-1-1-autosizing/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>Xcode 4.4.1 の Interface Builder は、iPhone 5 の画面に対応したサイズになっていません。しかし、Autosizing を活用することで、ソースコードで場合分けすることなく、iPhone 5 にも対応したデザインをある程度作成できます。</p>
+<p><span id="more-415"></span>今回は、ボタンを5つ並べた次のようなデザインで、Autosizing の動作を検証してみます。</p>
+<div id="attachment_421" class="wp-caption alignnone" style="width: 650px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/interface-builder-autosizing-iphone-4.png"><img class="size-full wp-image-421" title="interface-builder-autosizing-iphone-4" src="http://www.applelife100.com/wp-content/uploads/2012/11/interface-builder-autosizing-iphone-4.png" alt="検証用デザイン" width="640" height="960" /></a><p class="wp-caption-text">検証用デザイン</p></div>
+<p>これまでの画面では、Autosizing を変更しても、配置や大きさに変化はありませんでした。しかし、iPhone 5 の液晶サイズに拡大されたときは、Autosizing の設定によって、下記のように配置や大きさに違いが生じます。</p>
+<div id="attachment_420" class="wp-caption alignnone" style="width: 2570px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/interface-builder-autosizing-iphone-5.png"><img class="size-full wp-image-420" title="interface-builder-autosizing-iphone-5" src="http://www.applelife100.com/wp-content/uploads/2012/11/interface-builder-autosizing-iphone-5.png" alt="検証結果" width="2560" height="2272" /></a><p class="wp-caption-text">検証結果</p></div>
+<p>Autosizing については、Interface Builder User Guide（現在は公開されていないようです。）に記載があります。</p>
+<blockquote><p>The springs and struts in the autosizing control define the selected view’s relationship to its parent frame. A <strong>spring</strong> causes the view to resize itself proportionally based on the width or height of its superview. A <strong>strut</strong> causes the view to maintain a fixed distance between itself and its superview along the given edge.</p></blockquote>
+<p>Spring が中央の上下左右の矢印で、Strut が周囲の上下左右のエの字を示しています。Spring は、オブジェクトが拡大可能か拡大不可能かの制約になります。Strut は、設定された側の画面端からの距離が固定される制約になります。</p>
+<p>Autosizing を活用して、iPhone 3G から iPhone 5 まで対応したアプリを開発しましょう。</p>
+<p><strong>参考文献</strong></p>
+<p><a title="iPhone 3G と iPhone 5 の両方で動作するアプリを開発 | 林檎生活100" href="http://www.applelife100.com/2012/11/08/iphone-3g-and-iphone-5-compatible-application-development/">iPhone 3G と iPhone 5 の両方で動作するアプリを開発</a></p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/11/30/design-for-iphone-5-with-interface-builder-in-xcode-4-4-1-1-autosizing/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>MY ARM ブレッドボード実験セットの製作</title>
+		<link>http://www.applelife100.com/2012/11/21/making-my-arm-breadboard-experiment-set/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=making-my-arm-breadboard-experiment-set</link>
+		<comments>http://www.applelife100.com/2012/11/21/making-my-arm-breadboard-experiment-set/#comments</comments>
+		<pubDate>Tue, 20 Nov 2012 16:36:06 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[ARM]]></category>
+		<category><![CDATA[LPCXpresso]]></category>
+
+		<guid isPermaLink="false">http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=388</guid>
+		<description><![CDATA[トランジスタ技術2012年10月号の付録である ARM マイコンで実験するために、マルツパーツ館で購入した MY ARM ブレッドボード実験セットを製作しました。（付録マイコンと実験セット以外に、LPCXpresso LPC1114 Development Board を使用しています。） 誌面に記載のとおりに製作していますが、左上のマルチカラー LED が誌面に記載のものと仕様が異なっていたため、抵抗のマルチカラー LED への接続を変更しています。 実験には NXP の LPCXpresso IDE を使用しています。LPCXpresso を切断した LPC-Link 部をライターとデバッガーとして使用し、USB シリアルブリッジモジュールを 5V の電源とシリアル通信モジュールとして使用しています。LPC-Link の 3.3V を電源とすることもできますが、マルチカラー LED が 5V の電源を必要とするため、LPC-Link の 3.3V は電源として使用していません。 半田付けなしで ARM マイコンを始めることができるので、電子工作初心者にオススメです。トランジスタ技術2012年11月号は、10月号の回路をプリント基板にしたものが付録で、半田付けの方法から解説するそうなので電子工作を始めるのに良いと思います。（なお、LPC-Link へのピンヘッダの取り付けには半田付けが必要ですが、デバッガーなしで一通り実験するだけであれば &#8230; <a href="http://www.applelife100.com/2012/11/21/making-my-arm-breadboard-experiment-set/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p><a title="トランジスタ技術 &gt; ホーム" href="http://toragi.cqpub.co.jp" target="_blank">トランジスタ技術</a>2012年10月号の付録である <a title="ARM - The Architecture For The Digital World" href="http://www.arm.com" target="_blank">ARM</a> マイコンで実験するために、<a title="電子部品・半導体パーツの通販 販売【マルツパーツ館WebShop】" href="http://www.marutsu.co.jp" target="_blank">マルツパーツ館</a>で購入した MY ARM ブレッドボード実験セットを製作しました。（付録マイコンと実験セット以外に、LPCXpresso LPC1114 Development Board を使用しています。）</p>
+<div id="attachment_392" class="wp-caption alignnone" style="width: 990px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/my-arm-breadboard-experiment-set.jpg"><img class="size-full wp-image-392" title="my-arm-breadboard-experiment-set" src="http://www.applelife100.com/wp-content/uploads/2012/11/my-arm-breadboard-experiment-set.jpg" alt="my-arm-breadboard-experiment-set" width="980" height="450" /></a><p class="wp-caption-text">MY ARM ブレッドボード実験セット</p></div>
+<p><span id="more-388"></span>誌面に記載のとおりに製作していますが、左上のマルチカラー LED が誌面に記載のものと仕様が異なっていたため、抵抗のマルチカラー LED への接続を変更しています。</p>
+<p>実験には <a title="Home :: NXP Semiconductors" href="http://www.nxp.com" target="_blank">NXP</a> の <a title="Microcontrollers - LPCXpresso [NXP Semiconductors]" href="http://ics.nxp.com/lpcxpresso/" target="_blank">LPCXpresso</a> IDE を使用しています。LPCXpresso を切断した LPC-Link 部をライターとデバッガーとして使用し、USB シリアルブリッジモジュールを 5V の電源とシリアル通信モジュールとして使用しています。LPC-Link の 3.3V を電源とすることもできますが、マルチカラー LED が 5V の電源を必要とするため、LPC-Link の 3.3V は電源として使用していません。</p>
+<p>半田付けなしで ARM マイコンを始めることができるので、電子工作初心者にオススメです。トランジスタ技術2012年11月号は、10月号の回路をプリント基板にしたものが付録で、半田付けの方法から解説するそうなので電子工作を始めるのに良いと思います。（なお、LPC-Link へのピンヘッダの取り付けには半田付けが必要ですが、デバッガーなしで一通り実験するだけであれば LPC-Link は不要です。）</p>
+<p>また、付録の ARM マイコン（型番：LPC1114FN28）は、<a title="秋月電子通商 - 電子部品・半導体 【通販・販売】" href="http://akizukidenshi.com" target="_blank">秋月電子通商</a>で110円（2012年11月21日現在）で販売しています。今後、電子工作で使用するマイコンとして重宝しそうですね。</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/11/21/making-my-arm-breadboard-experiment-set/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>iPhone 3G と iPhone 5 の両方で動作するアプリを開発</title>
+		<link>http://www.applelife100.com/2012/11/08/iphone-3g-and-iphone-5-compatible-application-development/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=iphone-3g-and-iphone-5-compatible-application-development</link>
+		<comments>http://www.applelife100.com/2012/11/08/iphone-3g-and-iphone-5-compatible-application-development/#comments</comments>
+		<pubDate>Wed, 07 Nov 2012 15:34:49 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Xcode]]></category>
+		<category><![CDATA[iOS]]></category>
+		<category><![CDATA[Mac OS X]]></category>
+
+		<guid isPermaLink="false">http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=370</guid>
+		<description><![CDATA[iPhone 3G と iPhone 5 の両方で動作するアプリを開発する方法を記事にまとめました。 開発環境としては、下記を想定しています。 Mac OS X Lion Xcode 4.4.1 また、各 iPhone の iOS バージョンは、下記を想定しています。 iPhone 3G: iOS 4.2.1 iPhone 5: iOS 6.0.1 iPhone 3G と iPhone 5 の両方で動作するアプリを開発するにあたり、まず始めに3つの重要な要素について考える必要があります。 アーキテクチャ iOS バージョン 画面アスペクト比 1つ目のアーキテクチャについては、iPhone 3G が ARMv6 &#8230; <a href="http://www.applelife100.com/2012/11/08/iphone-3g-and-iphone-5-compatible-application-development/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>iPhone 3G と iPhone 5 の両方で動作するアプリを開発する方法を記事にまとめました。</p>
+<p>開発環境としては、下記を想定しています。</p>
+<ul>
+<li>Mac OS X Lion</li>
+<li>Xcode 4.4.1</li>
+</ul>
+<p><span style="font-size: medium;"><span style="line-height: 24px;">また、各 iPhone の iOS バージョンは、下記を想定しています。</span></span></p>
+<ul>
+<li>iPhone 3G: iOS 4.2.1</li>
+<li>iPhone 5: iOS 6.0.1</li>
+</ul>
+<p><span id="more-370"></span>iPhone 3G と iPhone 5 の両方で動作するアプリを開発するにあたり、まず始めに3つの重要な要素について考える必要があります。</p>
+<ol>
+<li>アーキテクチャ</li>
+<li>iOS バージョン</li>
+<li>画面アスペクト比</li>
+</ol>
+<p>1つ目のアーキテクチャについては、iPhone 3G が ARMv6 アーキテクチャで、iPhone 5 が ARMv7 互換の ARMv7s アーキテクチャです。そのため、ARMv6 アーキテクチャのサポートが外れた Xcode 4.5 以降では開発することが出来ません。Xcode 4.4.1 では、ARMv6 アーキテクチャをサポートしています。逆に、ARMv7s アーキテクチャのサポートがなくても、ARMv7 アーキテクチャのサポートがあれば、iPhone 5 で動作するアプリを開発できます。</p>
+<p>2つ目の iOS バージョンについては、iPhone 3G の最新バージョンが iOS 4.2.1 で、iPhone 5 の初期バージョンが iOS 6 です。そのため、Storyboard は iOS 4 でサポートされないため使用できません。また、ARC は iOS 4 で使用することが出来ますが、弱い参照 (Weak Reference) を示す __weak 修飾子は使用できないため、代わりに __unsafe_unretained 修飾子を使用する必要があります。（__weak と __unsafe_unretained の違いは、記事末尾の参考文献を参照してください。）</p>
+<p>3つ目の画面アスペクト比については、iPhone 3G が 3:2 (480&#215;320) で、iPhone 5 が 16:9 (1136&#215;640) です。iPhone 3G から iPhone 4S までの画面アスペクト比である 3:2 に合わせてアプリを作成した場合、iPhone 5 の自動レターボックス処理によって、アプリの上下に黒帯が追加された状態で動作します。iPhone 5 の画面アスペクト比対応については、検証中のためこの記事では扱いません。</p>
+<p>ここまでの3つの重要な要素を踏まえた上で、Xcode 4.4.1 で iPhone 3G と iPhone 5 の両方で動作するアプリの新規プロジェクトを作成します。そのときは、次の5つのことに気をつけてください。</p>
+<ol>
+<li>iOS 4 でサポートされているアプリのテンプレートを選択すること</li>
+<li>Storyboard を使用しないこと</li>
+<li>Deployment Target を 4.2 にすること</li>
+<li>Required device capabilities の要素を armv6 にすること</li>
+<li>Architectures を armv6 と armv7 にすること</li>
+</ol>
+<div id="attachment_375" class="wp-caption alignnone" style="width: 1404px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-1.png"><img class="size-full wp-image-375" title="iphone-3g-and-iphone-5-compatible-application-development-1" src="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-1.png" alt="Xcode: Choose a template for your new project" width="1394" height="888" /></a><p class="wp-caption-text">Xcode: Choose a template for your new project</p></div>
+<p>1つ目は、新規プロジェクトを作成するウィザードのアプリのテンプレートを選択する画面で、iOS 4 で動作するテンプレートを選択するということです。例えば、Page-Based Application は、iOS 5 以降でないと動作しません。</p>
+<div id="attachment_376" class="wp-caption alignnone" style="width: 1404px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-2.png"><img class="size-full wp-image-376" title="iphone-3g-and-iphone-5-compatible-application-development-2" src="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-2.png" alt="Xcode: Choose options for your new project" width="1394" height="888" /></a><p class="wp-caption-text">Xcode: Choose options for your new project</p></div>
+<p>2つ目は、新規プロジェクトを作成するウィザードのプロジェクトのオプションを設定する画面で、Use Storyboards のチェックを外し、Storyboard を使用しないということです。Storyboard は、iOS 5 以降でないと使用できません。</p>
+<div id="attachment_377" class="wp-caption alignnone" style="width: 1404px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-3.png"><img class="size-full wp-image-377" title="iphone-3g-and-iphone-5-compatible-application-development-3" src="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-3.png" alt="Xcode: Target &gt; Summary" width="1394" height="888" /></a><p class="wp-caption-text">Xcode: Target &gt; Summary</p></div>
+<p>3つ目は、 Target の Summary で Deployment Target を4.2にするということです。動作対象とする iPhone 3G の iOS バージョン以下のバージョンを設定する必要があります。</p>
+<div id="attachment_378" class="wp-caption alignnone" style="width: 1404px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-4.png"><img class="size-full wp-image-378" title="iphone-3g-and-iphone-5-compatible-application-development-4" src="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-4.png" alt="Xcode: Target &gt; Info" width="1394" height="888" /></a><p class="wp-caption-text">Xcode: Target &gt; Info</p></div>
+<p>4つ目は、 Target の Info で Required device capabilities の要素を armv6 にするということです。ARMv6 デバイスである iPhone 3G を動作対象とするためです。armv6 のみを設定すれば、ARMv7 デバイスも動作対象になります。</p>
+<div id="attachment_379" class="wp-caption alignnone" style="width: 1404px"><a href="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-5.png"><img class="size-full wp-image-379" title="iphone-3g-and-iphone-5-compatible-application-development-5" src="http://www.applelife100.com/wp-content/uploads/2012/11/iphone-3g-and-iphone-5-compatible-application-development-5.png" alt="Xcode: Target &gt; Build Settings" width="1394" height="888" /></a><p class="wp-caption-text">Xcode: Target &gt; Build Settings</p></div>
+<p>5つ目は、 Target の Build Settings で Architectures を armv6 と armv7 にするということです。ビルド時に ARMv6 バイナリと ARMv7 バイナリを生成させるためです。</p>
+<p>これで、iPhone 3G と iPhone 5 の両方で動作するアプリをビルドできる開発環境ができました。あとは、使用するフレームワークやライブラリのメソッドを注意深く使用し、適宜 iPhone 3G と iPhone 5 の両方でテストしながら開発してください。</p>
+<p><strong>補足1</strong></p>
+<p>Xcode 4.4.1 の Organizer では iPhone 5 を開発用として使用するように設定できません。そのため、Xcode 4.5 の Organizer で iPhone 5 を開発用として使用するように設定したあと、Xcode 4.4.1 で iPhone 5 を開発用として使用するようにしてください。</p>
+<p><strong>補足2</strong></p>
+<p>Mac OS X Mountain Lion では、iOS 4.3 Simulator を使用できません。そのため、Mac OS X Lion での開発を推奨します。</p>
+<p><strong>参考文献</strong></p>
+<ul>
+<li><a title="Transitioning to ARC Release Notes" href="https://developer.apple.com/library/ios/releasenotes/ObjectiveC/RN-TransitioningToARC/RN-TransitioningToARC.pdf" target="_blank">Transitioning to ARC Release Notes</a></li>
+</ul>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/11/08/iphone-3g-and-iphone-5-compatible-application-development/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>PHP で Amazon S3 のバケット名を検証</title>
+		<link>http://www.applelife100.com/2012/09/21/validate-bucket-name-of-amazon-s3-in-php/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=validate-bucket-name-of-amazon-s3-in-php</link>
+		<comments>http://www.applelife100.com/2012/09/21/validate-bucket-name-of-amazon-s3-in-php/#comments</comments>
+		<pubDate>Thu, 20 Sep 2012 17:38:06 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Amazon S3]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[PHP]]></category>
+		<category><![CDATA[S3]]></category>
+
+		<guid isPermaLink="false">http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=353</guid>
+		<description><![CDATA[文字列が Amazon S3 のバケット名の命名規則に従っているかを検証する PHP の関数は下記のように記述します。 この関数は、下記の PHP スクリプトでテストしました。 検証結果は下記のとおりです。 $ php test_validate_bucket_name.php ----- Valid Bucket Name ----- myawsbucket is valid! my.aws.bucket is valid! myawsbucket.1 is valid! ----- Invalid Bucket Name ----- 192.168.5.4 is invalid... .myawsbucket is invalid... myawsbucket. is &#8230; <a href="http://www.applelife100.com/2012/09/21/validate-bucket-name-of-amazon-s3-in-php/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>文字列が <a title="Amazon Simple Storage Service (Amazon S3)" href="http://aws.amazon.com/s3/" target="_blank">Amazon S3</a> のバケット名の命名規則に従っているかを検証する <a title="PHP: Hypertext Preprocessor" href="http://php.net/" target="_blank">PHP</a> の関数は下記のように記述します。</p>
+<pre class="brush: php; title: ; notranslate">
+/**
+ * Validate bucket name of Amazon S3.
+ *
+ * @param string $name
+ * @return bool
+ */
+function validate_bucket_name($name) {
+    // Bucket names must be at least 3 and no more than 63 characters long
+    $length = strlen($name);
+    if ($length &lt; 3 || 63 &lt; $length) {
+        return false;
+    }
+
+    // Bucket names must not be formatted as an IP address (e.g., 192.168.5.4)
+    $pattern = '/^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$/';
+    if (preg_match($pattern, $name)) {
+        return false;
+    }
+
+    // Bucket name must be a series of one or more labels separated by a period (.), where each label:
+    // - Must start with a lowercase letter or a number
+    // - Must end with a lowercase letter or a number
+    // - Can contain lowercase letters, numbers and dashes
+    $pattern = '/^[0-9a-z]([0-9a-z\\-]*[0-9a-z])?(\\.[0-9a-z]([0-9a-z\\-]*[0-9a-z])?)*$/';
+    if (!preg_match($pattern, $name)) {
+        return false;
+    }
+
+    return true;
+}
+</pre>
+<p><span id="more-353"></span>この関数は、下記の PHP スクリプトでテストしました。</p>
+<pre class="brush: php; title: ; notranslate">
+function check_bucket_name($name) {
+    if (validate_bucket_name($name)) {
+        echo $name . ' is valid!' . &quot;\n&quot;;
+    } else {
+        echo $name . ' is invalid...' . &quot;\n&quot;;
+    }
+}
+
+echo '----- Valid Bucket Name -----' . &quot;\n&quot;;
+check_bucket_name('myawsbucket');
+check_bucket_name('my.aws.bucket');
+check_bucket_name('myawsbucket.1');
+
+echo '----- Invalid Bucket Name -----' . &quot;\n&quot;;
+check_bucket_name('192.168.5.4');
+check_bucket_name('.myawsbucket');
+check_bucket_name('myawsbucket.');
+check_bucket_name('my..examplebucket');
+</pre>
+<p>検証結果は下記のとおりです。</p>
+<pre>$ php test_validate_bucket_name.php
+----- Valid Bucket Name -----
+myawsbucket is valid!
+my.aws.bucket is valid!
+myawsbucket.1 is valid!
+----- Invalid Bucket Name -----
+192.168.5.4 is invalid...
+.myawsbucket is invalid...
+myawsbucket. is invalid...
+my..examplebucket is invalid...
+$</pre>
+<p>正規表現が怪しいので、間違いがあったら教えてください。</p>
+<p><strong>参考文献</strong></p>
+<ul>
+<li><a title="Welcome to Amazon S3 - Amazon Simple Storage Service" href="http://docs.amazonwebservices.com/AmazonS3/latest/dev/" target="_blank">Amazon S3 Developer Guide</a></li>
+</ul>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/09/21/validate-bucket-name-of-amazon-s3-in-php/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>NSLog を Release ビルドで無効化</title>
+		<link>http://www.applelife100.com/2012/09/15/disable-nslog-on-release-build/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=disable-nslog-on-release-build</link>
+		<comments>http://www.applelife100.com/2012/09/15/disable-nslog-on-release-build/#comments</comments>
+		<pubDate>Fri, 14 Sep 2012 18:19:08 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Xcode]]></category>
+		<category><![CDATA[Mac OS X]]></category>
+		<category><![CDATA[Objective-C]]></category>
+
+		<guid isPermaLink="false">http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=341</guid>
+		<description><![CDATA[Xcode 4 のプロジェクトで、NSLog 関数を Release ビルドで無効化するには、ProjectName-Prefix.pch に次の3行を追記します。 Release ビルドでは、DEBUG が定義されないので、定義されていないことを判定します。判定が真であれば、NSLog を何もしない可変引数のマクロとして定義することで、NSLog 関数を無効化します。]]></description>
+				<content:encoded><![CDATA[<p>Xcode 4 のプロジェクトで、NSLog 関数を Release ビルドで無効化するには、<em>ProjectName</em>-Prefix.pch に次の3行を追記します。</p>
+<pre class="brush: objc; title: ; notranslate">
+#ifndef DEBUG
+#define NSLog(...)
+#endif
+</pre>
+<p><span id="more-341"></span>Release ビルドでは、DEBUG が定義されないので、定義されていないことを判定します。判定が真であれば、NSLog を何もしない可変引数のマクロとして定義することで、NSLog 関数を無効化します。</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/09/15/disable-nslog-on-release-build/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>「改訂版 FPGA ボードで学ぶ論理回路設計」で学ぶための準備</title>
+		<link>http://www.applelife100.com/2012/07/28/requirements-of-studying-a-logical-circuit-design/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=requirements-of-studying-a-logical-circuit-design</link>
+		<comments>http://www.applelife100.com/2012/07/28/requirements-of-studying-a-logical-circuit-design/#comments</comments>
+		<pubDate>Fri, 27 Jul 2012 21:15:17 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[FPGA]]></category>
+		<category><![CDATA[Cyclone]]></category>
+		<category><![CDATA[Quartus II]]></category>
+		<category><![CDATA[VHDL]]></category>
+		<category><![CDATA[Windows]]></category>
+
+		<guid isPermaLink="false">http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=308</guid>
+		<description><![CDATA[VHDL を勉強するために、「改訂版 FPGA ボードで学ぶ論理回路設計」を購入しました。付録基板を動作させながら勉強できてよさそうですが、実際に動作させるためには準備が必要だったので、その準備の内容を記事にまとめました。 この本は、Altera の Cyclone（Cyclone シリーズの第1世代となる FPGA です。） と7セグメント LED やプッシュボタンなどの入出力インターフェースが搭載された基板で、VHDL を学びながら、「野球ゲーム」を設計することを最終目標としています。 この基板を動作させるためには次のものが必要です。 Windows PC パラレルケーブル AC アダプタ Quartus II それぞれ、抑えておくべき仕様があるため、各項目について説明します。 Windows PC ふたつ抑えておくべき仕様があります。 ひとつは、パラレルポートを搭載していることです。これは、付録基板の FPGA に書き込むためのインタフェースがパラレルポートになるためです。また、パラレルポートの動作モードを BIOS から双方向 (Bi-directional) に設定できることが必要になります。 もうひとつは、32bitの Windows を搭載していることです。Windows Vista や Windows 7 &#8230; <a href="http://www.applelife100.com/2012/07/28/requirements-of-studying-a-logical-circuit-design/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>VHDL を勉強するために、「<a href="http://www.amazon.co.jp/gp/product/4789831507/ref=as_li_ss_tl?ie=UTF8&amp;camp=247&amp;creative=7399&amp;creativeASIN=4789831507&amp;linkCode=as2&amp;tag=takuya0301-22">改訂版 FPGA ボードで学ぶ論理回路設計</a><img style="border: none !important; margin: 0px !important;" src="http://www.assoc-amazon.jp/e/ir?t=takuya0301-22&amp;l=as2&amp;o=9&amp;a=4789831507" alt="" width="1" height="1" border="0" />」を購入しました。付録基板を動作させながら勉強できてよさそうですが、実際に動作させるためには準備が必要だったので、その準備の内容を記事にまとめました。</p>
+<p><span id="more-308"></span>この本は、<a title="FPGA、CPLD、ASIC、プログラマブル・ロジックを提供: 日本アルテラ" href="http://altera.co.jp" target="_blank">Altera</a> の Cyclone（Cyclone シリーズの第1世代となる FPGA です。） と7セグメント LED やプッシュボタンなどの入出力インターフェースが搭載された基板で、VHDL を学びながら、「野球ゲーム」を設計することを最終目標としています。</p>
+<p>この基板を動作させるためには次のものが必要です。</p>
+<ul>
+<li>Windows PC</li>
+<li>パラレルケーブル</li>
+<li>AC アダプタ</li>
+<li>Quartus II</li>
+</ul>
+<p>それぞれ、抑えておくべき仕様があるため、各項目について説明します。</p>
+<p><strong>Windows PC</strong></p>
+<p>ふたつ抑えておくべき仕様があります。</p>
+<p>ひとつは、パラレルポートを搭載していることです。これは、付録基板の FPGA に書き込むためのインタフェースがパラレルポートになるためです。また、パラレルポートの動作モードを BIOS から双方向 (Bi-directional) に設定できることが必要になります。</p>
+<p>もうひとつは、32bitの Windows を搭載していることです。Windows Vista や Windows 7 の場合、ドライバをインストールする必要があり、そのドライバが32bitの Windows でのみ動作するためです。ドライバのインストールについては、本の付録A.4を参照してください。</p>
+<p>僕が使用している PC は、<a title="HP - United States | Laptop Computers, Desktops , Printers, Servers and more" href="http://hp.com" target="_blank">HP</a> Notebook nx6320 です。上記の条件をデフォルトで満たしており、<a title="Yahoo! JAPAN" href="http://yahoo.co.jp" target="_blank">Yahoo!</a> オークションなどで中古品が安く出品されています。解像度が XGA のものが多いようですが、SXGA+ のものがおすすめです。FPGA の論理回路設計では、CPU とメモリも重要になるので、CPU を Core 2 Duo T7200 に換装し、メモリを4GBに増設し使用しています。OS は、Windows XP Professional Service Pack 3 です。</p>
+<p><strong>パラレルケーブル</strong></p>
+<p>RS232C 25ピン オス &#8211; メス ストレート全結線ケーブルが必要です。ケーブルの端子は、接続先の端子のナットとの干渉を防ぐため、ナットではなくネジである必要があります。ケーブルのオス端子側はインチネジ、ケーブルのメス端子側はミリネジになっているとそれぞれきちんと接続できます。</p>
+<p>僕が使用しているケーブルは、Arvel AR304 です。生産中止となっており、適当な代替品もないため、パラレルケーブルの入手が基板を動作させる上での一番の課題になりそうです。</p>
+<p><a title="Amazon.co.jp： 通販 - ファッション、家電から食品まで【無料配送】" href="http://amazon.co.jp" target="_blank">Amazon.co.jp</a> では、OEM 品が本と一緒に購入されているようなので、それを使用するのがいいかもしれません。また、RS232C 25ピン 延長ケーブルもストレート全結線なので、端子のナット干渉さえ解決できれば使用できます。また、通常のRS232C 25ピン オス &#8211; オス ストレート結線ケーブルにジェンダーチェンジャーを付けるという解決策もありますが、そのときもナット干渉には注意してください。</p>
+<p><strong>AC アダプタ</strong></p>
+<p>日本電子機械工業会 (EIAJ) 規格 RC-5320A に規定されている形状のプラグを持つ5V〜6Vの AC アダプタが必要です。5V〜6Vは、EIAJ 規格の電圧区分2に該当するため、一般的には EIAJ#2 端子を持つ AC アダプタとして売られています。</p>
+<p>僕は、<a title="Linkman株式会社" href="http://linkman.jp" target="_blank">Linkman</a> SPS0502E2 を使用しています。</p>
+<p><strong>Quartus II</strong></p>
+<p>Altera の開発ソフトウェアである <a title="Quartus II Web Edition Software" href="https://www.altera.com/download/software/quartus-ii-we/11.0sp1/" target="_blank">Quartus II Web Edition v11.0 Service Pack 1</a> が必要です。このバージョンより新しい開発ソフトウェアもリリースされていますが、付録基板に搭載されている FPGA である Cyclone をサポートしていません。もちろんこれより古いバージョンの開発ソフトウェアでもかまいません。</p>
+<p>僕は、Quartus II Web Edition v11.0 Service Pack 1 を使用しています。</p>
+<p>旧バージョンの Quartus II は、少しわかりづらいところにあります。Altera のトップから、サポートをクリックし、ダウンロードをクリックし、「Quartus II 旧バージョン ソフトウェア ・ダウンロード」をクリックすると旧バージョンの Quartus II をダウンロードするためのページに移動できます。</p>
+<p>以上が、付録基板を動作させるために必要なものです。</p>
+<p>PC とパラレルケーブルで接続し、AC アダプタを接続しても、目に見える反応が何もないので故障しているのかと疑ってしまいますが、本のとおりにプログラムすると動作しますのでやってみてください。動作しない場合は、本の付録Bを参照しながらトラブルシューティングしましょう。</p>
+<p>こうやって記事にしてみると、勉強を開始するまでに準備するものが多いですね。USB 接続の FPGA ボードを付録基板とした本に改訂されることを願います。</p>
+<p><iframe style="width: 120px; height: 240px;" src="http://rcm-jp.amazon.co.jp/e/cm?lt1=_blank&amp;bc1=FFFFFF&amp;IS2=1&amp;nou=1&amp;bg1=FFFFFF&amp;fc1=000000&amp;lc1=0066CC&amp;t=takuya0301-22&amp;o=9&amp;p=8&amp;l=as4&amp;m=amazon&amp;f=ifr&amp;ref=ss_til&amp;asins=4789831507" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" width="320" height="240"></iframe></p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/07/28/requirements-of-studying-a-logical-circuit-design/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>WordPress をデバッグ #2 NetBeans と Xdebug</title>
+		<link>http://www.applelife100.com/2012/07/17/debugging-wordpress-2/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=debugging-wordpress-2</link>
+		<comments>http://www.applelife100.com/2012/07/17/debugging-wordpress-2/#comments</comments>
+		<pubDate>Tue, 17 Jul 2012 14:24:02 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[WordPress]]></category>
+		<category><![CDATA[Apache]]></category>
+		<category><![CDATA[Mac OS X]]></category>
+		<category><![CDATA[MAMP]]></category>
+		<category><![CDATA[MySQL]]></category>
+		<category><![CDATA[NetBeans]]></category>
+		<category><![CDATA[PHP]]></category>
+		<category><![CDATA[phpMyAdmin]]></category>
+		<category><![CDATA[Xdebug]]></category>
+
+		<guid isPermaLink="false">http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=237</guid>
+		<description><![CDATA[WordPress でプラグイン開発をするときにデバッグする方法についてです。 第2回目は、PHP での Web アプリケーション開発でよく利用される Xdebug というデバッガーでデバッグする方法です。 Xdebug でデバッグする場合は、Xdebug に対応した統合開発環境を利用するのが一般的です。この記事では、統合開発環境として NetBeans を利用することにします。また、実行環境も統合開発環境が動作しているコンピューター上である方が設定が簡単なので、実行環境もコンピューター上にインストールします。また、実行環境のインストールを簡単にするため、実行環境として MAMP を使用します。 目次 MAMP インストール WordPress インストール NetBeans インストール Xdebug 設定 例：Hello Dolly プラグインのデバッグ 1. MAMP インストール MAMP の Web サイトにアクセスし、MAMP をダウンロードしてください。ダウンロードが完了したら、ディスクイメージをマウントし、パッケージファイルを実行してください。あとは、インストールウィザードに従うだけで、インストールが完了します。 追記（2012年9月18日）： この記事で使用している MAMP は、バージョン2.0.5です。同じバージョンを使用する場合は、下記の URL からダウンロードしてください。 http://www.mamp.info/downloads/releases/MAMP_MAMP_PRO_2.0.5.zip 同時にインストールされる MAMP PRO は使用しないので、アンインストールしてもかまいません。 &#8230; <a href="http://www.applelife100.com/2012/07/17/debugging-wordpress-2/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p><a title="WordPress › Blog Tool, Publishing Platform, and CMS" href="http://wordpress.org" target="_blank">WordPress</a> でプラグイン開発をするときにデバッグする方法についてです。</p>
+<p>第2回目は、<a title="PHP: Hypertext Preprocessor" href="http://php.net" target="_blank">PHP</a> での Web アプリケーション開発でよく利用される <a title="Xdebug - Debugger and Profiler Tool for PHP" href="http://xdebug.org" target="_blank">Xdebug</a> というデバッガーでデバッグする方法です。</p>
+<p><span id="more-237"></span>Xdebug でデバッグする場合は、Xdebug に対応した統合開発環境を利用するのが一般的です。この記事では、統合開発環境として <a title="Welcome to NetBeans" href="http://netbeans.org" target="_blank">NetBeans</a> を利用することにします。また、実行環境も統合開発環境が動作しているコンピューター上である方が設定が簡単なので、実行環境もコンピューター上にインストールします。また、実行環境のインストールを簡単にするため、実行環境として <a title="MAMP: Mac, Apache, MySQL, PHP" href="http://mamp.info" target="_blank">MAMP</a> を使用します。</p>
+<p><strong>目次</strong></p>
+<ol>
+<li>MAMP インストール</li>
+<li>WordPress インストール</li>
+<li>NetBeans インストール</li>
+<li>Xdebug 設定</li>
+<li>例：Hello Dolly プラグインのデバッグ</li>
+</ol>
+<p><strong>1. MAMP インストール</strong></p>
+<p><a title="MAMP: Mac, Apache, MySQL, PHP" href="http://mamp.info" target="_blank">MAMP</a> の Web サイトにアクセスし、MAMP をダウンロードしてください。ダウンロードが完了したら、ディスクイメージをマウントし、パッケージファイルを実行してください。あとは、インストールウィザードに従うだけで、インストールが完了します。</p>
+<p><strong>追記（2012年9月18日）：</strong><br />
+この記事で使用している MAMP は、バージョン2.0.5です。同じバージョンを使用する場合は、下記の URL からダウンロードしてください。<br />
+<a title="MAMP_MAMP_PRO_2.0.5.zip" href="http://www.mamp.info/downloads/releases/MAMP_MAMP_PRO_2.0.5.zip">http://www.mamp.info/downloads/releases/MAMP_MAMP_PRO_2.0.5.zip</a></p>
+<p>同時にインストールされる MAMP PRO は使用しないので、アンインストールしてもかまいません。</p>
+<p>インストール完了後、MAMP を起動すると、下記のようなウィンドウが表示されます。このウィンドウから、サーバーの起動や停止、環境設定を行うことができます。</p>
+<div id="attachment_241" class="wp-caption alignnone" style="width: 547px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-window.png"><img class="size-full wp-image-241" title="mamp-window" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-window.png" alt="MAMP ウィンドウ" width="537" height="458" /></a><p class="wp-caption-text">MAMP ウィンドウ</p></div>
+<p>起動後少し時間をおいて、下記のような MAMP のスタートページがデフォルト Web ブラウザで開かれます。このスタートページから各種管理ツールにアクセスできます。今回は、phpinfo と <a title="phpMyAdmin" href="http://phpmyadmin.net" target="_blank">phpMyAdmin</a> を使用します。</p>
+<div id="attachment_242" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-start.png"><img class="size-full wp-image-242" title="mamp-start" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-start.png" alt="MAMP スタートページ" width="1138" height="888" /></a><p class="wp-caption-text">MAMP スタートページ</p></div>
+<p>また、MAMP には PHP 5.2 系と PHP 5.3 系の両方が含まれています。MAMP 環境設定から選択することができます。この記事では、PHP 5.3 系を利用します。</p>
+<div id="attachment_243" class="wp-caption alignnone" style="width: 547px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-preferences.png"><img class="size-full wp-image-243" title="mamp-preferences" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-preferences.png" alt="MAMP 環境設定" width="537" height="458" /></a><p class="wp-caption-text">MAMP 環境設定</p></div>
+<p><strong>2. WordPress インストール</strong></p>
+<p><strong></strong><a title="WordPress › Blog Tool, Publishing Platform, and CMS" href="http://wordpress.org" target="_blank">WordPress</a> の Web サイトにアクセスし、WordPress をダウンロードしてください。WordPress のダウンロードが完了したら、MAMP ディレクトリの htdocs に下記のように展開してください。</p>
+<div id="attachment_244" class="wp-caption alignnone" style="width: 894px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-directory-htdocs.png"><img class="size-full wp-image-244" title="mamp-directory-htdocs" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-directory-htdocs.png" alt="MAMP htdocs ディレクトリ" width="884" height="552" /></a><p class="wp-caption-text">MAMP htdocs ディレクトリ</p></div>
+<p>次に、WordPress 用のデータベースを作成します。MAMP のスタートページから phpMyAdmin にアクセスしてください。phpMyAdmin のトップページで、wordpress という名前のデータベースを作成します。</p>
+<div id="attachment_245" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-1.png"><img class="size-full wp-image-245" title="mamp-phpmyadmin-create-database-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-1.png" alt="phpMyAdmin: WordPress 用データベースの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用データベースの作成</p></div>
+<div id="attachment_246" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-2.png"><img class="size-full wp-image-246" title="mamp-phpmyadmin-create-database-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-2.png" alt="phpMyAdmin: WordPress 用データベースの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用データベースの作成</p></div>
+<p>そして、wordpress データベースを操作する wordpress という名前のユーザーを作成します。</p>
+<div id="attachment_247" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-1.png"><img class="size-full wp-image-247" title="mamp-phpmyadmin-create-user-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-1.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<div id="attachment_248" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-2.png"><img class="size-full wp-image-248" title="mamp-phpmyadmin-create-user-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-2.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<div id="attachment_249" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-3.png"><img class="size-full wp-image-249" title="mamp-phpmyadmin-create-user-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-3.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<div id="attachment_250" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-4.png"><img class="size-full wp-image-250" title="mamp-phpmyadmin-create-user-4" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-4.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<p>データベースの作成完了後、Web ブラウザで WordPress にアクセスします。手順通りに実行していれば、下記のアドレスでアクセスできるはずです。</p>
+<p><a title="WordPress" href="http://localhost:8888/wordpress/" target="_blank">http://localhost:8888/wordpress/</a></p>
+<p>アクセスすると、wp-config.php がないため、下記のようなエラーページが表示されます。</p>
+<div id="attachment_253" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-error-wp-config-is-missing.png"><img class="size-full wp-image-253" title="wordpress-error-wp-config-is-missing" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-error-wp-config-is-missing.png" alt="WordPress › Error" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Error</p></div>
+<p>Create a Configuration File ボタンをクリックし、ウィザードに従って wp-config.php を作成します。</p>
+<div id="attachment_255" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-1.png"><img class="size-full wp-image-255" title="wordpress-create-configuration-file-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-1.png" alt="WordPress › Setup Configuration File" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Setup Configuration File</p></div>
+<p>下記の画面では、phpMyAdmin で作成したデータベースへの接続情報を入力してください。</p>
+<div id="attachment_256" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-3.png"><img class="size-full wp-image-256" title="wordpress-create-configuration-file-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-3.png" alt="WordPress › Setup Configuration File" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Setup Configuration File</p></div>
+<p>wp-config.php ファイルができれば、あとは通常のインストール作業と変わりません。</p>
+<p>コンピューター上の開発環境ということもあって、簡単にインストールできる方法でやっています。運用のためにインストールする場合は、<a title="Amazon EC2 に WordPress をインストール | 林檎生活100" href="http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/">Amazon EC2 に WordPress をインストール</a>を参考にしてみてください。</p>
+<div id="attachment_258" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-3.png"><img class="size-full wp-image-258" title="wordpress-installation-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-3.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<div id="attachment_259" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-4.png"><img class="size-full wp-image-259" title="wordpress-installation-4" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-4.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<div id="attachment_260" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-5.png"><img class="size-full wp-image-260" title="wordpress-installation-5" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-5.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<p>これで、WordPress のインストールは完了です。通常の WordPress と同様に操作できます。URL が <a title="WordPress" href="http://localhost:8888/wordpress/" target="_blank">http://localhost:8888/wordpress/</a> になることに注意してください。</p>
+<p><strong>3. NetBeans インストール</strong></p>
+<p><a title="Welcome to NetBeans" href="http://netbeans.org/" target="_blank">NetBeans</a> の Web サイトにアクセスし、PHP をサポートする NetBeans をダウンロードしてください。ダウンロードが完了したら、ディスクイメージをマウントし、パッケージファイルを実行してください。あとは、インストールウィザードに従うだけで、インストールが完了します。</p>
+<p>WordPress のソースを編集できるようにプロジェクトを作成します。</p>
+<p>まず、NetBeans のメニューバーで、ファイル &gt; 新規プロジェクトをクリックします。新規プロジェクトのウィザードが表示されるので、プロジェクトで「既存のソースを使用する PHP アプリケーション」を選択し、「次へ」をクリックしてください。</p>
+<div id="attachment_272" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-1.png"><img class="size-full wp-image-272" title="netbeans-create-project-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-1.png" alt="NetBeans: 新規プロジェクトウィザード" width="1180" height="726" /></a><p class="wp-caption-text">NetBeans: 新規プロジェクトウィザード</p></div>
+<p>ソースフォルダは、 /Applications/MAMP/htdocs/wordpress を参照します。PHP のバージョンは、PHP 5.3 を選択し、「次へ」をクリックしてください。</p>
+<div id="attachment_274" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-2.png"><img class="size-full wp-image-274" title="netbeans-create-project-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-2.png" alt="NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード" width="1180" height="726" /></a><p class="wp-caption-text">NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード</p></div>
+<p>プロジェクト URL を MAMP に合わせて http://localhost:8888/wordpress/ に変更し、「完了」をクリックしてください。</p>
+<div id="attachment_275" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-3.png"><img class="size-full wp-image-275" title="netbeans-create-project-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-3.png" alt="NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード" width="1180" height="726" /></a><p class="wp-caption-text">NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード</p></div>
+<p>今回は WordPress のプロジェクトを MAMP の htdocs ディレクトリで管理していますが、ホームディレクトリの NetBeansProjects ディレクトリで管理することも可能です。WordPress を NetBeansProjects ディレクトリに展開し、新規プロジェクトのウィザードで同様にプロジェクトを作成してください。ウィザードの最後で、「ファイルをソースフォルダから別の場所にコピー」を有効にし、 /Applications/MAMP/htdocs/wordpress にコピーするように設定してください。これによって、NetBeans から実行する場合は、WordPress のソースファイルがコピーされてから実行されることになります。</p>
+<p>この記事で WordPress のプロジェクトを MAMP の htdocs ディレクトリで管理しているのは、ファイルを保存するだけですぐにブラウザで確認できるようにするためです。NetBeansProjects ディレクトリで管理していると、NetBeans で実行して htdocs ディレクトリにファイルをコピーする必要があり、すぐにブラウザで確認できないからです。</p>
+<p>どちらも一長一短なところがあるので、プロジェクト管理の好みに合わせて好きな方を選んでください。</p>
+<p><strong>4. Xdebug 設定</strong></p>
+<p>Xdebug の設定を行います。MAMP には、Xdebug 拡張モジュールが含まれているので、下記のパスにある php.ini ファイルを編集することで有効にできます。（下記のパスは、MAMP のバージョンによって変わるため、環境によって変更が必要になる可能性があります。）</p>
+<p>/Applications/MAMP/bin/php/php5.3.6/conf/php.ini</p>
+<p>NetBeans で、ファイル &gt; ファイルを開くをクリックし、ダイアログから php.ini ファイルを開き、下記のように設定ファイル末尾を変更してください。もちろん、ほかのテキストエディタで編集しても問題ありません。（zend_extension パラメータのパスは、MAMP のバージョンによって変わるため、環境によって変更が必要になる可能性があります。xdebug.so ファイルが存在していることを必ず確認してください。）</p>
+<pre class="brush: plain; first-line: 1166; title: ; notranslate">
+[xdebug]
+zend_extension=&quot;/Applications/MAMP/bin/php/php5.3.6/lib/php/extensions/no-debug-non-zts-20090626/xdebug.so&quot;
+xdebug.remote_enable = On
+
+</pre>
+<p>これで設定完了です。設定を反映させるために、MAMP ウィンドウで「サーバを停止」をクリックし、サーバー停止後に「サーバを起動」をクリックし、サーバーを再起動させてください。</p>
+<p>サーバーが起動したら、MAMP ウィンドウで「スタートページを開く」をクリックし、MAMP のスタートページで phpinfo をクリックし、Xdebug が有効になっていることを確認してください。</p>
+<div id="attachment_280" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-1.png"><img class="size-full wp-image-280" title="xdebug-phpinfo-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-1.png" alt="" width="1138" height="888" /></a><p class="wp-caption-text">phpinfo: xdebug</p></div>
+<p>また、xdebug.remote_enable が On になっていることも確認してください。</p>
+<div id="attachment_281" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-2.png"><img class="size-full wp-image-281" title="xdebug-phpinfo-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-2.png" alt="phpinfo: xdebug" width="1138" height="888" /></a><p class="wp-caption-text">phpinfo: xdebug</p></div>
+<p>これで、Xdebug の設定が完了しました。</p>
+<p><strong>5. 例：Hello Dolly プラグインのデバッグ</strong></p>
+<p>WordPress に付属している Hello Dolly プラグインを Xdebug でデバッグしてみましょう。</p>
+<p>まず、WordPress の管理画面で Hello Dolly プラグインを有効にします。</p>
+<div id="attachment_291" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-plugin-hello-dolly.png"><img class="size-full wp-image-291" title="wordpress-plugin-hello-dolly" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-plugin-hello-dolly.png" alt="Plugins ‹ Plugin Development Environment — WordPress" width="1138" height="888" /></a><p class="wp-caption-text">Plugins ‹ Plugin Development Environment — WordPress</p></div>
+<p>次に、plugins ディレクトリの hello.php を開き、hello_dolly 関数の1行目にブレークポイントを行の左側（赤枠）をクリックして設定します。そして、「プロジェクトをデバッグ」ボタン（青枠）をクリックしてデバッグを開始します。</p>
+<div id="attachment_292" class="wp-caption alignnone" style="width: 1276px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-1.png"><img class="size-full wp-image-292" title="netbeans-debug-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-1.png" alt="NetBeans: デバッグ" width="1266" height="810" /></a><p class="wp-caption-text">NetBeans: デバッグ</p></div>
+<p>何も表示されていないブラウザウィンドウが立ち上がると思います。これは、デバッガが PHP の実行を最初の行で停止するためです。「続行」ボタン（赤枠）をクリックすることで、画面が表示されます。（複数回クリックが必要です。）また、「デバッガセッションを終了」ボタン（青枠）をクリックすることでデバッグを終了できます。</p>
+<div id="attachment_294" class="wp-caption alignnone" style="width: 1276px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-2.png"><img class="size-full wp-image-294" title="netbeans-debug-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-2.png" alt="NetBeans: デバッグ" width="1266" height="810" /></a><p class="wp-caption-text">NetBeans: デバッグ</p></div>
+<p>最初の行で停止する機能が不要な場合は、環境設定から PHP の「デバッガ」タブを選択し、「最初の行で停止」のチェックを外してください。</p>
+<div id="attachment_293" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-option-debug.png"><img class="size-full wp-image-293" title="netbeans-option-debug" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-option-debug.png" alt="NetBeans: デバッグ設定" width="1180" height="758" /></a><p class="wp-caption-text">NetBeans: デバッグ設定</p></div>
+<p>Hello Dolly プラグインを有効にした状態で、管理画面にログインすると、下記のような状態で停止するかと思います。（「最初の行で停止」のチェックを入れたままの場合は、何度か続行をクリックするとこの状態になります。）</p>
+<div id="attachment_295" class="wp-caption alignnone" style="width: 1276px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-3.png"><img class="size-full wp-image-295" title="netbeans-debug-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-3.png" alt="NetBeans: デバッグ" width="1266" height="810" /></a><p class="wp-caption-text">NetBeans: デバッグ</p></div>
+<p>行左側の緑色矢印（赤枠）は、現在実行が停止している行を示します。ブレークポイントを設定したため、ブレークポイントの行で実行が止まっていることがわかると思います。</p>
+<p>下部のウィンドウグループには、タブ（青枠）が追加されます。「変数」タブでは、現在停止している行で参照できる変数の値を見ることができます。「呼び出しスタック」タブでは、現在の関数がどの関数から呼び出されているかをたどることができます。「ブレークポイント」タブでは、設定しているブレークポイントを編集することができます。</p>
+<p>ツールバーには、ステップ実行ボタン（緑枠）が追加されます。「ステップオーバー」ボタンは、現在の行を実行し、次の行で停止します。「ステップイン」ボタンは、現在の行を実行し、その行に関数が含まれている場合、その関数内の1行目で停止します。「ステップアウト」ボタンは、現在の関数を抜けるまで実行し、その関数を呼び出している行の次の行で停止します。</p>
+<p>あとは実際に、ステップ実行したり、変数の内容を見たり、ブレークポイントを追加したりすることで、Xdebug の便利さが体感できると思うので、いろいろと試してみて理解してもらえればいいかなと思います。</p>
+<p>さて、今回は Xdebug を使用した WordPress のデバッグについて記事を書きました。プラグイン開発やテーマ開発で導入するととても便利だと思うので、ぜひ使ってみてください。</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/07/17/debugging-wordpress-2/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

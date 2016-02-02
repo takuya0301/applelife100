@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>林檎生活100 &#187; MAMP</title>
+	<atom:link href="http://www.applelife100.com/tag/mamp/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.applelife100.com</link>
+	<description>Make the World a Better Place</description>
+	<lastBuildDate>Thu, 16 May 2013 14:15:10 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.5.1</generator>
+		<item>
+		<title>WordPress をデバッグ #2 NetBeans と Xdebug</title>
+		<link>http://www.applelife100.com/2012/07/17/debugging-wordpress-2/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=debugging-wordpress-2</link>
+		<comments>http://www.applelife100.com/2012/07/17/debugging-wordpress-2/#comments</comments>
+		<pubDate>Tue, 17 Jul 2012 14:24:02 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[WordPress]]></category>
+		<category><![CDATA[Apache]]></category>
+		<category><![CDATA[Mac OS X]]></category>
+		<category><![CDATA[MAMP]]></category>
+		<category><![CDATA[MySQL]]></category>
+		<category><![CDATA[NetBeans]]></category>
+		<category><![CDATA[PHP]]></category>
+		<category><![CDATA[phpMyAdmin]]></category>
+		<category><![CDATA[Xdebug]]></category>
+
+		<guid isPermaLink="false">http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=237</guid>
+		<description><![CDATA[WordPress でプラグイン開発をするときにデバッグする方法についてです。 第2回目は、PHP での Web アプリケーション開発でよく利用される Xdebug というデバッガーでデバッグする方法です。 Xdebug でデバッグする場合は、Xdebug に対応した統合開発環境を利用するのが一般的です。この記事では、統合開発環境として NetBeans を利用することにします。また、実行環境も統合開発環境が動作しているコンピューター上である方が設定が簡単なので、実行環境もコンピューター上にインストールします。また、実行環境のインストールを簡単にするため、実行環境として MAMP を使用します。 目次 MAMP インストール WordPress インストール NetBeans インストール Xdebug 設定 例：Hello Dolly プラグインのデバッグ 1. MAMP インストール MAMP の Web サイトにアクセスし、MAMP をダウンロードしてください。ダウンロードが完了したら、ディスクイメージをマウントし、パッケージファイルを実行してください。あとは、インストールウィザードに従うだけで、インストールが完了します。 追記（2012年9月18日）： この記事で使用している MAMP は、バージョン2.0.5です。同じバージョンを使用する場合は、下記の URL からダウンロードしてください。 http://www.mamp.info/downloads/releases/MAMP_MAMP_PRO_2.0.5.zip 同時にインストールされる MAMP PRO は使用しないので、アンインストールしてもかまいません。 &#8230; <a href="http://www.applelife100.com/2012/07/17/debugging-wordpress-2/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p><a title="WordPress › Blog Tool, Publishing Platform, and CMS" href="http://wordpress.org" target="_blank">WordPress</a> でプラグイン開発をするときにデバッグする方法についてです。</p>
+<p>第2回目は、<a title="PHP: Hypertext Preprocessor" href="http://php.net" target="_blank">PHP</a> での Web アプリケーション開発でよく利用される <a title="Xdebug - Debugger and Profiler Tool for PHP" href="http://xdebug.org" target="_blank">Xdebug</a> というデバッガーでデバッグする方法です。</p>
+<p><span id="more-237"></span>Xdebug でデバッグする場合は、Xdebug に対応した統合開発環境を利用するのが一般的です。この記事では、統合開発環境として <a title="Welcome to NetBeans" href="http://netbeans.org" target="_blank">NetBeans</a> を利用することにします。また、実行環境も統合開発環境が動作しているコンピューター上である方が設定が簡単なので、実行環境もコンピューター上にインストールします。また、実行環境のインストールを簡単にするため、実行環境として <a title="MAMP: Mac, Apache, MySQL, PHP" href="http://mamp.info" target="_blank">MAMP</a> を使用します。</p>
+<p><strong>目次</strong></p>
+<ol>
+<li>MAMP インストール</li>
+<li>WordPress インストール</li>
+<li>NetBeans インストール</li>
+<li>Xdebug 設定</li>
+<li>例：Hello Dolly プラグインのデバッグ</li>
+</ol>
+<p><strong>1. MAMP インストール</strong></p>
+<p><a title="MAMP: Mac, Apache, MySQL, PHP" href="http://mamp.info" target="_blank">MAMP</a> の Web サイトにアクセスし、MAMP をダウンロードしてください。ダウンロードが完了したら、ディスクイメージをマウントし、パッケージファイルを実行してください。あとは、インストールウィザードに従うだけで、インストールが完了します。</p>
+<p><strong>追記（2012年9月18日）：</strong><br />
+この記事で使用している MAMP は、バージョン2.0.5です。同じバージョンを使用する場合は、下記の URL からダウンロードしてください。<br />
+<a title="MAMP_MAMP_PRO_2.0.5.zip" href="http://www.mamp.info/downloads/releases/MAMP_MAMP_PRO_2.0.5.zip">http://www.mamp.info/downloads/releases/MAMP_MAMP_PRO_2.0.5.zip</a></p>
+<p>同時にインストールされる MAMP PRO は使用しないので、アンインストールしてもかまいません。</p>
+<p>インストール完了後、MAMP を起動すると、下記のようなウィンドウが表示されます。このウィンドウから、サーバーの起動や停止、環境設定を行うことができます。</p>
+<div id="attachment_241" class="wp-caption alignnone" style="width: 547px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-window.png"><img class="size-full wp-image-241" title="mamp-window" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-window.png" alt="MAMP ウィンドウ" width="537" height="458" /></a><p class="wp-caption-text">MAMP ウィンドウ</p></div>
+<p>起動後少し時間をおいて、下記のような MAMP のスタートページがデフォルト Web ブラウザで開かれます。このスタートページから各種管理ツールにアクセスできます。今回は、phpinfo と <a title="phpMyAdmin" href="http://phpmyadmin.net" target="_blank">phpMyAdmin</a> を使用します。</p>
+<div id="attachment_242" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-start.png"><img class="size-full wp-image-242" title="mamp-start" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-start.png" alt="MAMP スタートページ" width="1138" height="888" /></a><p class="wp-caption-text">MAMP スタートページ</p></div>
+<p>また、MAMP には PHP 5.2 系と PHP 5.3 系の両方が含まれています。MAMP 環境設定から選択することができます。この記事では、PHP 5.3 系を利用します。</p>
+<div id="attachment_243" class="wp-caption alignnone" style="width: 547px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-preferences.png"><img class="size-full wp-image-243" title="mamp-preferences" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-preferences.png" alt="MAMP 環境設定" width="537" height="458" /></a><p class="wp-caption-text">MAMP 環境設定</p></div>
+<p><strong>2. WordPress インストール</strong></p>
+<p><strong></strong><a title="WordPress › Blog Tool, Publishing Platform, and CMS" href="http://wordpress.org" target="_blank">WordPress</a> の Web サイトにアクセスし、WordPress をダウンロードしてください。WordPress のダウンロードが完了したら、MAMP ディレクトリの htdocs に下記のように展開してください。</p>
+<div id="attachment_244" class="wp-caption alignnone" style="width: 894px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-directory-htdocs.png"><img class="size-full wp-image-244" title="mamp-directory-htdocs" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-directory-htdocs.png" alt="MAMP htdocs ディレクトリ" width="884" height="552" /></a><p class="wp-caption-text">MAMP htdocs ディレクトリ</p></div>
+<p>次に、WordPress 用のデータベースを作成します。MAMP のスタートページから phpMyAdmin にアクセスしてください。phpMyAdmin のトップページで、wordpress という名前のデータベースを作成します。</p>
+<div id="attachment_245" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-1.png"><img class="size-full wp-image-245" title="mamp-phpmyadmin-create-database-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-1.png" alt="phpMyAdmin: WordPress 用データベースの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用データベースの作成</p></div>
+<div id="attachment_246" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-2.png"><img class="size-full wp-image-246" title="mamp-phpmyadmin-create-database-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-2.png" alt="phpMyAdmin: WordPress 用データベースの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用データベースの作成</p></div>
+<p>そして、wordpress データベースを操作する wordpress という名前のユーザーを作成します。</p>
+<div id="attachment_247" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-1.png"><img class="size-full wp-image-247" title="mamp-phpmyadmin-create-user-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-1.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<div id="attachment_248" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-2.png"><img class="size-full wp-image-248" title="mamp-phpmyadmin-create-user-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-2.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<div id="attachment_249" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-3.png"><img class="size-full wp-image-249" title="mamp-phpmyadmin-create-user-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-3.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<div id="attachment_250" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-4.png"><img class="size-full wp-image-250" title="mamp-phpmyadmin-create-user-4" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-4.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<p>データベースの作成完了後、Web ブラウザで WordPress にアクセスします。手順通りに実行していれば、下記のアドレスでアクセスできるはずです。</p>
+<p><a title="WordPress" href="http://localhost:8888/wordpress/" target="_blank">http://localhost:8888/wordpress/</a></p>
+<p>アクセスすると、wp-config.php がないため、下記のようなエラーページが表示されます。</p>
+<div id="attachment_253" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-error-wp-config-is-missing.png"><img class="size-full wp-image-253" title="wordpress-error-wp-config-is-missing" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-error-wp-config-is-missing.png" alt="WordPress › Error" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Error</p></div>
+<p>Create a Configuration File ボタンをクリックし、ウィザードに従って wp-config.php を作成します。</p>
+<div id="attachment_255" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-1.png"><img class="size-full wp-image-255" title="wordpress-create-configuration-file-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-1.png" alt="WordPress › Setup Configuration File" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Setup Configuration File</p></div>
+<p>下記の画面では、phpMyAdmin で作成したデータベースへの接続情報を入力してください。</p>
+<div id="attachment_256" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-3.png"><img class="size-full wp-image-256" title="wordpress-create-configuration-file-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-3.png" alt="WordPress › Setup Configuration File" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Setup Configuration File</p></div>
+<p>wp-config.php ファイルができれば、あとは通常のインストール作業と変わりません。</p>
+<p>コンピューター上の開発環境ということもあって、簡単にインストールできる方法でやっています。運用のためにインストールする場合は、<a title="Amazon EC2 に WordPress をインストール | 林檎生活100" href="http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/">Amazon EC2 に WordPress をインストール</a>を参考にしてみてください。</p>
+<div id="attachment_258" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-3.png"><img class="size-full wp-image-258" title="wordpress-installation-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-3.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<div id="attachment_259" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-4.png"><img class="size-full wp-image-259" title="wordpress-installation-4" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-4.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<div id="attachment_260" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-5.png"><img class="size-full wp-image-260" title="wordpress-installation-5" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-5.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<p>これで、WordPress のインストールは完了です。通常の WordPress と同様に操作できます。URL が <a title="WordPress" href="http://localhost:8888/wordpress/" target="_blank">http://localhost:8888/wordpress/</a> になることに注意してください。</p>
+<p><strong>3. NetBeans インストール</strong></p>
+<p><a title="Welcome to NetBeans" href="http://netbeans.org/" target="_blank">NetBeans</a> の Web サイトにアクセスし、PHP をサポートする NetBeans をダウンロードしてください。ダウンロードが完了したら、ディスクイメージをマウントし、パッケージファイルを実行してください。あとは、インストールウィザードに従うだけで、インストールが完了します。</p>
+<p>WordPress のソースを編集できるようにプロジェクトを作成します。</p>
+<p>まず、NetBeans のメニューバーで、ファイル &gt; 新規プロジェクトをクリックします。新規プロジェクトのウィザードが表示されるので、プロジェクトで「既存のソースを使用する PHP アプリケーション」を選択し、「次へ」をクリックしてください。</p>
+<div id="attachment_272" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-1.png"><img class="size-full wp-image-272" title="netbeans-create-project-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-1.png" alt="NetBeans: 新規プロジェクトウィザード" width="1180" height="726" /></a><p class="wp-caption-text">NetBeans: 新規プロジェクトウィザード</p></div>
+<p>ソースフォルダは、 /Applications/MAMP/htdocs/wordpress を参照します。PHP のバージョンは、PHP 5.3 を選択し、「次へ」をクリックしてください。</p>
+<div id="attachment_274" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-2.png"><img class="size-full wp-image-274" title="netbeans-create-project-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-2.png" alt="NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード" width="1180" height="726" /></a><p class="wp-caption-text">NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード</p></div>
+<p>プロジェクト URL を MAMP に合わせて http://localhost:8888/wordpress/ に変更し、「完了」をクリックしてください。</p>
+<div id="attachment_275" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-3.png"><img class="size-full wp-image-275" title="netbeans-create-project-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-3.png" alt="NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード" width="1180" height="726" /></a><p class="wp-caption-text">NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード</p></div>
+<p>今回は WordPress のプロジェクトを MAMP の htdocs ディレクトリで管理していますが、ホームディレクトリの NetBeansProjects ディレクトリで管理することも可能です。WordPress を NetBeansProjects ディレクトリに展開し、新規プロジェクトのウィザードで同様にプロジェクトを作成してください。ウィザードの最後で、「ファイルをソースフォルダから別の場所にコピー」を有効にし、 /Applications/MAMP/htdocs/wordpress にコピーするように設定してください。これによって、NetBeans から実行する場合は、WordPress のソースファイルがコピーされてから実行されることになります。</p>
+<p>この記事で WordPress のプロジェクトを MAMP の htdocs ディレクトリで管理しているのは、ファイルを保存するだけですぐにブラウザで確認できるようにするためです。NetBeansProjects ディレクトリで管理していると、NetBeans で実行して htdocs ディレクトリにファイルをコピーする必要があり、すぐにブラウザで確認できないからです。</p>
+<p>どちらも一長一短なところがあるので、プロジェクト管理の好みに合わせて好きな方を選んでください。</p>
+<p><strong>4. Xdebug 設定</strong></p>
+<p>Xdebug の設定を行います。MAMP には、Xdebug 拡張モジュールが含まれているので、下記のパスにある php.ini ファイルを編集することで有効にできます。（下記のパスは、MAMP のバージョンによって変わるため、環境によって変更が必要になる可能性があります。）</p>
+<p>/Applications/MAMP/bin/php/php5.3.6/conf/php.ini</p>
+<p>NetBeans で、ファイル &gt; ファイルを開くをクリックし、ダイアログから php.ini ファイルを開き、下記のように設定ファイル末尾を変更してください。もちろん、ほかのテキストエディタで編集しても問題ありません。（zend_extension パラメータのパスは、MAMP のバージョンによって変わるため、環境によって変更が必要になる可能性があります。xdebug.so ファイルが存在していることを必ず確認してください。）</p>
+<pre class="brush: plain; first-line: 1166; title: ; notranslate">
+[xdebug]
+zend_extension=&quot;/Applications/MAMP/bin/php/php5.3.6/lib/php/extensions/no-debug-non-zts-20090626/xdebug.so&quot;
+xdebug.remote_enable = On
+
+</pre>
+<p>これで設定完了です。設定を反映させるために、MAMP ウィンドウで「サーバを停止」をクリックし、サーバー停止後に「サーバを起動」をクリックし、サーバーを再起動させてください。</p>
+<p>サーバーが起動したら、MAMP ウィンドウで「スタートページを開く」をクリックし、MAMP のスタートページで phpinfo をクリックし、Xdebug が有効になっていることを確認してください。</p>
+<div id="attachment_280" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-1.png"><img class="size-full wp-image-280" title="xdebug-phpinfo-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-1.png" alt="" width="1138" height="888" /></a><p class="wp-caption-text">phpinfo: xdebug</p></div>
+<p>また、xdebug.remote_enable が On になっていることも確認してください。</p>
+<div id="attachment_281" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-2.png"><img class="size-full wp-image-281" title="xdebug-phpinfo-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-2.png" alt="phpinfo: xdebug" width="1138" height="888" /></a><p class="wp-caption-text">phpinfo: xdebug</p></div>
+<p>これで、Xdebug の設定が完了しました。</p>
+<p><strong>5. 例：Hello Dolly プラグインのデバッグ</strong></p>
+<p>WordPress に付属している Hello Dolly プラグインを Xdebug でデバッグしてみましょう。</p>
+<p>まず、WordPress の管理画面で Hello Dolly プラグインを有効にします。</p>
+<div id="attachment_291" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-plugin-hello-dolly.png"><img class="size-full wp-image-291" title="wordpress-plugin-hello-dolly" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-plugin-hello-dolly.png" alt="Plugins ‹ Plugin Development Environment — WordPress" width="1138" height="888" /></a><p class="wp-caption-text">Plugins ‹ Plugin Development Environment — WordPress</p></div>
+<p>次に、plugins ディレクトリの hello.php を開き、hello_dolly 関数の1行目にブレークポイントを行の左側（赤枠）をクリックして設定します。そして、「プロジェクトをデバッグ」ボタン（青枠）をクリックしてデバッグを開始します。</p>
+<div id="attachment_292" class="wp-caption alignnone" style="width: 1276px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-1.png"><img class="size-full wp-image-292" title="netbeans-debug-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-1.png" alt="NetBeans: デバッグ" width="1266" height="810" /></a><p class="wp-caption-text">NetBeans: デバッグ</p></div>
+<p>何も表示されていないブラウザウィンドウが立ち上がると思います。これは、デバッガが PHP の実行を最初の行で停止するためです。「続行」ボタン（赤枠）をクリックすることで、画面が表示されます。（複数回クリックが必要です。）また、「デバッガセッションを終了」ボタン（青枠）をクリックすることでデバッグを終了できます。</p>
+<div id="attachment_294" class="wp-caption alignnone" style="width: 1276px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-2.png"><img class="size-full wp-image-294" title="netbeans-debug-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-2.png" alt="NetBeans: デバッグ" width="1266" height="810" /></a><p class="wp-caption-text">NetBeans: デバッグ</p></div>
+<p>最初の行で停止する機能が不要な場合は、環境設定から PHP の「デバッガ」タブを選択し、「最初の行で停止」のチェックを外してください。</p>
+<div id="attachment_293" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-option-debug.png"><img class="size-full wp-image-293" title="netbeans-option-debug" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-option-debug.png" alt="NetBeans: デバッグ設定" width="1180" height="758" /></a><p class="wp-caption-text">NetBeans: デバッグ設定</p></div>
+<p>Hello Dolly プラグインを有効にした状態で、管理画面にログインすると、下記のような状態で停止するかと思います。（「最初の行で停止」のチェックを入れたままの場合は、何度か続行をクリックするとこの状態になります。）</p>
+<div id="attachment_295" class="wp-caption alignnone" style="width: 1276px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-3.png"><img class="size-full wp-image-295" title="netbeans-debug-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-3.png" alt="NetBeans: デバッグ" width="1266" height="810" /></a><p class="wp-caption-text">NetBeans: デバッグ</p></div>
+<p>行左側の緑色矢印（赤枠）は、現在実行が停止している行を示します。ブレークポイントを設定したため、ブレークポイントの行で実行が止まっていることがわかると思います。</p>
+<p>下部のウィンドウグループには、タブ（青枠）が追加されます。「変数」タブでは、現在停止している行で参照できる変数の値を見ることができます。「呼び出しスタック」タブでは、現在の関数がどの関数から呼び出されているかをたどることができます。「ブレークポイント」タブでは、設定しているブレークポイントを編集することができます。</p>
+<p>ツールバーには、ステップ実行ボタン（緑枠）が追加されます。「ステップオーバー」ボタンは、現在の行を実行し、次の行で停止します。「ステップイン」ボタンは、現在の行を実行し、その行に関数が含まれている場合、その関数内の1行目で停止します。「ステップアウト」ボタンは、現在の関数を抜けるまで実行し、その関数を呼び出している行の次の行で停止します。</p>
+<p>あとは実際に、ステップ実行したり、変数の内容を見たり、ブレークポイントを追加したりすることで、Xdebug の便利さが体感できると思うので、いろいろと試してみて理解してもらえればいいかなと思います。</p>
+<p>さて、今回は Xdebug を使用した WordPress のデバッグについて記事を書きました。プラグイン開発やテーマ開発で導入するととても便利だと思うので、ぜひ使ってみてください。</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/07/17/debugging-wordpress-2/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

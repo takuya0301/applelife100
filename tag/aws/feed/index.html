@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>林檎生活100 &#187; AWS</title>
+	<atom:link href="http://www.applelife100.com/tag/aws/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.applelife100.com</link>
+	<description>Make the World a Better Place</description>
+	<lastBuildDate>Thu, 16 May 2013 14:15:10 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.5.1</generator>
+		<item>
+		<title>PHP で Amazon S3 のバケット名を検証</title>
+		<link>http://www.applelife100.com/2012/09/21/validate-bucket-name-of-amazon-s3-in-php/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=validate-bucket-name-of-amazon-s3-in-php</link>
+		<comments>http://www.applelife100.com/2012/09/21/validate-bucket-name-of-amazon-s3-in-php/#comments</comments>
+		<pubDate>Thu, 20 Sep 2012 17:38:06 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Amazon S3]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[PHP]]></category>
+		<category><![CDATA[S3]]></category>
+
+		<guid isPermaLink="false">http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=353</guid>
+		<description><![CDATA[文字列が Amazon S3 のバケット名の命名規則に従っているかを検証する PHP の関数は下記のように記述します。 この関数は、下記の PHP スクリプトでテストしました。 検証結果は下記のとおりです。 $ php test_validate_bucket_name.php ----- Valid Bucket Name ----- myawsbucket is valid! my.aws.bucket is valid! myawsbucket.1 is valid! ----- Invalid Bucket Name ----- 192.168.5.4 is invalid... .myawsbucket is invalid... myawsbucket. is &#8230; <a href="http://www.applelife100.com/2012/09/21/validate-bucket-name-of-amazon-s3-in-php/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>文字列が <a title="Amazon Simple Storage Service (Amazon S3)" href="http://aws.amazon.com/s3/" target="_blank">Amazon S3</a> のバケット名の命名規則に従っているかを検証する <a title="PHP: Hypertext Preprocessor" href="http://php.net/" target="_blank">PHP</a> の関数は下記のように記述します。</p>
+<pre class="brush: php; title: ; notranslate">
+/**
+ * Validate bucket name of Amazon S3.
+ *
+ * @param string $name
+ * @return bool
+ */
+function validate_bucket_name($name) {
+    // Bucket names must be at least 3 and no more than 63 characters long
+    $length = strlen($name);
+    if ($length &lt; 3 || 63 &lt; $length) {
+        return false;
+    }
+
+    // Bucket names must not be formatted as an IP address (e.g., 192.168.5.4)
+    $pattern = '/^[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}$/';
+    if (preg_match($pattern, $name)) {
+        return false;
+    }
+
+    // Bucket name must be a series of one or more labels separated by a period (.), where each label:
+    // - Must start with a lowercase letter or a number
+    // - Must end with a lowercase letter or a number
+    // - Can contain lowercase letters, numbers and dashes
+    $pattern = '/^[0-9a-z]([0-9a-z\\-]*[0-9a-z])?(\\.[0-9a-z]([0-9a-z\\-]*[0-9a-z])?)*$/';
+    if (!preg_match($pattern, $name)) {
+        return false;
+    }
+
+    return true;
+}
+</pre>
+<p><span id="more-353"></span>この関数は、下記の PHP スクリプトでテストしました。</p>
+<pre class="brush: php; title: ; notranslate">
+function check_bucket_name($name) {
+    if (validate_bucket_name($name)) {
+        echo $name . ' is valid!' . &quot;\n&quot;;
+    } else {
+        echo $name . ' is invalid...' . &quot;\n&quot;;
+    }
+}
+
+echo '----- Valid Bucket Name -----' . &quot;\n&quot;;
+check_bucket_name('myawsbucket');
+check_bucket_name('my.aws.bucket');
+check_bucket_name('myawsbucket.1');
+
+echo '----- Invalid Bucket Name -----' . &quot;\n&quot;;
+check_bucket_name('192.168.5.4');
+check_bucket_name('.myawsbucket');
+check_bucket_name('myawsbucket.');
+check_bucket_name('my..examplebucket');
+</pre>
+<p>検証結果は下記のとおりです。</p>
+<pre>$ php test_validate_bucket_name.php
+----- Valid Bucket Name -----
+myawsbucket is valid!
+my.aws.bucket is valid!
+myawsbucket.1 is valid!
+----- Invalid Bucket Name -----
+192.168.5.4 is invalid...
+.myawsbucket is invalid...
+myawsbucket. is invalid...
+my..examplebucket is invalid...
+$</pre>
+<p>正規表現が怪しいので、間違いがあったら教えてください。</p>
+<p><strong>参考文献</strong></p>
+<ul>
+<li><a title="Welcome to Amazon S3 - Amazon Simple Storage Service" href="http://docs.amazonwebservices.com/AmazonS3/latest/dev/" target="_blank">Amazon S3 Developer Guide</a></li>
+</ul>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/09/21/validate-bucket-name-of-amazon-s3-in-php/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>PHP で Amazon S3 の REST API を使用 #1</title>
+		<link>http://www.applelife100.com/2012/06/23/using-rest-api-of-amazon-s3-in-php-1/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=using-rest-api-of-amazon-s3-in-php-1</link>
+		<comments>http://www.applelife100.com/2012/06/23/using-rest-api-of-amazon-s3-in-php-1/#comments</comments>
+		<pubDate>Fri, 22 Jun 2012 19:33:22 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[Amazon S3]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[PHP]]></category>
+		<category><![CDATA[REST]]></category>
+		<category><![CDATA[S3]]></category>
+		<category><![CDATA[WordPress]]></category>
+
+		<guid isPermaLink="false">http://ec2-176-34-2-250.ap-northeast-1.compute.amazonaws.com/?p=132</guid>
+		<description><![CDATA[Amazon S3 を PHP から操作する場合、AWS SDK for PHP を使用するのが簡単かつ確実です。 しかし、WordPress のプラグインなどを作成する場合には、WordPress のライセンスである GNU General Public License version 2.0 と AWS SDK for PHP のライセンスである Apache License 2.0 との間で矛盾が生じてしまいます。（矛盾する理由の詳細は、記事末尾の参考文献を参照してください。） そこで、今回は Amazon S3 の REST API を PHP で Client URL Library を使用して呼び出すことで、Amazon S3 を操作してみます。 それでは、第1回目は &#8230; <a href="http://www.applelife100.com/2012/06/23/using-rest-api-of-amazon-s3-in-php-1/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p><a title="Amazon Simple Storage Service (Amazon S3)" href="http://aws.amazon.com/s3/" target="_blank">Amazon S3</a> を <a title="PHP: Hypertext Preprocessor" href="http://php.net" target="_blank">PHP</a> から操作する場合、<a title="AWS SDK for PHP - A PHP Library for Amazon S3, Amazon EC2, and more." href="http://aws.amazon.com/sdkforphp/" target="_blank">AWS SDK for PHP</a> を使用するのが簡単かつ確実です。</p>
+<p>しかし、<a title="WordPress › Blog Tool, Publishing Platform, and CMS" href="http://wordpress.org" target="_blank">WordPress</a> のプラグインなどを作成する場合には、WordPress のライセンスである <a title="GNU General Public License, version 2 (GPL-2.0) | Open Source Initiative" href="http://www.opensource.org/licenses/GPL-2.0" target="_blank">GNU General Public License version 2.0</a> と AWS SDK for PHP のライセンスである <a title="Open Source Initiative OSI - Apache License, Version 2.0:Licensing | Open Source Initiative" href="http://www.opensource.org/licenses/Apache-2.0" target="_blank">Apache License 2.0</a> との間で矛盾が生じてしまいます。（矛盾する理由の詳細は、記事末尾の参考文献を参照してください。）</p>
+<p>そこで、今回は Amazon S3 の REST API を PHP で <a title="PHP: cURL - Manual" href="http://www.php.net/manual/ja/book.curl.php" target="_blank">Client URL Library</a> を使用して呼び出すことで、Amazon S3 を操作してみます。</p>
+<p><span id="more-132"></span>それでは、第1回目は Amazon S3 の REST API で使用されている認証を実装してみようと思います。なお、この記事に記載しているコードは、パブリックドメインということにしておきますので、使用される方の責任でご自由にお使いください。</p>
+<p><strong>概要</strong></p>
+<p>Amazon S3 の REST API での認証の概要は下記の2枚の図のようになります。これらの図は、<a title="Welcome to Amazon S3 - Amazon Simple Storage Service" href="http://docs.amazonwebservices.com/AmazonS3/latest/dev/" target="_blank">Amazon S3 Developer Guide</a> から引用してきたものです。</p>
+<div id="attachment_153" class="wp-caption alignnone" style="width: 606px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/hmac-auth-process-you.gif"><img class="size-full wp-image-153" title="hmac-auth-process-you" src="http://www.applelife100.com/wp-content/uploads/2012/06/hmac-auth-process-you.gif" alt="HMAC Authentication Process (You)" width="596" height="527" /></a><p class="wp-caption-text">HMAC Authentication Process (You)</p></div>
+<ol>
+<li>AWS へのリクエストを作成します。</li>
+<li>シークレットアクセスキーを使用して署名を計算します。</li>
+<li>Amazon S3 に、アクセスキー ID と署名を含めたリクエストを送信します。</li>
+</ol>
+<div id="attachment_152" class="wp-caption alignnone" style="width: 731px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/hmac-auth-process-aws.gif"><img class="size-full wp-image-152" title="hmac-auth-process-aws" src="http://www.applelife100.com/wp-content/uploads/2012/06/hmac-auth-process-aws.gif" alt="HMAC Authentication Process (AWS)" width="721" height="519" /></a><p class="wp-caption-text">HMAC Authentication Process (AWS)</p></div>
+<ol start="4">
+<li>Amazon S3 は、アクセスキー ID をもとにシークレットアクセスキーを検索します。</li>
+<li>リクエストデータとシークレットアクセスキーを用い、クライアント側と同様のアルゴリズムで署名を計算します。</li>
+<li>Amazon S3 側で計算した署名と、リクエストデータとして送られてきた署名を比較し、一致すれば信頼できるリクエストとして受理しますが、不一致であれば棄却します。</li>
+</ol>
+<p>このような処理をリクエストごとに実施することになるわけです。</p>
+<p><strong>アクセスキー ID とシークレットアクセスキー</strong></p>
+<p>アクセスキー ID とシークレットアクセスキーは、 AWS サイトのグローバルメニュー「アカウント／コンソール」のセキュリティ証明書をクリックしてログインしたページから取得できます。</p>
+<div id="attachment_156" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/amazon-web-services-security-credentials-1.png"><img class="size-full wp-image-156" title="amazon-web-services-security-credentials-1" src="http://www.applelife100.com/wp-content/uploads/2012/06/amazon-web-services-security-credentials-1.png" alt="AWS Management Console | アマゾン ウェブ サービス（AWS 日本語）" width="1138" height="888" /></a><p class="wp-caption-text">AWS Management Console | アマゾン ウェブ サービス（AWS 日本語）</p></div>
+<p>ログイン後、セキュリティ証明書のページで、アクセスキータブ内のアクセスキー ID とシークレットアクセスキーをコピーしておいてください。</p>
+<div id="attachment_158" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/amazon-web-services-security-credentials-2.png"><img class="size-full wp-image-158" title="amazon-web-services-security-credentials-2" src="http://www.applelife100.com/wp-content/uploads/2012/06/amazon-web-services-security-credentials-2.png" alt="Amazon Web サービス" width="1138" height="888" /></a><p class="wp-caption-text">Amazon Web サービス</p></div>
+<p>これで、認証に必要なアクセスキー ID とシークレットアクセスキーを取得することができました。</p>
+<p><strong>署名</strong></p>
+<p>署名は、あるアクセスキー ID を含む HTTP リクエストの内容が、そのアクセスキー ID の所有者から送信されたものであることを証明する文字列です。アクセスキー ID の所有者というのは、シークレットアクセスキーを所有している者ということになります。</p>
+<p>重要なことは、シークレットアクセスキーを直接送らないことです。暗号化された HTTPS 通信だけではなく、平文の HTTP 通信でも REST API を実行できるのには、この署名を使用しているからです。</p>
+<p>署名のポイントは2つです。</p>
+<ul>
+<li>「HTTP リクエストの内容」を「シークレットアクセスキー」で変換した文字列であること</li>
+<li>署名から「シークレットアクセスキー 」を取得できないこと</li>
+</ul>
+<p>これで、リクエストの内容を証明することができるわけです。概要で説明した図をもう一度見てみるとわかりやすいと思います。</p>
+<p><strong>署名生成</strong></p>
+<p>それでは、実際に署名を PHP で生成してみます。</p>
+<p>概要で示した図のとおり、クライアント側から送信されてきた署名をサーバー側（AWS 側）でも同じように生成して一致を判定します。そのため、クライアント側とサーバー側で同じルールを使用しなければなりません。そのルールは下記の通りです。これは Amazon S3 Developer Guide から引用しています。</p>
+<blockquote>
+<pre>Signature = Base64( HMAC-SHA1( YourSecretAccessKeyID, UTF-8-Encoding-Of( StringToSign ) ) );
+
+StringToSign = HTTP-Verb + "\n" +
+	Content-MD5 + "\n" +
+	Content-Type + "\n" +
+	Date + "\n" +
+	CanonicalizedAmzHeaders +
+	CanonicalizedResource;
+
+CanonicalizedResource = [ "/" + Bucket ] +
+	&lt;HTTP-Request-URI, from the protocol name up to the query string&gt; +
+	[ sub-resource, if present. For example "?acl", "?location", "?logging", or "?torrent"];
+
+CanonicalizedAmzHeaders = &lt;described below&gt;</pre>
+</blockquote>
+<p>このように見ると複雑ですが、今回はアクセスキー所有者のバケット一覧を取得する <a title="GET Service - Amazon Simple Storage Service" href="http://docs.amazonwebservices.com/AmazonS3/latest/API/RESTServiceGET.html" target="_blank">GET Service</a> をリクエストするため、ほとんどの項目は改行のみの文字列や空文字列になります。</p>
+<ul>
+<li>HTTP-Verb: &#8220;GET\n&#8221;</li>
+<li>Content-MD5: &#8220;\n&#8221;<br />
+※ PUT のときに必要です。</li>
+<li>Content-Type: &#8220;\n&#8221;<br />
+※ PUT のときに必要です。</li>
+<li>Date: <a title="Requirements for Internet Hosts -- Application and Support" href="http://www.ietf.org/rfc/rfc1123.txt" target="_blank">RFC 1123</a> 形式の現在協定世界時 + &#8220;\n&#8221;</li>
+<li>CanonicalizedAmzHeaders: &#8220;&#8221;<br />
+※ AWS 用の特別な HTTP ヘッダーを使用するときに必要です。</li>
+<li>CanonicalizedResource: &#8220;/&#8221;</li>
+</ul>
+<p>これで各項目が決定できたので、実際のスクリプトにしてみます。スクリプトにすれば一目瞭然かと思います。</p>
+<pre class="brush: php; title: ; notranslate">
+// ----- Signature -----
+// HTTP-Verb
+$httpVerb = 'GET' . &quot;\n&quot;;
+
+// Content-MD5
+$contentMd5 = &quot;\n&quot;;
+
+// Content-Type
+$contentType = &quot;\n&quot;;
+
+// Date
+$datetime = new DateTime('now', new DateTimeZone('UTC'));
+$date = $datetime-&gt;format(DateTime::RFC1123) . &quot;\n&quot;;
+
+// CanonicalizedAmzHeaders
+$canonicalizedAmzHeaders = '';
+
+// CanonicalizedResource
+$canonicalizedResource = '/';
+
+// StringToSign
+$stringToSign = $httpVerb . $contentMd5 . $contentType . $date
+              . $canonicalizedAmzHeaders . $canonicalizedResource;
+
+// Signature
+$hash = hash_hmac('sha1', $stringToSign, $secretAccessKey, true);
+$signature = base64_encode($hash);
+</pre>
+<p>ここで注意してもらいたいことがふたつあります。</p>
+<p>ひとつは、ファイルのエンコーディングを UTF-8 にすることです。引用した署名生成のルールに UTF-8-Encoding-Of 関数が記載されているとおり、 SHA-1 でハッシングする前の文字列のエンコーディングは、UTF-8 でなければなりません。なので、ファイルのエンコーディングを UTF-8 にするのが無難かと思います。</p>
+<p>もうひとつは、hash_hmac 関数の第4引数を true にすることです。第4引数はデフォルト false で、false の場合は小文字の16 進数文字列で結果を返し、true の場合は生のバイナリデータで結果を返します。</p>
+<p>蛇足ですが、Mac OS X の NetBeans で作業する場合は、\ と ¥ の違いに注意してください。詳細は、<a title="NetBeans でバックスラッシュを入力 | 林檎生活100" href="http://www.applelife100.com/2012/06/21/input-backslash-in-netbeans/" rel="bookmark" target="_blank">NetBeans でバックスラッシュを入力</a>を参照してください。</p>
+<p>これで、$signature 変数には、GET Service をリクエストするための署名が入りました。</p>
+<p><strong>Authorization ヘッダー</strong></p>
+<p>次に、HTTP リクエストに署名をつける必要があります。そのために、Authorization ヘッダーを使用します。</p>
+<p>アクセスキー ID (AWSAccessKeyId) と前段で生成した署名 (Signature) を下記のような形式で HTTP ヘッダーに追加します。</p>
+<blockquote>
+<pre>Authorization: AWS <code>AWSAccessKeyId</code>:<code>Signature</code></pre>
+</blockquote>
+<p>これをスクリプトにすると下記のようになります。</p>
+<pre class="brush: php; title: ; notranslate">
+// ----- Authorization Header -----
+// Authorization
+$authorization = 'AWS' . ' ' . $accessKeyId . ':' . $signature;
+</pre>
+<p>これで、Authorization ヘッダー用文字列が完成します。</p>
+<p><strong>HTTP リクエスト生成</strong></p>
+<p>それでは、Amazon S3 に GET Service をリクエストしてみます。HTTP リクエストの生成には、PHP の Client URL Library を使用します。スクリプトにすると下記のようになります。今回は、ホストとして s3.amazonaws.com を指定しています。ホストは、バケットに関わってくるので、バケットの作成や削除のときに説明します。また、HTTP を使用していますが、HTTPS も使用できます。</p>
+<pre class="brush: php; title: ; notranslate">
+// ----- HTTP Request -----
+// Gets list of buckets.
+$ch = curl_init('http://s3.amazonaws.com');
+$headers = array(
+    'Authorization: ' . $authorization,
+    'Date: ' . $date,
+);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$body = curl_exec($ch);
+curl_close($ch);
+</pre>
+<p>注意することとしては、Date ヘッダーも必要になることです。Date ヘッダーの内容は、署名を計算したときに使用したものをそのまま使用してください。</p>
+<p>なお、各関数については、参考文献に記載したマニュアルを参照いただければと思います。</p>
+<p>これで、$body 変数に、アクセスキー所有者のバケット一覧の XML が格納されます。エラーの場合は、エラー情報が含まれた XML が格納されます。エラーの場合は、その XML の内容をもとに、スクリプトを確認してみてください。</p>
+<p>今回は、認証の実装が目的なので、XML の内容の詳細は割愛させていただきます。次回は、バケットの作成や削除を REST API で実装してみようと思います。</p>
+<p><strong>参考文献</strong></p>
+<ul>
+<li><a title="Various Licenses and Comments about Them - GNU Project - Free Software Foundation (FSF)" href="http://www.gnu.org/licenses/license-list.html" target="_blank">Free Software Foundation (FSF): GNU Project: Various Licenses and Comments about Them</a></li>
+<li><a title="Welcome to Amazon S3 - Amazon Simple Storage Service" href="http://docs.amazonwebservices.com/AmazonS3/latest/dev/" target="_blank">Amazon S3 Developer Guide</a></li>
+<li><a title="Welcome to Amazon S3 - Amazon Simple Storage Service" href="http://docs.amazonwebservices.com/AmazonS3/latest/API/" target="_blank">Amazon S3 API Reference</a></li>
+<li><a title="PHP: cURL - Manual" href="http://www.php.net/manual/ja/book.curl.php" target="_blank">PHP Manual: Client URL Library</a></li>
+</ul>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/06/23/using-rest-api-of-amazon-s3-in-php-1/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+		<item>
+		<title>Amazon EC2 に WordPress をインストール</title>
+		<link>http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=amazon-ec2-wordpress-install</link>
+		<comments>http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/#comments</comments>
+		<pubDate>Mon, 18 Jun 2012 12:38:01 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[WordPress]]></category>
+		<category><![CDATA[Apache]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[EC2]]></category>
+		<category><![CDATA[Linux]]></category>
+		<category><![CDATA[MySQL]]></category>
+		<category><![CDATA[PHP]]></category>
+
+		<guid isPermaLink="false">http://ec2-54-248-20-246.ap-northeast-1.compute.amazonaws.com/?p=29</guid>
+		<description><![CDATA[WordPress にデフォルトで含まれているテーマ Twenty Ten がかっこいいなと思ったので、「林檎生活100」をそのテーマで運用するために Amazon EC2 にインストールしてみました。 その手順は下記のとおりです。 Amazon EC2 インスタンス起動 MySQL インストール Apache インストール PHP インストール WordPress インストール 1. Amazon EC2 インスタンス起動 Amazon EC2 のインスタンスを下記のパラメーターで起動します。EC2 のパラメーターは、各自の環境で柔軟に決めてください。 AMI: Amazon Linux AMI 2012.03 (64bit) Instance Type: t1.micro Security Group: TCP 22 (SSH) &#8230; <a href="http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p><a title="WordPress › Blog Tool, Publishing Platform, and CMS" href="http://wordpress.org" target="_blank">WordPress</a> にデフォルトで含まれているテーマ <a title="WordPress › Search for Twenty Ten « Free WordPress Themes" href="http://wordpress.org/extend/themes/twentyten" target="_blank">Twenty Ten</a> がかっこいいなと思ったので、「林檎生活100」をそのテーマで運用するために <a title="Amazon Elastic Compute Cloud (Amazon EC2)" href="http://aws.amazon.com/ec2/" target="_blank">Amazon EC2</a> にインストールしてみました。</p>
+<p><span id="more-29"></span></p>
+<p>その手順は下記のとおりです。</p>
+<ol>
+<li>Amazon EC2 インスタンス起動</li>
+<li><a title="MySQL :: The world's most popular open source database" href="http://www.mysql.com" target="_blank">MySQL</a> インストール</li>
+<li><a title="Welcome! - The Apache HTTP Server Project" href="http://httpd.apache.org" target="_blank">Apache</a> インストール</li>
+<li><a title="PHP: Hypertext Preprocessor" href="http://php.net" target="_blank">PHP</a> インストール</li>
+<li>WordPress インストール</li>
+</ol>
+<p><strong>1. Amazon EC2 インスタンス起動</strong></p>
+<p>Amazon EC2 のインスタンスを下記のパラメーターで起動します。EC2 のパラメーターは、各自の環境で柔軟に決めてください。</p>
+<ul>
+<li>AMI: Amazon Linux AMI 2012.03 (64bit)</li>
+<li>Instance Type: t1.micro</li>
+<li>Security Group:
+<ul>
+<li>TCP 22 (SSH) 0.0.0.0/0</li>
+<li>TCP 80 (HTTP) 0.0.0.0/0</li>
+<li>TCP 443 (HTTPS) 0.0.0.0/0</li>
+</ul>
+</li>
+</ul>
+<p>なお、WordPress は、同一サイト内でも絶対アドレスが基本となり、記事内の画像ファイルへのリンクなどは絶対アドレスのままデータベースに格納されます。そのため、ドメインが変わってしまうと画像ファイルが表示されないというようなことが起きるので、EC2 インスタンスに Elastic IP アドレスを付与し、運用時に使用するドメインでアクセスすることをおすすめします。</p>
+<p>ちなみに、「林檎生活100」では、Elastic IP アドレスを付与しないで運用しています。その詳細は、今後の記事で説明する予定です。</p>
+<p>次に、起動した EC2 インスタンスに ec2-user でログインし、下記のコマンドでアップデートを実施します。</p>
+<pre>$ sudo yum update</pre>
+<p>これで、インスタンスの初期設定まで完了です。</p>
+<p><strong>2. MySQL インストール</strong></p>
+<p>EC2 インスタンスにログインした状態で、下記のコマンドを入力し、MySQL をインストールします。さらに、自動起動の設定をしたあと起動し、初期設定を実施します。</p>
+<pre>$ sudo yum install mysql-server
+$ sudo chkconfig mysqld on
+$ sudo service mysqld start
+$ sudo /usr/bin/mysql_secure_installation</pre>
+<p>初期設定では、推奨される選択肢を Enter を押すことで選択していけばいいと思います。MySQL のルートパスワードは必ず設定しましょう。</p>
+<p>そのあと、mysql コマンドで MySQL にログインし、WordPress 用のデータベースを次のコマンドで作成します。</p>
+<pre>$ mysql -uroot -p
+&gt; create database wordpress character set utf8;
+&gt; grant all on wordpress.* to wordpress@localhost identified by '********';
+&gt; exit</pre>
+<p>アスタリスクで記述した wordpress ユーザーのパスワードは、各環境で自由に設定してください。</p>
+<p><strong>3. Apache インストール</strong></p>
+<p>次に、Apache をインストールします。WordPress の管理画面には SSL でアクセスしたいので、mod_ssl も合わせてインストールします。Apache の SSL 設定は、インストール時に生成される証明書で自動的に設定されます。管理画面のための SSL ということで、その設定をそのまま利用します。</p>
+<pre>$ sudo yum install httpd
+$ sudo yum install mod_ssl</pre>
+<p>さらに、.htaccess で URL Rewriting の設定ができるように、httpd.conf の339行目の AllowOverride を None から All に変更します。これは、WordPress でパーマリンクの設定をデフォルトから変更する場合に必要になります。</p>
+<pre>$ sudo cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.20120615
+$ sudo vim /etc/httpd/conf/httpd.conf
+$ diff -u /etc/httpd/conf/httpd.conf.20120615 /etc/httpd/conf/httpd.conf
+--- /etc/httpd/conf/httpd.conf.20120615 2012-06-14 20:41:27.604761766 +0000
++++ /etc/httpd/conf/httpd.conf 2012-06-14 20:42:20.042761638 +0000
+@@ -336,7 +336,7 @@
+ # It can be "All", "None", or any combination of the keywords:
+ # Options FileInfo AuthConfig Limit
+ #
+- AllowOverride None
++ AllowOverride All
+
+ #
+ # Controls who can get stuff from this server.</pre>
+<p>設定変更は、設定ファイルのコピーを取得したあと、設定ファイルを編集し、変更した部分を diff で比較するという方法で行っています。</p>
+<p>設定が完了したら、Apache を下記のコマンドで自動起動の設定をしたあと、起動します。</p>
+<pre>$ sudo chkconfig httpd on
+$ sudo service httpd start</pre>
+<p>EC2 インスタンスの Public DNS に、HTTP と HTTPS でアクセスし、Apache の Welcome ページが表示されることを確認してください。</p>
+<div id="attachment_60" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/apache-welcome.png"><img class="size-full wp-image-60" title="Test Page for the Apache HTTP Server on Amazon Linux AMI" src="http://www.applelife100.com/wp-content/uploads/2012/06/apache-welcome.png" alt="Test Page for the Apache HTTP Server on Amazon Linux AMI" width="1138" height="888" /></a><p class="wp-caption-text">Test Page for the Apache HTTP Server on Amazon Linux AMI</p></div>
+<p><strong>4. PHP インストール</strong></p>
+<p>次に、PHP をインストールします。PHP スクリプトから MySQL へ接続するためのエクステンションも同時にインストールします。今回は、<a title="MySQL :: MySQL native driver for PHP - mysqlnd" href="http://dev.mysql.com/downloads/connector/php-mysqlnd/" target="_blank">MySQL Native Driver</a> を使用しています。</p>
+<pre>$ sudo yum install php
+$ sudo yum install php-mysqlnd</pre>
+<p>PHP を有効にするために、Apache を再起動します。</p>
+<pre>$ sudo service httpd restart</pre>
+<p><strong>5. WordPress インストール</strong></p>
+<p>最後に、WordPress をインストールします。まず、最新版の WordPress をホームディレクトリにダウンロードし、展開します。インストール時は、WordPress 3.4 が最新版でした。</p>
+<pre>$ wget http://wordpress.org/latest.zip
+$ unzip latest.zip</pre>
+<p>展開したディレクトリ内にある設定ファイルのサンプルをリネームし、設定ファイルを編集します。</p>
+<pre>$ mv wordpress/wp-config-sample.php wordpress/wp-config.php
+$ vim wordpress/wp-config.php</pre>
+<p>少し長いですが、下記に設定ファイルを掲載します。</p>
+<pre class="brush: php; title: ; notranslate">
+&lt;?php
+/**
+ * The base configurations of the WordPress.
+ *
+ * This file has the following configurations: MySQL settings, Table Prefix,
+ * Secret Keys, WordPress Language, and ABSPATH. You can find more information
+ * by visiting {@link http://codex.wordpress.org/Editing_wp-config.php Editing
+ * wp-config.php} Codex page. You can get the MySQL settings from your web host.
+ *
+ * This file is used by the wp-config.php creation script during the
+ * installation. You don't have to use the web site, you can just copy this file
+ * to &quot;wp-config.php&quot; and fill in the values.
+ *
+ * @package WordPress
+ */
+
+// ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define('DB_NAME', 'wordpress');
+
+/** MySQL database username */
+define('DB_USER', 'wordpress');
+
+/** MySQL database password */
+define('DB_PASSWORD', 'wordpress');
+
+/** MySQL hostname */
+define('DB_HOST', 'localhost');
+
+/** Database Charset to use in creating database tables. */
+define('DB_CHARSET', 'utf8');
+
+/** The Database Collate type. Don't change this if in doubt. */
+define('DB_COLLATE', '');
+
+/**#@+
+ * Authentication Unique Keys and Salts.
+ *
+ * Change these to different unique phrases!
+ * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
+ * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
+ *
+ * @since 2.6.0
+ */
+define('AUTH_KEY',         'T%w[2Va]!)%QuUUYPq!nAEyR5+ra.%+j/[7+j==X &gt;.G]ys-|3~.wEz{E-+^Fv M');
+define('SECURE_AUTH_KEY',  '.JF0qIcvjR?8fy95dhaqLRfW$ULe7uS;{L +!-o+~53|0wfq%L+1iYZU:=@|mh4X');
+define('LOGGED_IN_KEY',    '#Xb[t x~-g=N-4LlFwxf:ey+}*.}sji,Bx-n0&amp;?b8+[k9 ;{kWl b)&lt;a2i`9g&amp;Wt');
+define('NONCE_KEY',        'sJ8i0TAv:Y5|[-ZhU3dLo_+PzR+St@tkv+Ubt5)5Ph0VuM~#%!EgMJ|AxPEwGE`O');
+define('AUTH_SALT',        '6W}][eC?e2CgG3`5d7uUz.fd@0zlBq Sp.zY&amp;/#mS79q&gt;1X(BitxsdI([k#Qwg2K');
+define('SECURE_AUTH_SALT', 'J=hUk4B/H@Nh3t_$^Alf0 )xT&amp;Bj9=]X`&lt;&amp;%j`5bU++(b|%-&gt;zE=/sqt;.G-K $n');
+define('LOGGED_IN_SALT',   'uaW@X!Sd2PNZ8=~J~}aRa4u]+oT8@J`d|Up$+%-sv)LKr;?lSmw+v= 5,uuNX&amp;tO');
+define('NONCE_SALT',       ':*A?M()e1qTt*.qGgH@0QxCBWwfL*qygG7;)4^&amp;d/[:_9!oij8lFnfw9xIubOJH@');
+ 
+/**#@-*/
+
+/**
+ * WordPress Database Table prefix.
+ *
+ * You can have multiple installations in one database if you give each a unique
+ * prefix. Only numbers, letters, and underscores please!
+ */
+$table_prefix  = 'wp_';
+
+/**
+ * WordPress address (URL)
+ */
+define('WP_SITEURL', 'http://' . $_SERVER['SERVER_NAME']);
+
+/**
+ * Blog address (URL)
+ */
+define('WP_HOME', 'http://' . $_SERVER['SERVER_NAME']);
+
+/**
+ * WordPress Localized Language, defaults to English.
+ *
+ * Change this to localize WordPress. A corresponding MO file for the chosen
+ * language must be installed to wp-content/languages. For example, install
+ * de_DE.mo to wp-content/languages and set WPLANG to 'de_DE' to enable German
+ * language support.
+ */
+define('WPLANG', '');
+
+/**
+ * For developers: WordPress debugging mode.
+ *
+ * Change this to true to enable the display of notices during development.
+ * It is strongly recommended that plugin and theme developers use WP_DEBUG
+ * in their development environments.
+ */
+define('WP_DEBUG', false);
+
+/**
+ * To Force SSL Logins and SSL Admin Access
+ */
+define('FORCE_SSL_ADMIN', true);
+
+/* That's all, stop editing! Happy blogging. */
+
+/** Absolute path to the WordPress directory. */
+if ( !defined('ABSPATH') )
+	define('ABSPATH', dirname(__FILE__) . '/');
+
+/** Sets up WordPress vars and included files. */
+require_once(ABSPATH . 'wp-settings.php');
+</pre>
+<p>変更点は、下記のとおりです。</p>
+<p>・MySQL settings</p>
+<p>MySQL のインストールで作成した wordpress データベース名と wordpress ユーザー名とそのパスワードを設定してください。</p>
+<p>・Authentication Unique Keys and Salts.</p>
+<p>下記の URL で生成される認証ユニークキーとソルトをコピーアンドペーストしてください。</p>
+<p><a title="https://api.wordpress.org/secret-key/1.1/salt/" href="https://api.wordpress.org/secret-key/1.1/salt/" target="_blank">https://api.wordpress.org/secret-key/1.1/salt/</a></p>
+<p>・WordPress address (URL)</p>
+<p>この設定は通常不要です。「林檎生活100」では、EC2 インスタンスにインストールした WordPress に Elastic IP アドレスを付与していないため、インスタンスを停止させたあとに、起動することで Public DNS が変化してしまいます。それによって WordPress アドレスに差異が生じて閲覧できなくなってしまうため、このような設定をしています。</p>
+<p>・Blog address (URL)</p>
+<p>この設定は通常不要です。WordPress アドレスの理由と同様です。</p>
+<p>・To Force SSL Logins and SSL Admin Access</p>
+<p>ログインと管理画面での作業を SSL で暗号化することを強制する設定です。</p>
+<p>ここまで設定したら、wordpress ディレクトリの内容を /var/www/html にコピーします。また、/var/www/html とその中のディレクトリやファイルの所有者を apache ユーザーに設定します。</p>
+<pre>sudo cp -a wordpress/* /var/www/html
+sudo chown -R apache:apache /var/www/html</pre>
+<p>すべてのターミナルでの作業が完了したら、Web ブラウザで EC2 インスタンスの Public DNS にアクセスし、WordPress の初期設定を行います。</p>
+<div id="attachment_80" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-installation-1.png"><img class="size-full wp-image-80" title="WordPress › Installation" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-installation-1.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<p>この画面では、下記の項目をフォームに入力し、Install WordPress をクリックします。</p>
+<ul>
+<li>Web サイトタイトル</li>
+<li>ユーザー名</li>
+<li>パスワード</li>
+<li>メールアドレス</li>
+</ul>
+<div id="attachment_81" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-installation-2.png"><img class="size-full wp-image-81" title="WordPress › Installation" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-installation-2.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<p>Log In をクリックします。</p>
+<div id="attachment_82" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-login.png"><img class="size-full wp-image-82" title="林檎生活100 › Log In" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-login.png" alt="林檎生活100 › Log In" width="1138" height="888" /></a><p class="wp-caption-text">林檎生活100 › Log In</p></div>
+<p>初期設定で入力したユーザー名とパスワードでログインします。</p>
+<p>そうすると、下記のような管理画面のダッシュボードにアクセスできます。記事の投稿などはこの管理画面から実施します。</p>
+<div id="attachment_86" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-dashboard.png"><img class="size-full wp-image-86" title="Dashboard ‹ 林檎生活100 — WordPress" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-dashboard.png" alt="Dashboard ‹ 林檎生活100 — WordPress" width="1138" height="888" /></a><p class="wp-caption-text">Dashboard ‹ 林檎生活100 — WordPress</p></div>
+<p>ここで改めて、Web ブラウザで EC2 インスタンスの Public DNS にアクセスすると、下記のような Web サイトが表示されるはずです。</p>
+<div id="attachment_84" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-twentyeleven.png"><img class="size-full wp-image-84" title="林檎生活100 | Just another WordPress site" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-twentyeleven.png" alt="林檎生活100 | Just another WordPress site" width="1138" height="888" /></a><p class="wp-caption-text">林檎生活100 | Just another WordPress site</p></div>
+<p>これで、WordPress のインストールは完了です。基本的に、管理画面からの操作だけで、記事の投稿やページの編集のみならず、WordPress のアップデートやプラグインのインストール、テーマの編集、PHP や CSS、JavaScript ファイルの編集までできてしまいます。</p>
+<p>管理画面からの操作は直感的なので、いろいろ試しながら Web サイトを構築してもらえたらなと思います。</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

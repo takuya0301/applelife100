@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>林檎生活100 &#187; FPGA</title>
+	<atom:link href="http://www.applelife100.com/category/fpga/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.applelife100.com</link>
+	<description>Make the World a Better Place</description>
+	<lastBuildDate>Thu, 16 May 2013 14:15:10 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.5.1</generator>
+		<item>
+		<title>「改訂版 FPGA ボードで学ぶ論理回路設計」で学ぶための準備</title>
+		<link>http://www.applelife100.com/2012/07/28/requirements-of-studying-a-logical-circuit-design/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=requirements-of-studying-a-logical-circuit-design</link>
+		<comments>http://www.applelife100.com/2012/07/28/requirements-of-studying-a-logical-circuit-design/#comments</comments>
+		<pubDate>Fri, 27 Jul 2012 21:15:17 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[FPGA]]></category>
+		<category><![CDATA[Cyclone]]></category>
+		<category><![CDATA[Quartus II]]></category>
+		<category><![CDATA[VHDL]]></category>
+		<category><![CDATA[Windows]]></category>
+
+		<guid isPermaLink="false">http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=308</guid>
+		<description><![CDATA[VHDL を勉強するために、「改訂版 FPGA ボードで学ぶ論理回路設計」を購入しました。付録基板を動作させながら勉強できてよさそうですが、実際に動作させるためには準備が必要だったので、その準備の内容を記事にまとめました。 この本は、Altera の Cyclone（Cyclone シリーズの第1世代となる FPGA です。） と7セグメント LED やプッシュボタンなどの入出力インターフェースが搭載された基板で、VHDL を学びながら、「野球ゲーム」を設計することを最終目標としています。 この基板を動作させるためには次のものが必要です。 Windows PC パラレルケーブル AC アダプタ Quartus II それぞれ、抑えておくべき仕様があるため、各項目について説明します。 Windows PC ふたつ抑えておくべき仕様があります。 ひとつは、パラレルポートを搭載していることです。これは、付録基板の FPGA に書き込むためのインタフェースがパラレルポートになるためです。また、パラレルポートの動作モードを BIOS から双方向 (Bi-directional) に設定できることが必要になります。 もうひとつは、32bitの Windows を搭載していることです。Windows Vista や Windows 7 &#8230; <a href="http://www.applelife100.com/2012/07/28/requirements-of-studying-a-logical-circuit-design/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p>VHDL を勉強するために、「<a href="http://www.amazon.co.jp/gp/product/4789831507/ref=as_li_ss_tl?ie=UTF8&amp;camp=247&amp;creative=7399&amp;creativeASIN=4789831507&amp;linkCode=as2&amp;tag=takuya0301-22">改訂版 FPGA ボードで学ぶ論理回路設計</a><img style="border: none !important; margin: 0px !important;" src="http://www.assoc-amazon.jp/e/ir?t=takuya0301-22&amp;l=as2&amp;o=9&amp;a=4789831507" alt="" width="1" height="1" border="0" />」を購入しました。付録基板を動作させながら勉強できてよさそうですが、実際に動作させるためには準備が必要だったので、その準備の内容を記事にまとめました。</p>
+<p><span id="more-308"></span>この本は、<a title="FPGA、CPLD、ASIC、プログラマブル・ロジックを提供: 日本アルテラ" href="http://altera.co.jp" target="_blank">Altera</a> の Cyclone（Cyclone シリーズの第1世代となる FPGA です。） と7セグメント LED やプッシュボタンなどの入出力インターフェースが搭載された基板で、VHDL を学びながら、「野球ゲーム」を設計することを最終目標としています。</p>
+<p>この基板を動作させるためには次のものが必要です。</p>
+<ul>
+<li>Windows PC</li>
+<li>パラレルケーブル</li>
+<li>AC アダプタ</li>
+<li>Quartus II</li>
+</ul>
+<p>それぞれ、抑えておくべき仕様があるため、各項目について説明します。</p>
+<p><strong>Windows PC</strong></p>
+<p>ふたつ抑えておくべき仕様があります。</p>
+<p>ひとつは、パラレルポートを搭載していることです。これは、付録基板の FPGA に書き込むためのインタフェースがパラレルポートになるためです。また、パラレルポートの動作モードを BIOS から双方向 (Bi-directional) に設定できることが必要になります。</p>
+<p>もうひとつは、32bitの Windows を搭載していることです。Windows Vista や Windows 7 の場合、ドライバをインストールする必要があり、そのドライバが32bitの Windows でのみ動作するためです。ドライバのインストールについては、本の付録A.4を参照してください。</p>
+<p>僕が使用している PC は、<a title="HP - United States | Laptop Computers, Desktops , Printers, Servers and more" href="http://hp.com" target="_blank">HP</a> Notebook nx6320 です。上記の条件をデフォルトで満たしており、<a title="Yahoo! JAPAN" href="http://yahoo.co.jp" target="_blank">Yahoo!</a> オークションなどで中古品が安く出品されています。解像度が XGA のものが多いようですが、SXGA+ のものがおすすめです。FPGA の論理回路設計では、CPU とメモリも重要になるので、CPU を Core 2 Duo T7200 に換装し、メモリを4GBに増設し使用しています。OS は、Windows XP Professional Service Pack 3 です。</p>
+<p><strong>パラレルケーブル</strong></p>
+<p>RS232C 25ピン オス &#8211; メス ストレート全結線ケーブルが必要です。ケーブルの端子は、接続先の端子のナットとの干渉を防ぐため、ナットではなくネジである必要があります。ケーブルのオス端子側はインチネジ、ケーブルのメス端子側はミリネジになっているとそれぞれきちんと接続できます。</p>
+<p>僕が使用しているケーブルは、Arvel AR304 です。生産中止となっており、適当な代替品もないため、パラレルケーブルの入手が基板を動作させる上での一番の課題になりそうです。</p>
+<p><a title="Amazon.co.jp： 通販 - ファッション、家電から食品まで【無料配送】" href="http://amazon.co.jp" target="_blank">Amazon.co.jp</a> では、OEM 品が本と一緒に購入されているようなので、それを使用するのがいいかもしれません。また、RS232C 25ピン 延長ケーブルもストレート全結線なので、端子のナット干渉さえ解決できれば使用できます。また、通常のRS232C 25ピン オス &#8211; オス ストレート結線ケーブルにジェンダーチェンジャーを付けるという解決策もありますが、そのときもナット干渉には注意してください。</p>
+<p><strong>AC アダプタ</strong></p>
+<p>日本電子機械工業会 (EIAJ) 規格 RC-5320A に規定されている形状のプラグを持つ5V〜6Vの AC アダプタが必要です。5V〜6Vは、EIAJ 規格の電圧区分2に該当するため、一般的には EIAJ#2 端子を持つ AC アダプタとして売られています。</p>
+<p>僕は、<a title="Linkman株式会社" href="http://linkman.jp" target="_blank">Linkman</a> SPS0502E2 を使用しています。</p>
+<p><strong>Quartus II</strong></p>
+<p>Altera の開発ソフトウェアである <a title="Quartus II Web Edition Software" href="https://www.altera.com/download/software/quartus-ii-we/11.0sp1/" target="_blank">Quartus II Web Edition v11.0 Service Pack 1</a> が必要です。このバージョンより新しい開発ソフトウェアもリリースされていますが、付録基板に搭載されている FPGA である Cyclone をサポートしていません。もちろんこれより古いバージョンの開発ソフトウェアでもかまいません。</p>
+<p>僕は、Quartus II Web Edition v11.0 Service Pack 1 を使用しています。</p>
+<p>旧バージョンの Quartus II は、少しわかりづらいところにあります。Altera のトップから、サポートをクリックし、ダウンロードをクリックし、「Quartus II 旧バージョン ソフトウェア ・ダウンロード」をクリックすると旧バージョンの Quartus II をダウンロードするためのページに移動できます。</p>
+<p>以上が、付録基板を動作させるために必要なものです。</p>
+<p>PC とパラレルケーブルで接続し、AC アダプタを接続しても、目に見える反応が何もないので故障しているのかと疑ってしまいますが、本のとおりにプログラムすると動作しますのでやってみてください。動作しない場合は、本の付録Bを参照しながらトラブルシューティングしましょう。</p>
+<p>こうやって記事にしてみると、勉強を開始するまでに準備するものが多いですね。USB 接続の FPGA ボードを付録基板とした本に改訂されることを願います。</p>
+<p><iframe style="width: 120px; height: 240px;" src="http://rcm-jp.amazon.co.jp/e/cm?lt1=_blank&amp;bc1=FFFFFF&amp;IS2=1&amp;nou=1&amp;bg1=FFFFFF&amp;fc1=000000&amp;lc1=0066CC&amp;t=takuya0301-22&amp;o=9&amp;p=8&amp;l=as4&amp;m=amazon&amp;f=ifr&amp;ref=ss_til&amp;asins=4789831507" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" width="320" height="240"></iframe></p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/07/28/requirements-of-studying-a-logical-circuit-design/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>

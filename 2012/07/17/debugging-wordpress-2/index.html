@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<title>WordPress をデバッグ #2 NetBeans と Xdebug | 林檎生活100</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="stylesheet" type="text/css" media="all" href="http://www.applelife100.com/wp-content/themes/twentyten/style.css" />
+<link rel="pingback" href="http://www.applelife100.com/xmlrpc.php" />
+<link rel="alternate" type="application/rss+xml" title="林檎生活100 &raquo; Feed" href="http://www.applelife100.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="林檎生活100 &raquo; Comments Feed" href="http://www.applelife100.com/comments/feed/" />
+
+            <script type="text/javascript">//<![CDATA[
+            // Google Analytics for WordPress by Yoast v4.3.3 | http://yoast.com/wordpress/google-analytics/
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-2273518-7']);
+				            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+            //]]></script>
+			<link rel="alternate" type="application/rss+xml" title="林檎生活100 &raquo; WordPress をデバッグ #2 NetBeans と Xdebug Comments Feed" href="http://www.applelife100.com/2012/07/17/debugging-wordpress-2/feed/" />
+<script type='text/javascript' src='http://www.applelife100.com/wp-includes/js/comment-reply.min.js?ver=3.5.1'></script>
+<script type='text/javascript' src='http://www.applelife100.com/wp-includes/js/jquery/jquery.js?ver=1.8.3'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.applelife100.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://www.applelife100.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='WordPress をデバッグ #1 WP_DEBUG オプション' href='http://www.applelife100.com/2012/06/28/debugging-wordpress-1/' />
+<link rel='next' title='「改訂版 FPGA ボードで学ぶ論理回路設計」で学ぶための準備' href='http://www.applelife100.com/2012/07/28/requirements-of-studying-a-logical-circuit-design/' />
+<meta name="generator" content="WordPress 3.5.1" />
+<link rel='canonical' href='http://www.applelife100.com/2012/07/17/debugging-wordpress-2/' />
+<link rel='shortlink' href='http://www.applelife100.com/?p=237' />
+<!-- This site is powered by Tweet, Like, Plusone and Share Plugin - http://techxt.com/tweet-like-google-1-and-share-plugin-wordpress/ -->
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="WordPress をデバッグ #2 NetBeans と Xdebug" />
+	<meta property="og:url" content="http://www.applelife100.com/2012/07/17/debugging-wordpress-2/"/>
+	<meta property="og:site_name" content="林檎生活100" />
+	<meta property="og:description" content="WordPress でプラグイン開発をするときにデバッグする方法についてです。  第2回目は、PHP での Web アプリケーション開 "/>
+	<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+			<meta property="og:image" content="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-window.png" />
+	<style type="text/css">div.socialicons{float:left;display:block;margin-right: 10px;}div.socialicons p{margin-bottom: 0px !important;margin-top: 0px !important;padding-bottom: 0px !important;padding-top: 0px !important;}</style>
+<script type="text/javascript" src="https://platform.twitter.com/widgets.js"></script><script type="text/javascript" src="//connect.facebook.net/ja_JP/all.js#xfbml=1"></script><script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script><script type="text/javascript" src="https://platform.linkedin.com/in.js"></script><style type="text/css" id="syntaxhighlighteranchor"></style>
+</head>
+
+<body class="single single-post postid-237 single-format-standard">
+<div id="wrapper" class="hfeed">
+	<div id="header">
+		<div id="masthead">
+			<div id="branding" role="banner">
+								<div id="site-title">
+					<span>
+						<a href="http://www.applelife100.com/" title="林檎生活100" rel="home">林檎生活100</a>
+					</span>
+				</div>
+				<div id="site-description">Make the World a Better Place</div>
+
+										<img src="http://www.applelife100.com/wp-content/themes/twentyten/images/headers/path.jpg" width="940" height="198" alt="" />
+								</div><!-- #branding -->
+
+			<div id="access" role="navigation">
+			  				<div class="skip-link screen-reader-text"><a href="#content" title="Skip to content">Skip to content</a></div>
+								<div class="menu"><ul><li ><a href="http://www.applelife100.com/" title="Home">Home</a></li><li class="page_item page-item-5"><a href="http://www.applelife100.com/about/">About</a></li></ul></div>
+			</div><!-- #access -->
+		</div><!-- #masthead -->
+	</div><!-- #header -->
+
+	<div id="main">
+
+		<div id="container">
+			<div id="content" role="main">
+
+			
+
+				<div id="nav-above" class="navigation">
+					<div class="nav-previous"><a href="http://www.applelife100.com/2012/06/28/debugging-wordpress-1/" rel="prev"><span class="meta-nav">&larr;</span> WordPress をデバッグ #1 WP_DEBUG オプション</a></div>
+					<div class="nav-next"><a href="http://www.applelife100.com/2012/07/28/requirements-of-studying-a-logical-circuit-design/" rel="next">「改訂版 FPGA ボードで学ぶ論理回路設計」で学ぶための準備 <span class="meta-nav">&rarr;</span></a></div>
+				</div><!-- #nav-above -->
+
+				<div id="post-237" class="post-237 post type-post status-publish format-standard hentry category-wordpress tag-apache tag-mac-os-x tag-mamp tag-mysql tag-netbeans tag-php tag-phpmyadmin tag-wordpress tag-xdebug">
+					<h1 class="entry-title">WordPress をデバッグ #2 NetBeans と Xdebug</h1>
+
+					<div class="entry-meta">
+						<span class="meta-prep meta-prep-author">Posted on</span> <a href="http://www.applelife100.com/2012/07/17/debugging-wordpress-2/" title="11:24 pm" rel="bookmark"><span class="entry-date">July 17, 2012</span></a> <span class="meta-sep">by</span> <span class="author vcard"><a class="url fn n" href="http://www.applelife100.com/author/takuya0301/" title="View all posts by TSUCHIDA Takuya">TSUCHIDA Takuya</a></span>					</div><!-- .entry-meta -->
+
+					<div class="entry-content">
+						<p><a title="WordPress › Blog Tool, Publishing Platform, and CMS" href="http://wordpress.org" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://wordpress.org']);" target="_blank">WordPress</a> でプラグイン開発をするときにデバッグする方法についてです。</p>
+<p>第2回目は、<a title="PHP: Hypertext Preprocessor" href="http://php.net" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://php.net']);" target="_blank">PHP</a> での Web アプリケーション開発でよく利用される <a title="Xdebug - Debugger and Profiler Tool for PHP" href="http://xdebug.org" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://xdebug.org']);" target="_blank">Xdebug</a> というデバッガーでデバッグする方法です。</p>
+<p><span id="more-237"></span>Xdebug でデバッグする場合は、Xdebug に対応した統合開発環境を利用するのが一般的です。この記事では、統合開発環境として <a title="Welcome to NetBeans" href="http://netbeans.org" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://netbeans.org']);" target="_blank">NetBeans</a> を利用することにします。また、実行環境も統合開発環境が動作しているコンピューター上である方が設定が簡単なので、実行環境もコンピューター上にインストールします。また、実行環境のインストールを簡単にするため、実行環境として <a title="MAMP: Mac, Apache, MySQL, PHP" href="http://mamp.info" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://mamp.info']);" target="_blank">MAMP</a> を使用します。</p>
+<p><strong>目次</strong></p>
+<ol>
+<li>MAMP インストール</li>
+<li>WordPress インストール</li>
+<li>NetBeans インストール</li>
+<li>Xdebug 設定</li>
+<li>例：Hello Dolly プラグインのデバッグ</li>
+</ol>
+<p><strong>1. MAMP インストール</strong></p>
+<p><a title="MAMP: Mac, Apache, MySQL, PHP" href="http://mamp.info" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://mamp.info']);" target="_blank">MAMP</a> の Web サイトにアクセスし、MAMP をダウンロードしてください。ダウンロードが完了したら、ディスクイメージをマウントし、パッケージファイルを実行してください。あとは、インストールウィザードに従うだけで、インストールが完了します。</p>
+<p><strong>追記（2012年9月18日）：</strong><br />
+この記事で使用している MAMP は、バージョン2.0.5です。同じバージョンを使用する場合は、下記の URL からダウンロードしてください。<br />
+<a title="MAMP_MAMP_PRO_2.0.5.zip" href="http://www.mamp.info/downloads/releases/MAMP_MAMP_PRO_2.0.5.zip" onclick="javascript:_gaq.push(['_trackEvent','download','http://www.mamp.info/downloads/releases/MAMP_MAMP_PRO_2.0.5.zip']);">http://www.mamp.info/downloads/releases/MAMP_MAMP_PRO_2.0.5.zip</a></p>
+<p>同時にインストールされる MAMP PRO は使用しないので、アンインストールしてもかまいません。</p>
+<p>インストール完了後、MAMP を起動すると、下記のようなウィンドウが表示されます。このウィンドウから、サーバーの起動や停止、環境設定を行うことができます。</p>
+<div id="attachment_241" class="wp-caption alignnone" style="width: 547px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-window.png" ><img class="size-full wp-image-241" title="mamp-window" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-window.png" alt="MAMP ウィンドウ" width="537" height="458" /></a><p class="wp-caption-text">MAMP ウィンドウ</p></div>
+<p>起動後少し時間をおいて、下記のような MAMP のスタートページがデフォルト Web ブラウザで開かれます。このスタートページから各種管理ツールにアクセスできます。今回は、phpinfo と <a title="phpMyAdmin" href="http://phpmyadmin.net" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://phpmyadmin.net']);" target="_blank">phpMyAdmin</a> を使用します。</p>
+<div id="attachment_242" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-start.png" ><img class="size-full wp-image-242" title="mamp-start" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-start.png" alt="MAMP スタートページ" width="1138" height="888" /></a><p class="wp-caption-text">MAMP スタートページ</p></div>
+<p>また、MAMP には PHP 5.2 系と PHP 5.3 系の両方が含まれています。MAMP 環境設定から選択することができます。この記事では、PHP 5.3 系を利用します。</p>
+<div id="attachment_243" class="wp-caption alignnone" style="width: 547px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-preferences.png" ><img class="size-full wp-image-243" title="mamp-preferences" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-preferences.png" alt="MAMP 環境設定" width="537" height="458" /></a><p class="wp-caption-text">MAMP 環境設定</p></div>
+<p><strong>2. WordPress インストール</strong></p>
+<p><strong></strong><a title="WordPress › Blog Tool, Publishing Platform, and CMS" href="http://wordpress.org" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://wordpress.org']);" target="_blank">WordPress</a> の Web サイトにアクセスし、WordPress をダウンロードしてください。WordPress のダウンロードが完了したら、MAMP ディレクトリの htdocs に下記のように展開してください。</p>
+<div id="attachment_244" class="wp-caption alignnone" style="width: 894px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-directory-htdocs.png" ><img class="size-full wp-image-244" title="mamp-directory-htdocs" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-directory-htdocs.png" alt="MAMP htdocs ディレクトリ" width="884" height="552" /></a><p class="wp-caption-text">MAMP htdocs ディレクトリ</p></div>
+<p>次に、WordPress 用のデータベースを作成します。MAMP のスタートページから phpMyAdmin にアクセスしてください。phpMyAdmin のトップページで、wordpress という名前のデータベースを作成します。</p>
+<div id="attachment_245" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-1.png" ><img class="size-full wp-image-245" title="mamp-phpmyadmin-create-database-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-1.png" alt="phpMyAdmin: WordPress 用データベースの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用データベースの作成</p></div>
+<div id="attachment_246" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-2.png" ><img class="size-full wp-image-246" title="mamp-phpmyadmin-create-database-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-database-2.png" alt="phpMyAdmin: WordPress 用データベースの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用データベースの作成</p></div>
+<p>そして、wordpress データベースを操作する wordpress という名前のユーザーを作成します。</p>
+<div id="attachment_247" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-1.png" ><img class="size-full wp-image-247" title="mamp-phpmyadmin-create-user-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-1.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<div id="attachment_248" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-2.png" ><img class="size-full wp-image-248" title="mamp-phpmyadmin-create-user-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-2.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<div id="attachment_249" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-3.png" ><img class="size-full wp-image-249" title="mamp-phpmyadmin-create-user-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-3.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<div id="attachment_250" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-4.png" ><img class="size-full wp-image-250" title="mamp-phpmyadmin-create-user-4" src="http://www.applelife100.com/wp-content/uploads/2012/07/mamp-phpmyadmin-create-user-4.png" alt="phpMyAdmin: WordPress 用ユーザーの作成" width="1138" height="888" /></a><p class="wp-caption-text">phpMyAdmin: WordPress 用ユーザーの作成</p></div>
+<p>データベースの作成完了後、Web ブラウザで WordPress にアクセスします。手順通りに実行していれば、下記のアドレスでアクセスできるはずです。</p>
+<p><a title="WordPress" href="http://localhost:8888/wordpress/"  target="_blank">http://localhost:8888/wordpress/</a></p>
+<p>アクセスすると、wp-config.php がないため、下記のようなエラーページが表示されます。</p>
+<div id="attachment_253" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-error-wp-config-is-missing.png" ><img class="size-full wp-image-253" title="wordpress-error-wp-config-is-missing" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-error-wp-config-is-missing.png" alt="WordPress › Error" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Error</p></div>
+<p>Create a Configuration File ボタンをクリックし、ウィザードに従って wp-config.php を作成します。</p>
+<div id="attachment_255" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-1.png" ><img class="size-full wp-image-255" title="wordpress-create-configuration-file-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-1.png" alt="WordPress › Setup Configuration File" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Setup Configuration File</p></div>
+<p>下記の画面では、phpMyAdmin で作成したデータベースへの接続情報を入力してください。</p>
+<div id="attachment_256" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-3.png" ><img class="size-full wp-image-256" title="wordpress-create-configuration-file-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-create-configuration-file-3.png" alt="WordPress › Setup Configuration File" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Setup Configuration File</p></div>
+<p>wp-config.php ファイルができれば、あとは通常のインストール作業と変わりません。</p>
+<p>コンピューター上の開発環境ということもあって、簡単にインストールできる方法でやっています。運用のためにインストールする場合は、<a title="Amazon EC2 に WordPress をインストール | 林檎生活100" href="http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/" >Amazon EC2 に WordPress をインストール</a>を参考にしてみてください。</p>
+<div id="attachment_258" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-3.png" ><img class="size-full wp-image-258" title="wordpress-installation-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-3.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<div id="attachment_259" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-4.png" ><img class="size-full wp-image-259" title="wordpress-installation-4" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-4.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<div id="attachment_260" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-5.png" ><img class="size-full wp-image-260" title="wordpress-installation-5" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-installation-5.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<p>これで、WordPress のインストールは完了です。通常の WordPress と同様に操作できます。URL が <a title="WordPress" href="http://localhost:8888/wordpress/"  target="_blank">http://localhost:8888/wordpress/</a> になることに注意してください。</p>
+<p><strong>3. NetBeans インストール</strong></p>
+<p><a title="Welcome to NetBeans" href="http://netbeans.org/" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://netbeans.org']);" target="_blank">NetBeans</a> の Web サイトにアクセスし、PHP をサポートする NetBeans をダウンロードしてください。ダウンロードが完了したら、ディスクイメージをマウントし、パッケージファイルを実行してください。あとは、インストールウィザードに従うだけで、インストールが完了します。</p>
+<p>WordPress のソースを編集できるようにプロジェクトを作成します。</p>
+<p>まず、NetBeans のメニューバーで、ファイル &gt; 新規プロジェクトをクリックします。新規プロジェクトのウィザードが表示されるので、プロジェクトで「既存のソースを使用する PHP アプリケーション」を選択し、「次へ」をクリックしてください。</p>
+<div id="attachment_272" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-1.png" ><img class="size-full wp-image-272" title="netbeans-create-project-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-1.png" alt="NetBeans: 新規プロジェクトウィザード" width="1180" height="726" /></a><p class="wp-caption-text">NetBeans: 新規プロジェクトウィザード</p></div>
+<p>ソースフォルダは、 /Applications/MAMP/htdocs/wordpress を参照します。PHP のバージョンは、PHP 5.3 を選択し、「次へ」をクリックしてください。</p>
+<div id="attachment_274" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-2.png" ><img class="size-full wp-image-274" title="netbeans-create-project-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-2.png" alt="NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード" width="1180" height="726" /></a><p class="wp-caption-text">NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード</p></div>
+<p>プロジェクト URL を MAMP に合わせて http://localhost:8888/wordpress/ に変更し、「完了」をクリックしてください。</p>
+<div id="attachment_275" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-3.png" ><img class="size-full wp-image-275" title="netbeans-create-project-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-create-project-3.png" alt="NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード" width="1180" height="726" /></a><p class="wp-caption-text">NetBeans: 新規既存のソースを使用する PHP プロジェクトウィザード</p></div>
+<p>今回は WordPress のプロジェクトを MAMP の htdocs ディレクトリで管理していますが、ホームディレクトリの NetBeansProjects ディレクトリで管理することも可能です。WordPress を NetBeansProjects ディレクトリに展開し、新規プロジェクトのウィザードで同様にプロジェクトを作成してください。ウィザードの最後で、「ファイルをソースフォルダから別の場所にコピー」を有効にし、 /Applications/MAMP/htdocs/wordpress にコピーするように設定してください。これによって、NetBeans から実行する場合は、WordPress のソースファイルがコピーされてから実行されることになります。</p>
+<p>この記事で WordPress のプロジェクトを MAMP の htdocs ディレクトリで管理しているのは、ファイルを保存するだけですぐにブラウザで確認できるようにするためです。NetBeansProjects ディレクトリで管理していると、NetBeans で実行して htdocs ディレクトリにファイルをコピーする必要があり、すぐにブラウザで確認できないからです。</p>
+<p>どちらも一長一短なところがあるので、プロジェクト管理の好みに合わせて好きな方を選んでください。</p>
+<p><strong>4. Xdebug 設定</strong></p>
+<p>Xdebug の設定を行います。MAMP には、Xdebug 拡張モジュールが含まれているので、下記のパスにある php.ini ファイルを編集することで有効にできます。（下記のパスは、MAMP のバージョンによって変わるため、環境によって変更が必要になる可能性があります。）</p>
+<p>/Applications/MAMP/bin/php/php5.3.6/conf/php.ini</p>
+<p>NetBeans で、ファイル &gt; ファイルを開くをクリックし、ダイアログから php.ini ファイルを開き、下記のように設定ファイル末尾を変更してください。もちろん、ほかのテキストエディタで編集しても問題ありません。（zend_extension パラメータのパスは、MAMP のバージョンによって変わるため、環境によって変更が必要になる可能性があります。xdebug.so ファイルが存在していることを必ず確認してください。）</p>
+<pre class="brush: plain; first-line: 1166; title: ; notranslate" title="">
+[xdebug]
+zend_extension=&quot;/Applications/MAMP/bin/php/php5.3.6/lib/php/extensions/no-debug-non-zts-20090626/xdebug.so&quot;
+xdebug.remote_enable = On
+
+</pre>
+<p>これで設定完了です。設定を反映させるために、MAMP ウィンドウで「サーバを停止」をクリックし、サーバー停止後に「サーバを起動」をクリックし、サーバーを再起動させてください。</p>
+<p>サーバーが起動したら、MAMP ウィンドウで「スタートページを開く」をクリックし、MAMP のスタートページで phpinfo をクリックし、Xdebug が有効になっていることを確認してください。</p>
+<div id="attachment_280" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-1.png" ><img class="size-full wp-image-280" title="xdebug-phpinfo-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-1.png" alt="" width="1138" height="888" /></a><p class="wp-caption-text">phpinfo: xdebug</p></div>
+<p>また、xdebug.remote_enable が On になっていることも確認してください。</p>
+<div id="attachment_281" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-2.png" ><img class="size-full wp-image-281" title="xdebug-phpinfo-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/xdebug-phpinfo-2.png" alt="phpinfo: xdebug" width="1138" height="888" /></a><p class="wp-caption-text">phpinfo: xdebug</p></div>
+<p>これで、Xdebug の設定が完了しました。</p>
+<p><strong>5. 例：Hello Dolly プラグインのデバッグ</strong></p>
+<p>WordPress に付属している Hello Dolly プラグインを Xdebug でデバッグしてみましょう。</p>
+<p>まず、WordPress の管理画面で Hello Dolly プラグインを有効にします。</p>
+<div id="attachment_291" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-plugin-hello-dolly.png" ><img class="size-full wp-image-291" title="wordpress-plugin-hello-dolly" src="http://www.applelife100.com/wp-content/uploads/2012/07/wordpress-plugin-hello-dolly.png" alt="Plugins ‹ Plugin Development Environment — WordPress" width="1138" height="888" /></a><p class="wp-caption-text">Plugins ‹ Plugin Development Environment — WordPress</p></div>
+<p>次に、plugins ディレクトリの hello.php を開き、hello_dolly 関数の1行目にブレークポイントを行の左側（赤枠）をクリックして設定します。そして、「プロジェクトをデバッグ」ボタン（青枠）をクリックしてデバッグを開始します。</p>
+<div id="attachment_292" class="wp-caption alignnone" style="width: 1276px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-1.png" ><img class="size-full wp-image-292" title="netbeans-debug-1" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-1.png" alt="NetBeans: デバッグ" width="1266" height="810" /></a><p class="wp-caption-text">NetBeans: デバッグ</p></div>
+<p>何も表示されていないブラウザウィンドウが立ち上がると思います。これは、デバッガが PHP の実行を最初の行で停止するためです。「続行」ボタン（赤枠）をクリックすることで、画面が表示されます。（複数回クリックが必要です。）また、「デバッガセッションを終了」ボタン（青枠）をクリックすることでデバッグを終了できます。</p>
+<div id="attachment_294" class="wp-caption alignnone" style="width: 1276px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-2.png" ><img class="size-full wp-image-294" title="netbeans-debug-2" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-2.png" alt="NetBeans: デバッグ" width="1266" height="810" /></a><p class="wp-caption-text">NetBeans: デバッグ</p></div>
+<p>最初の行で停止する機能が不要な場合は、環境設定から PHP の「デバッガ」タブを選択し、「最初の行で停止」のチェックを外してください。</p>
+<div id="attachment_293" class="wp-caption alignnone" style="width: 1190px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-option-debug.png" ><img class="size-full wp-image-293" title="netbeans-option-debug" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-option-debug.png" alt="NetBeans: デバッグ設定" width="1180" height="758" /></a><p class="wp-caption-text">NetBeans: デバッグ設定</p></div>
+<p>Hello Dolly プラグインを有効にした状態で、管理画面にログインすると、下記のような状態で停止するかと思います。（「最初の行で停止」のチェックを入れたままの場合は、何度か続行をクリックするとこの状態になります。）</p>
+<div id="attachment_295" class="wp-caption alignnone" style="width: 1276px"><a href="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-3.png" ><img class="size-full wp-image-295" title="netbeans-debug-3" src="http://www.applelife100.com/wp-content/uploads/2012/07/netbeans-debug-3.png" alt="NetBeans: デバッグ" width="1266" height="810" /></a><p class="wp-caption-text">NetBeans: デバッグ</p></div>
+<p>行左側の緑色矢印（赤枠）は、現在実行が停止している行を示します。ブレークポイントを設定したため、ブレークポイントの行で実行が止まっていることがわかると思います。</p>
+<p>下部のウィンドウグループには、タブ（青枠）が追加されます。「変数」タブでは、現在停止している行で参照できる変数の値を見ることができます。「呼び出しスタック」タブでは、現在の関数がどの関数から呼び出されているかをたどることができます。「ブレークポイント」タブでは、設定しているブレークポイントを編集することができます。</p>
+<p>ツールバーには、ステップ実行ボタン（緑枠）が追加されます。「ステップオーバー」ボタンは、現在の行を実行し、次の行で停止します。「ステップイン」ボタンは、現在の行を実行し、その行に関数が含まれている場合、その関数内の1行目で停止します。「ステップアウト」ボタンは、現在の関数を抜けるまで実行し、その関数を呼び出している行の次の行で停止します。</p>
+<p>あとは実際に、ステップ実行したり、変数の内容を見たり、ブレークポイントを追加したりすることで、Xdebug の便利さが体感できると思うので、いろいろと試してみて理解してもらえればいいかなと思います。</p>
+<p>さて、今回は Xdebug を使用した WordPress のデバッグについて記事を書きました。プラグイン開発やテーマ開発で導入するととても便利だと思うので、ぜひ使ってみてください。
+<div class="social4i" style="height:29px;">
+<div class="social4in" style="height:29px;float: left;">
+<div class="socialicons s4fblike" style="float:left;margin-right: 10px;">
+<div id="fb-root"></div>
+<div class="fb-like" data-href="http://www.applelife100.com/2012/07/17/debugging-wordpress-2/" data-send="false"  data-layout="button_count" data-width="100" data-height="21"  data-show-faces="false"></div>
+</div>
+<div class="socialicons s4twitter" style="float:left;margin-right: 10px;"><a href="https://twitter.com/share" onclick="javascript:_gaq.push(['_trackEvent','outbound-article','http://twitter.com']);" data-url="http://www.applelife100.com/2012/07/17/debugging-wordpress-2/" data-counturl="http://www.applelife100.com/2012/07/17/debugging-wordpress-2/" data-text="WordPress をデバッグ #2 NetBeans と Xdebug" class="twitter-share-button" data-count="horizontal" data-via="takuya0301"></a></div>
+</div>
+<div style="clear:both"></div>
+</div>
+											</div><!-- .entry-content -->
+
+					<div id="entry-author-info">
+						<div id="author-avatar">
+							<img alt='' src='http://0.gravatar.com/avatar/0763f21692552f6fb82f5845c86bdbf8?s=60&amp;d=http%3A%2F%2F0.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D60&amp;r=G' class='avatar avatar-60 photo' height='60' width='60' />						</div><!-- #author-avatar -->
+						<div id="author-description">
+							<h2>About TSUCHIDA Takuya</h2>
+							生まれ変わったら黒猫になりたいシステムアーキテクトです。僕への連絡は右下の MessageLeaf からお願いします。							<div id="author-link">
+								<a href="http://www.applelife100.com/author/takuya0301/" rel="author">
+									View all posts by TSUCHIDA Takuya <span class="meta-nav">&rarr;</span>								</a>
+							</div><!-- #author-link	-->
+						</div><!-- #author-description -->
+					</div><!-- #entry-author-info -->
+
+					<div class="entry-utility">
+						This entry was posted in <a href="http://www.applelife100.com/category/wordpress/" title="View all posts in WordPress" rel="category tag">WordPress</a> and tagged <a href="http://www.applelife100.com/tag/apache/" rel="tag">Apache</a>, <a href="http://www.applelife100.com/tag/mac-os-x/" rel="tag">Mac OS X</a>, <a href="http://www.applelife100.com/tag/mamp/" rel="tag">MAMP</a>, <a href="http://www.applelife100.com/tag/mysql/" rel="tag">MySQL</a>, <a href="http://www.applelife100.com/tag/netbeans/" rel="tag">NetBeans</a>, <a href="http://www.applelife100.com/tag/php/" rel="tag">PHP</a>, <a href="http://www.applelife100.com/tag/phpmyadmin/" rel="tag">phpMyAdmin</a>, <a href="http://www.applelife100.com/tag/wordpress/" rel="tag">WordPress</a>, <a href="http://www.applelife100.com/tag/xdebug/" rel="tag">Xdebug</a>. Bookmark the <a href="http://www.applelife100.com/2012/07/17/debugging-wordpress-2/" title="Permalink to WordPress をデバッグ #2 NetBeans と Xdebug" rel="bookmark">permalink</a>.											</div><!-- .entry-utility -->
+				</div><!-- #post-## -->
+
+				<div id="nav-below" class="navigation">
+					<div class="nav-previous"><a href="http://www.applelife100.com/2012/06/28/debugging-wordpress-1/" rel="prev"><span class="meta-nav">&larr;</span> WordPress をデバッグ #1 WP_DEBUG オプション</a></div>
+					<div class="nav-next"><a href="http://www.applelife100.com/2012/07/28/requirements-of-studying-a-logical-circuit-design/" rel="next">「改訂版 FPGA ボードで学ぶ論理回路設計」で学ぶための準備 <span class="meta-nav">&rarr;</span></a></div>
+				</div><!-- #nav-below -->
+
+				
+<div id="disqus_thread">
+    </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var disqus_url = 'http://www.applelife100.com/2012/07/17/debugging-wordpress-2/';
+    var disqus_identifier = '237 http://ec2-175-41-195-55.ap-northeast-1.compute.amazonaws.com/?p=237';
+    var disqus_container_id = 'disqus_thread';
+    var disqus_domain = 'disqus.com';
+    var disqus_shortname = 'applelife100';
+    var disqus_title = "WordPress をデバッグ #2 NetBeans と Xdebug";
+        var disqus_config = function () {
+        var config = this; // Access to the config object
+        config.language = '';
+
+        /*
+           All currently supported events:
+            * preData — fires just before we request for initial data
+            * preInit - fires after we get initial data but before we load any dependencies
+            * onInit  - fires when all dependencies are resolved but before dtpl template is rendered
+            * afterRender - fires when template is rendered but before we show it
+            * onReady - everything is done
+         */
+
+        config.callbacks.preData.push(function() {
+            // clear out the container (its filled for SEO/legacy purposes)
+            document.getElementById(disqus_container_id).innerHTML = '';
+        });
+                config.callbacks.onReady.push(function() {
+            // sync comments in the background so we don't block the page
+            var script = document.createElement('script');
+            script.async = true;
+            script.src = '?cf_action=sync_comments&post_id=237';
+
+            var firstScript = document.getElementsByTagName( "script" )[0];
+            firstScript.parentNode.insertBefore(script, firstScript);
+        });
+                    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+    var DsqLocal = {
+        'trackbacks': [
+        ],
+        'trackback_url': "http:\/\/ec2-54-250-34-182.ap-northeast-1.compute.amazonaws.com\/2012\/07\/17\/debugging-wordpress-2\/trackback\/"    };
+/* ]]> */
+</script>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.' + 'disqus.com' + '/embed.js?pname=wordpress&pver=2.74';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+/* ]]> */
+</script>
+
+
+			</div><!-- #content -->
+		</div><!-- #container -->
+
+
+		<div id="primary" class="widget-area" role="complementary">
+			<ul class="xoxo">
+
+<li id="search-2" class="widget-container widget_search"><div id="cse-search-form" style="width: 100%;">Loading</div>
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript"> 
+  google.load('search', '1', {language : 'en', style : google.loader.themes.MINIMALIST});
+  google.setOnLoadCallback(function() {
+    var customSearchOptions = {};  var customSearchControl = new google.search.CustomSearchControl(
+      '010988724745761806699:bzejupkavby', customSearchOptions);
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    var options = new google.search.DrawOptions();
+    options.enableSearchboxOnly("http://www.google.com/cse?cx=010988724745761806699:bzejupkavby");
+    customSearchControl.draw('cse-search-form', options);
+  }, true);
+</script>
+<style type="text/css">
+  #content table.gsc-search-box {
+    border: none;
+    width: 320px;
+  }
+  #content td.gsc-input {
+    border: none;
+    padding-top: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  #content input.gsc-input {
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 0;
+  }
+  #content td.gsc-search-button {
+    border: none;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  #content input.gsc-search-button {
+    color: #fff;
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 0;
+  } 
+  #content td.gsc-clear-button {
+    border: none;
+    display: none;
+    padding-top: 8px;
+    padding-left: 0;
+    padding-right: 0;
+    vertical-align: baseline;
+  }
+  #search-2 form.gsc-search-box {
+    margin: 0;
+    padding: 0;
+  }
+  #search-2 table.gsc-search-box {
+    margin: 0;
+    padding: 0;
+  }
+  #search-2 input.gsc-input {
+    font-size: 14px;
+  }
+  #search-2 input.gsc-search-button {
+    margin-right: 0px;
+    margin-left: 8px;
+    font-size: 12px;
+  }
+  #search-2 td.gsc-clear-button {
+    display: none;
+  }
+</style></li>		<li id="recent-posts-2" class="widget-container widget_recent_entries">		<h3 class="widget-title">Recent Posts</h3>		<ul>
+					<li>
+				<a href="http://www.applelife100.com/2013/05/16/solution-tower-of-hanoi-c/" title="解法：ハノイの塔 [C]">解法：ハノイの塔 [C]</a>
+						</li>
+					<li>
+				<a href="http://www.applelife100.com/2013/04/17/data-structure-list-singly-linked-list-1-c/" title="データ構造：リスト：単方向連結リスト #1 [C]">データ構造：リスト：単方向連結リスト #1 [C]</a>
+						</li>
+					<li>
+				<a href="http://www.applelife100.com/2013/04/02/programmin-environment-for-sicp/" title="「計算機プログラムの構造と解釈」のためのプログラミング環境">「計算機プログラムの構造と解釈」のためのプログラミング環境</a>
+						</li>
+					<li>
+				<a href="http://www.applelife100.com/2012/11/30/design-for-iphone-5-with-interface-builder-in-xcode-4-4-1-1-autosizing/" title="Xcode 4.4.1 で Interface Builder を使用した iPhone 5 対応のデザイン #1 Autosizing 編">Xcode 4.4.1 で Interface Builder を使用した iPhone 5 対応のデザイン #1 Autosizing 編</a>
+						</li>
+					<li>
+				<a href="http://www.applelife100.com/2012/11/21/making-my-arm-breadboard-experiment-set/" title="MY ARM ブレッドボード実験セットの製作">MY ARM ブレッドボード実験セットの製作</a>
+						</li>
+				</ul>
+		</li><li id="archives-2" class="widget-container widget_archive"><h3 class="widget-title">Archives</h3>		<ul>
+			<li><a href='http://www.applelife100.com/2013/05/' title='May 2013'>May 2013</a>&nbsp;(1)</li>
+	<li><a href='http://www.applelife100.com/2013/04/' title='April 2013'>April 2013</a>&nbsp;(2)</li>
+	<li><a href='http://www.applelife100.com/2012/11/' title='November 2012'>November 2012</a>&nbsp;(3)</li>
+	<li><a href='http://www.applelife100.com/2012/09/' title='September 2012'>September 2012</a>&nbsp;(2)</li>
+	<li><a href='http://www.applelife100.com/2012/07/' title='July 2012'>July 2012</a>&nbsp;(2)</li>
+	<li><a href='http://www.applelife100.com/2012/06/' title='June 2012'>June 2012</a>&nbsp;(5)</li>
+		</ul>
+</li><li id="categories-2" class="widget-container widget_categories"><h3 class="widget-title">Categories</h3>		<ul>
+	<li class="cat-item cat-item-14"><a href="http://www.applelife100.com/category/amazon-s3/" title="View all posts filed under Amazon S3">Amazon S3</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="http://www.applelife100.com/category/arm/" title="View all posts filed under ARM">ARM</a> (1)
+</li>
+	<li class="cat-item cat-item-35"><a href="http://www.applelife100.com/category/data-structure/" title="View all posts filed under Data Structure">Data Structure</a> (1)
+</li>
+	<li class="cat-item cat-item-22"><a href="http://www.applelife100.com/category/fpga/" title="View all posts filed under FPGA">FPGA</a> (1)
+</li>
+	<li class="cat-item cat-item-10"><a href="http://www.applelife100.com/category/netbeans/" title="View all posts filed under NetBeans">NetBeans</a> (2)
+</li>
+	<li class="cat-item cat-item-39"><a href="http://www.applelife100.com/category/scheme/" title="View all posts filed under Scheme">Scheme</a> (1)
+</li>
+	<li class="cat-item cat-item-41"><a href="http://www.applelife100.com/category/solution/" title="View all posts filed under Solution">Solution</a> (1)
+</li>
+	<li class="cat-item cat-item-3"><a href="http://www.applelife100.com/category/wordpress/" title="View all posts filed under WordPress">WordPress</a> (3)
+</li>
+	<li class="cat-item cat-item-27"><a href="http://www.applelife100.com/category/xcode/" title="View all posts filed under Xcode">Xcode</a> (3)
+</li>
+		</ul>
+</li><li id="tag_cloud-2" class="widget-container widget_tag_cloud"><h3 class="widget-title">Tags</h3><div class="tagcloud"><a href='http://www.applelife100.com/tag/apache/' class='tag-link-4' title='2 topics' style='font-size: 12.581818181818pt;'>Apache</a>
+<a href='http://www.applelife100.com/tag/arm/' class='tag-link-30' title='1 topic' style='font-size: 8pt;'>ARM</a>
+<a href='http://www.applelife100.com/tag/aws/' class='tag-link-5' title='3 topics' style='font-size: 15.636363636364pt;'>AWS</a>
+<a href='http://www.applelife100.com/tag/c/' class='tag-link-36' title='2 topics' style='font-size: 12.581818181818pt;'>C</a>
+<a href='http://www.applelife100.com/tag/cyclone/' class='tag-link-21' title='1 topic' style='font-size: 8pt;'>Cyclone</a>
+<a href='http://www.applelife100.com/tag/data-structure/' class='tag-link-35' title='1 topic' style='font-size: 8pt;'>Data Structure</a>
+<a href='http://www.applelife100.com/tag/ec2/' class='tag-link-6' title='1 topic' style='font-size: 8pt;'>EC2</a>
+<a href='http://www.applelife100.com/tag/fpga/' class='tag-link-22' title='1 topic' style='font-size: 8pt;'>FPGA</a>
+<a href='http://www.applelife100.com/tag/interface-builder/' class='tag-link-33' title='1 topic' style='font-size: 8pt;'>Interface Builder</a>
+<a href='http://www.applelife100.com/tag/ios/' class='tag-link-28' title='2 topics' style='font-size: 12.581818181818pt;'>iOS</a>
+<a href='http://www.applelife100.com/tag/linux/' class='tag-link-7' title='1 topic' style='font-size: 8pt;'>Linux</a>
+<a href='http://www.applelife100.com/tag/list/' class='tag-link-37' title='1 topic' style='font-size: 8pt;'>List</a>
+<a href='http://www.applelife100.com/tag/lpcxpresso/' class='tag-link-31' title='1 topic' style='font-size: 8pt;'>LPCXpresso</a>
+<a href='http://www.applelife100.com/tag/mac-os-x/' class='tag-link-12' title='6 topics' style='font-size: 22pt;'>Mac OS X</a>
+<a href='http://www.applelife100.com/tag/mamp/' class='tag-link-17' title='1 topic' style='font-size: 8pt;'>MAMP</a>
+<a href='http://www.applelife100.com/tag/mysql/' class='tag-link-8' title='2 topics' style='font-size: 12.581818181818pt;'>MySQL</a>
+<a href='http://www.applelife100.com/tag/netbeans/' class='tag-link-10' title='3 topics' style='font-size: 15.636363636364pt;'>NetBeans</a>
+<a href='http://www.applelife100.com/tag/objective-c/' class='tag-link-29' title='1 topic' style='font-size: 8pt;'>Objective-C</a>
+<a href='http://www.applelife100.com/tag/php/' class='tag-link-9' title='6 topics' style='font-size: 22pt;'>PHP</a>
+<a href='http://www.applelife100.com/tag/phpmyadmin/' class='tag-link-18' title='1 topic' style='font-size: 8pt;'>phpMyAdmin</a>
+<a href='http://www.applelife100.com/tag/quartus-ii/' class='tag-link-23' title='1 topic' style='font-size: 8pt;'>Quartus II</a>
+<a href='http://www.applelife100.com/tag/racket/' class='tag-link-40' title='1 topic' style='font-size: 8pt;'>Racket</a>
+<a href='http://www.applelife100.com/tag/rest/' class='tag-link-16' title='1 topic' style='font-size: 8pt;'>REST</a>
+<a href='http://www.applelife100.com/tag/s3/' class='tag-link-15' title='2 topics' style='font-size: 12.581818181818pt;'>S3</a>
+<a href='http://www.applelife100.com/tag/scheme/' class='tag-link-39' title='1 topic' style='font-size: 8pt;'>Scheme</a>
+<a href='http://www.applelife100.com/tag/singly-linked-list/' class='tag-link-38' title='1 topic' style='font-size: 8pt;'>Singly Linked List</a>
+<a href='http://www.applelife100.com/tag/solution/' class='tag-link-41' title='1 topic' style='font-size: 8pt;'>Solution</a>
+<a href='http://www.applelife100.com/tag/tower-of-hanoi/' class='tag-link-42' title='1 topic' style='font-size: 8pt;'>Tower of Hanoi</a>
+<a href='http://www.applelife100.com/tag/vhdl/' class='tag-link-24' title='1 topic' style='font-size: 8pt;'>VHDL</a>
+<a href='http://www.applelife100.com/tag/vi/' class='tag-link-11' title='1 topic' style='font-size: 8pt;'>vi</a>
+<a href='http://www.applelife100.com/tag/windows/' class='tag-link-25' title='1 topic' style='font-size: 8pt;'>Windows</a>
+<a href='http://www.applelife100.com/tag/wordpress/' class='tag-link-3' title='4 topics' style='font-size: 18.181818181818pt;'>WordPress</a>
+<a href='http://www.applelife100.com/tag/xcode/' class='tag-link-27' title='3 topics' style='font-size: 15.636363636364pt;'>Xcode</a>
+<a href='http://www.applelife100.com/tag/xdebug/' class='tag-link-19' title='1 topic' style='font-size: 8pt;'>Xdebug</a></div>
+</li>			</ul>
+		</div><!-- #primary .widget-area -->
+
+	</div><!-- #main -->
+
+	<div id="footer" role="contentinfo">
+		<div id="colophon">
+
+
+
+			<div id="site-info">
+				<a href="http://www.applelife100.com/" title="林檎生活100" rel="home">
+					林檎生活100				</a>
+			</div><!-- #site-info -->
+
+			<div id="site-generator">
+								<a href="http://wordpress.org/" title="Semantic Personal Publishing Platform">Proudly powered by WordPress.</a>
+			</div><!-- #site-generator -->
+
+		</div><!-- #colophon -->
+	</div><!-- #footer -->
+
+</div><!-- #wrapper -->
+
+<script type='text/javascript' src='http://www.applelife100.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shCore.js?ver=3.0.83c'></script>
+<script type='text/javascript' src='http://www.applelife100.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/scripts/shBrushPlain.js?ver=3.0.83c'></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://www.applelife100.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?ver=3.0.83c";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://www.applelife100.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?ver=3.0.83c";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+
+<script type='text/javascript' src='https://www.messageleaf.jp/embed.js'></script><script>new MSGLF({ titleBgColor: '#A7CB52', titleFontColor: '#FFFFFF', position: 'right' }).changeDesign();</script>
+
+</body>
+</html>

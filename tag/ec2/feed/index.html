@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>林檎生活100 &#187; EC2</title>
+	<atom:link href="http://www.applelife100.com/tag/ec2/feed/" rel="self" type="application/rss+xml" />
+	<link>http://www.applelife100.com</link>
+	<description>Make the World a Better Place</description>
+	<lastBuildDate>Thu, 16 May 2013 14:15:10 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.5.1</generator>
+		<item>
+		<title>Amazon EC2 に WordPress をインストール</title>
+		<link>http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=amazon-ec2-wordpress-install</link>
+		<comments>http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/#comments</comments>
+		<pubDate>Mon, 18 Jun 2012 12:38:01 +0000</pubDate>
+		<dc:creator>TSUCHIDA Takuya</dc:creator>
+				<category><![CDATA[WordPress]]></category>
+		<category><![CDATA[Apache]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[EC2]]></category>
+		<category><![CDATA[Linux]]></category>
+		<category><![CDATA[MySQL]]></category>
+		<category><![CDATA[PHP]]></category>
+
+		<guid isPermaLink="false">http://ec2-54-248-20-246.ap-northeast-1.compute.amazonaws.com/?p=29</guid>
+		<description><![CDATA[WordPress にデフォルトで含まれているテーマ Twenty Ten がかっこいいなと思ったので、「林檎生活100」をそのテーマで運用するために Amazon EC2 にインストールしてみました。 その手順は下記のとおりです。 Amazon EC2 インスタンス起動 MySQL インストール Apache インストール PHP インストール WordPress インストール 1. Amazon EC2 インスタンス起動 Amazon EC2 のインスタンスを下記のパラメーターで起動します。EC2 のパラメーターは、各自の環境で柔軟に決めてください。 AMI: Amazon Linux AMI 2012.03 (64bit) Instance Type: t1.micro Security Group: TCP 22 (SSH) &#8230; <a href="http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/">Continue reading <span class="meta-nav">&#8594;</span></a>]]></description>
+				<content:encoded><![CDATA[<p><a title="WordPress › Blog Tool, Publishing Platform, and CMS" href="http://wordpress.org" target="_blank">WordPress</a> にデフォルトで含まれているテーマ <a title="WordPress › Search for Twenty Ten « Free WordPress Themes" href="http://wordpress.org/extend/themes/twentyten" target="_blank">Twenty Ten</a> がかっこいいなと思ったので、「林檎生活100」をそのテーマで運用するために <a title="Amazon Elastic Compute Cloud (Amazon EC2)" href="http://aws.amazon.com/ec2/" target="_blank">Amazon EC2</a> にインストールしてみました。</p>
+<p><span id="more-29"></span></p>
+<p>その手順は下記のとおりです。</p>
+<ol>
+<li>Amazon EC2 インスタンス起動</li>
+<li><a title="MySQL :: The world's most popular open source database" href="http://www.mysql.com" target="_blank">MySQL</a> インストール</li>
+<li><a title="Welcome! - The Apache HTTP Server Project" href="http://httpd.apache.org" target="_blank">Apache</a> インストール</li>
+<li><a title="PHP: Hypertext Preprocessor" href="http://php.net" target="_blank">PHP</a> インストール</li>
+<li>WordPress インストール</li>
+</ol>
+<p><strong>1. Amazon EC2 インスタンス起動</strong></p>
+<p>Amazon EC2 のインスタンスを下記のパラメーターで起動します。EC2 のパラメーターは、各自の環境で柔軟に決めてください。</p>
+<ul>
+<li>AMI: Amazon Linux AMI 2012.03 (64bit)</li>
+<li>Instance Type: t1.micro</li>
+<li>Security Group:
+<ul>
+<li>TCP 22 (SSH) 0.0.0.0/0</li>
+<li>TCP 80 (HTTP) 0.0.0.0/0</li>
+<li>TCP 443 (HTTPS) 0.0.0.0/0</li>
+</ul>
+</li>
+</ul>
+<p>なお、WordPress は、同一サイト内でも絶対アドレスが基本となり、記事内の画像ファイルへのリンクなどは絶対アドレスのままデータベースに格納されます。そのため、ドメインが変わってしまうと画像ファイルが表示されないというようなことが起きるので、EC2 インスタンスに Elastic IP アドレスを付与し、運用時に使用するドメインでアクセスすることをおすすめします。</p>
+<p>ちなみに、「林檎生活100」では、Elastic IP アドレスを付与しないで運用しています。その詳細は、今後の記事で説明する予定です。</p>
+<p>次に、起動した EC2 インスタンスに ec2-user でログインし、下記のコマンドでアップデートを実施します。</p>
+<pre>$ sudo yum update</pre>
+<p>これで、インスタンスの初期設定まで完了です。</p>
+<p><strong>2. MySQL インストール</strong></p>
+<p>EC2 インスタンスにログインした状態で、下記のコマンドを入力し、MySQL をインストールします。さらに、自動起動の設定をしたあと起動し、初期設定を実施します。</p>
+<pre>$ sudo yum install mysql-server
+$ sudo chkconfig mysqld on
+$ sudo service mysqld start
+$ sudo /usr/bin/mysql_secure_installation</pre>
+<p>初期設定では、推奨される選択肢を Enter を押すことで選択していけばいいと思います。MySQL のルートパスワードは必ず設定しましょう。</p>
+<p>そのあと、mysql コマンドで MySQL にログインし、WordPress 用のデータベースを次のコマンドで作成します。</p>
+<pre>$ mysql -uroot -p
+&gt; create database wordpress character set utf8;
+&gt; grant all on wordpress.* to wordpress@localhost identified by '********';
+&gt; exit</pre>
+<p>アスタリスクで記述した wordpress ユーザーのパスワードは、各環境で自由に設定してください。</p>
+<p><strong>3. Apache インストール</strong></p>
+<p>次に、Apache をインストールします。WordPress の管理画面には SSL でアクセスしたいので、mod_ssl も合わせてインストールします。Apache の SSL 設定は、インストール時に生成される証明書で自動的に設定されます。管理画面のための SSL ということで、その設定をそのまま利用します。</p>
+<pre>$ sudo yum install httpd
+$ sudo yum install mod_ssl</pre>
+<p>さらに、.htaccess で URL Rewriting の設定ができるように、httpd.conf の339行目の AllowOverride を None から All に変更します。これは、WordPress でパーマリンクの設定をデフォルトから変更する場合に必要になります。</p>
+<pre>$ sudo cp /etc/httpd/conf/httpd.conf /etc/httpd/conf/httpd.conf.20120615
+$ sudo vim /etc/httpd/conf/httpd.conf
+$ diff -u /etc/httpd/conf/httpd.conf.20120615 /etc/httpd/conf/httpd.conf
+--- /etc/httpd/conf/httpd.conf.20120615 2012-06-14 20:41:27.604761766 +0000
++++ /etc/httpd/conf/httpd.conf 2012-06-14 20:42:20.042761638 +0000
+@@ -336,7 +336,7 @@
+ # It can be "All", "None", or any combination of the keywords:
+ # Options FileInfo AuthConfig Limit
+ #
+- AllowOverride None
++ AllowOverride All
+
+ #
+ # Controls who can get stuff from this server.</pre>
+<p>設定変更は、設定ファイルのコピーを取得したあと、設定ファイルを編集し、変更した部分を diff で比較するという方法で行っています。</p>
+<p>設定が完了したら、Apache を下記のコマンドで自動起動の設定をしたあと、起動します。</p>
+<pre>$ sudo chkconfig httpd on
+$ sudo service httpd start</pre>
+<p>EC2 インスタンスの Public DNS に、HTTP と HTTPS でアクセスし、Apache の Welcome ページが表示されることを確認してください。</p>
+<div id="attachment_60" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/apache-welcome.png"><img class="size-full wp-image-60" title="Test Page for the Apache HTTP Server on Amazon Linux AMI" src="http://www.applelife100.com/wp-content/uploads/2012/06/apache-welcome.png" alt="Test Page for the Apache HTTP Server on Amazon Linux AMI" width="1138" height="888" /></a><p class="wp-caption-text">Test Page for the Apache HTTP Server on Amazon Linux AMI</p></div>
+<p><strong>4. PHP インストール</strong></p>
+<p>次に、PHP をインストールします。PHP スクリプトから MySQL へ接続するためのエクステンションも同時にインストールします。今回は、<a title="MySQL :: MySQL native driver for PHP - mysqlnd" href="http://dev.mysql.com/downloads/connector/php-mysqlnd/" target="_blank">MySQL Native Driver</a> を使用しています。</p>
+<pre>$ sudo yum install php
+$ sudo yum install php-mysqlnd</pre>
+<p>PHP を有効にするために、Apache を再起動します。</p>
+<pre>$ sudo service httpd restart</pre>
+<p><strong>5. WordPress インストール</strong></p>
+<p>最後に、WordPress をインストールします。まず、最新版の WordPress をホームディレクトリにダウンロードし、展開します。インストール時は、WordPress 3.4 が最新版でした。</p>
+<pre>$ wget http://wordpress.org/latest.zip
+$ unzip latest.zip</pre>
+<p>展開したディレクトリ内にある設定ファイルのサンプルをリネームし、設定ファイルを編集します。</p>
+<pre>$ mv wordpress/wp-config-sample.php wordpress/wp-config.php
+$ vim wordpress/wp-config.php</pre>
+<p>少し長いですが、下記に設定ファイルを掲載します。</p>
+<pre class="brush: php; title: ; notranslate">
+&lt;?php
+/**
+ * The base configurations of the WordPress.
+ *
+ * This file has the following configurations: MySQL settings, Table Prefix,
+ * Secret Keys, WordPress Language, and ABSPATH. You can find more information
+ * by visiting {@link http://codex.wordpress.org/Editing_wp-config.php Editing
+ * wp-config.php} Codex page. You can get the MySQL settings from your web host.
+ *
+ * This file is used by the wp-config.php creation script during the
+ * installation. You don't have to use the web site, you can just copy this file
+ * to &quot;wp-config.php&quot; and fill in the values.
+ *
+ * @package WordPress
+ */
+
+// ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define('DB_NAME', 'wordpress');
+
+/** MySQL database username */
+define('DB_USER', 'wordpress');
+
+/** MySQL database password */
+define('DB_PASSWORD', 'wordpress');
+
+/** MySQL hostname */
+define('DB_HOST', 'localhost');
+
+/** Database Charset to use in creating database tables. */
+define('DB_CHARSET', 'utf8');
+
+/** The Database Collate type. Don't change this if in doubt. */
+define('DB_COLLATE', '');
+
+/**#@+
+ * Authentication Unique Keys and Salts.
+ *
+ * Change these to different unique phrases!
+ * You can generate these using the {@link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service}
+ * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
+ *
+ * @since 2.6.0
+ */
+define('AUTH_KEY',         'T%w[2Va]!)%QuUUYPq!nAEyR5+ra.%+j/[7+j==X &gt;.G]ys-|3~.wEz{E-+^Fv M');
+define('SECURE_AUTH_KEY',  '.JF0qIcvjR?8fy95dhaqLRfW$ULe7uS;{L +!-o+~53|0wfq%L+1iYZU:=@|mh4X');
+define('LOGGED_IN_KEY',    '#Xb[t x~-g=N-4LlFwxf:ey+}*.}sji,Bx-n0&amp;?b8+[k9 ;{kWl b)&lt;a2i`9g&amp;Wt');
+define('NONCE_KEY',        'sJ8i0TAv:Y5|[-ZhU3dLo_+PzR+St@tkv+Ubt5)5Ph0VuM~#%!EgMJ|AxPEwGE`O');
+define('AUTH_SALT',        '6W}][eC?e2CgG3`5d7uUz.fd@0zlBq Sp.zY&amp;/#mS79q&gt;1X(BitxsdI([k#Qwg2K');
+define('SECURE_AUTH_SALT', 'J=hUk4B/H@Nh3t_$^Alf0 )xT&amp;Bj9=]X`&lt;&amp;%j`5bU++(b|%-&gt;zE=/sqt;.G-K $n');
+define('LOGGED_IN_SALT',   'uaW@X!Sd2PNZ8=~J~}aRa4u]+oT8@J`d|Up$+%-sv)LKr;?lSmw+v= 5,uuNX&amp;tO');
+define('NONCE_SALT',       ':*A?M()e1qTt*.qGgH@0QxCBWwfL*qygG7;)4^&amp;d/[:_9!oij8lFnfw9xIubOJH@');
+ 
+/**#@-*/
+
+/**
+ * WordPress Database Table prefix.
+ *
+ * You can have multiple installations in one database if you give each a unique
+ * prefix. Only numbers, letters, and underscores please!
+ */
+$table_prefix  = 'wp_';
+
+/**
+ * WordPress address (URL)
+ */
+define('WP_SITEURL', 'http://' . $_SERVER['SERVER_NAME']);
+
+/**
+ * Blog address (URL)
+ */
+define('WP_HOME', 'http://' . $_SERVER['SERVER_NAME']);
+
+/**
+ * WordPress Localized Language, defaults to English.
+ *
+ * Change this to localize WordPress. A corresponding MO file for the chosen
+ * language must be installed to wp-content/languages. For example, install
+ * de_DE.mo to wp-content/languages and set WPLANG to 'de_DE' to enable German
+ * language support.
+ */
+define('WPLANG', '');
+
+/**
+ * For developers: WordPress debugging mode.
+ *
+ * Change this to true to enable the display of notices during development.
+ * It is strongly recommended that plugin and theme developers use WP_DEBUG
+ * in their development environments.
+ */
+define('WP_DEBUG', false);
+
+/**
+ * To Force SSL Logins and SSL Admin Access
+ */
+define('FORCE_SSL_ADMIN', true);
+
+/* That's all, stop editing! Happy blogging. */
+
+/** Absolute path to the WordPress directory. */
+if ( !defined('ABSPATH') )
+	define('ABSPATH', dirname(__FILE__) . '/');
+
+/** Sets up WordPress vars and included files. */
+require_once(ABSPATH . 'wp-settings.php');
+</pre>
+<p>変更点は、下記のとおりです。</p>
+<p>・MySQL settings</p>
+<p>MySQL のインストールで作成した wordpress データベース名と wordpress ユーザー名とそのパスワードを設定してください。</p>
+<p>・Authentication Unique Keys and Salts.</p>
+<p>下記の URL で生成される認証ユニークキーとソルトをコピーアンドペーストしてください。</p>
+<p><a title="https://api.wordpress.org/secret-key/1.1/salt/" href="https://api.wordpress.org/secret-key/1.1/salt/" target="_blank">https://api.wordpress.org/secret-key/1.1/salt/</a></p>
+<p>・WordPress address (URL)</p>
+<p>この設定は通常不要です。「林檎生活100」では、EC2 インスタンスにインストールした WordPress に Elastic IP アドレスを付与していないため、インスタンスを停止させたあとに、起動することで Public DNS が変化してしまいます。それによって WordPress アドレスに差異が生じて閲覧できなくなってしまうため、このような設定をしています。</p>
+<p>・Blog address (URL)</p>
+<p>この設定は通常不要です。WordPress アドレスの理由と同様です。</p>
+<p>・To Force SSL Logins and SSL Admin Access</p>
+<p>ログインと管理画面での作業を SSL で暗号化することを強制する設定です。</p>
+<p>ここまで設定したら、wordpress ディレクトリの内容を /var/www/html にコピーします。また、/var/www/html とその中のディレクトリやファイルの所有者を apache ユーザーに設定します。</p>
+<pre>sudo cp -a wordpress/* /var/www/html
+sudo chown -R apache:apache /var/www/html</pre>
+<p>すべてのターミナルでの作業が完了したら、Web ブラウザで EC2 インスタンスの Public DNS にアクセスし、WordPress の初期設定を行います。</p>
+<div id="attachment_80" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-installation-1.png"><img class="size-full wp-image-80" title="WordPress › Installation" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-installation-1.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<p>この画面では、下記の項目をフォームに入力し、Install WordPress をクリックします。</p>
+<ul>
+<li>Web サイトタイトル</li>
+<li>ユーザー名</li>
+<li>パスワード</li>
+<li>メールアドレス</li>
+</ul>
+<div id="attachment_81" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-installation-2.png"><img class="size-full wp-image-81" title="WordPress › Installation" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-installation-2.png" alt="WordPress › Installation" width="1138" height="888" /></a><p class="wp-caption-text">WordPress › Installation</p></div>
+<p>Log In をクリックします。</p>
+<div id="attachment_82" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-login.png"><img class="size-full wp-image-82" title="林檎生活100 › Log In" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-login.png" alt="林檎生活100 › Log In" width="1138" height="888" /></a><p class="wp-caption-text">林檎生活100 › Log In</p></div>
+<p>初期設定で入力したユーザー名とパスワードでログインします。</p>
+<p>そうすると、下記のような管理画面のダッシュボードにアクセスできます。記事の投稿などはこの管理画面から実施します。</p>
+<div id="attachment_86" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-dashboard.png"><img class="size-full wp-image-86" title="Dashboard ‹ 林檎生活100 — WordPress" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-dashboard.png" alt="Dashboard ‹ 林檎生活100 — WordPress" width="1138" height="888" /></a><p class="wp-caption-text">Dashboard ‹ 林檎生活100 — WordPress</p></div>
+<p>ここで改めて、Web ブラウザで EC2 インスタンスの Public DNS にアクセスすると、下記のような Web サイトが表示されるはずです。</p>
+<div id="attachment_84" class="wp-caption alignnone" style="width: 1148px"><a href="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-twentyeleven.png"><img class="size-full wp-image-84" title="林檎生活100 | Just another WordPress site" src="http://www.applelife100.com/wp-content/uploads/2012/06/wordpress-twentyeleven.png" alt="林檎生活100 | Just another WordPress site" width="1138" height="888" /></a><p class="wp-caption-text">林檎生活100 | Just another WordPress site</p></div>
+<p>これで、WordPress のインストールは完了です。基本的に、管理画面からの操作だけで、記事の投稿やページの編集のみならず、WordPress のアップデートやプラグインのインストール、テーマの編集、PHP や CSS、JavaScript ファイルの編集までできてしまいます。</p>
+<p>管理画面からの操作は直感的なので、いろいろ試しながら Web サイトを構築してもらえたらなと思います。</p>
+]]></content:encoded>
+			<wfw:commentRss>http://www.applelife100.com/2012/06/18/amazon-ec2-wordpress-install/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		</item>
+	</channel>
+</rss>
